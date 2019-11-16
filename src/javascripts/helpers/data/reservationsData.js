@@ -12,7 +12,6 @@ const getReservations = () => new Promise((resolve, reject) => {
         demReservations[fbID].id = fbID;
         reservations.push(demReservations[fbID]);
       });
-      console.error('from reservationsData', reservations);
       resolve(reservations);
     })
     .catch((error) => reject(error));
