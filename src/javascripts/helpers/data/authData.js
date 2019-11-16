@@ -4,7 +4,7 @@ import 'firebase/auth';
 
 const cud = $('.cudButton');
 const login = $('#loginBtnDiv');
-const logout = $('#');
+const logout = $('#logoutBtn');
 
 const checkLoginStatus = () => {
   firebase.auth().onAuthStateChanged((user) => {
