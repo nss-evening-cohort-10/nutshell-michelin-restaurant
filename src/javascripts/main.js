@@ -11,7 +11,7 @@ const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
   printHome.printHome();
   $('body').on('click', '.activateHome', printHome.printHome);
-  $('.activateReservations').click(reservations.printReservations);
+  $('body').on('click', '.activateReservations', reservations.printReservations);
 };
 
 init();
