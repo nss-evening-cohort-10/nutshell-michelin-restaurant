@@ -1,0 +1,50 @@
+{
+  "employee1": {
+    "uid": "",
+    "employeeImg": "https://unsplash.com/photos/t-7KEq9M0b0",
+    "name": "Roger",
+    "position": "Sous chef"
+  },
+  "employee2": {
+    "uid": "",
+    "employeeImg": "https://unsplash.com/photos/NzB8jHIGIXs",
+    "name": "Jeremiah",
+    "position": "Executive Sous Chef"
+  },
+  "employee3": {
+    "uid": "",
+    "employeeImg": "https://unsplash.com/photos/psomVjxL29Y",
+    "name": "Maria",
+    "position": "Pastry Chef"
+  },
+  "employee4": {
+    "uid": "",
+    "employeeImg": "https://unsplash.com/photos/7uoMmzPd2JA",
+    "name": "Thomas",
+    "position": "Head Sommelier"
+  },
+  "employee5": {
+    "uid": "",
+    "employeeImg": "https://unsplash.com/photos/kyuPjZudBKs",
+    "name": "Maria",
+    "position": "Chef"
+  },
+  "employee6": {
+    "uid": "",
+    "employeeImg": "https://unsplash.com/photos/ZGa9d1a_4tA",
+    "name": "Marquus",
+    "position": "Wine Director"
+  },
+  "employee7": {
+    "uid": "",
+    "employeeImg": "https://unsplash.com/photos/iFgRcqHznqg",
+    "name": "Daniel",
+    "position": "Bar Director"
+  },
+  "employee8": {
+    "uid": "",
+    "employeeImg": "https://unsplash.com/photos/G9JxeWPvBA8",
+    "name": "Henry",
+    "position": "Restaurant Manager"
+  }
+}
