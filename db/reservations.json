@@ -1,0 +1,26 @@
+{
+  "reservation1": {
+    "seatingId": "table-1",
+    "partySize": 4,
+    "customerName": "Beyonce Knowles",
+    "timeStamp": "01/01/2020"
+  },
+  "reservation2": {
+    "seatingId": "table-10",
+    "partySize": 8,
+    "customerName": "Blake Lively",
+    "timeStamp": "11/31/2019"
+  },
+  "reservation3": {
+    "seatingId": "table-11",
+    "partySize": 2,
+    "customerName": "Jack Black",
+    "timeStamp": "12/25/2019"
+  },
+  "reservation4": {
+    "seatingId": "table-21",
+    "partySize": 4,
+    "customerName": "Kanye West",
+    "timeStamp": "12/28/2019"
+  }
+}
