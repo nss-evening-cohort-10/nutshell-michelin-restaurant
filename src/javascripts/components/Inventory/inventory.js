@@ -6,7 +6,6 @@ import './inventory.scss';
 const printIngredients = () => {
   inventoryData.getInventory()
     .then((ingredients) => {
-      console.log(ingredients);
       let domString = `
       <h2>Inventory</h2>
       `;
