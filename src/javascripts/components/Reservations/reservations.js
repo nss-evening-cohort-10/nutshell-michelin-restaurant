@@ -38,8 +38,8 @@ const printReservations = () => {
         </div>`;
       });
       domString += '</div>';
-      utilities.printToDom('reservations', domString);
-      $('#reservations').on('click', '#delete-reservation', deleteReservationByClick);
+      utilities.printToDom('printComponent', domString);
+      $('#printComponent').on('click', '#delete-reservation', deleteReservationByClick);
     })
     .catch((error) => console.error(error));
 };
