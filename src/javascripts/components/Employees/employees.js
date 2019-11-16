@@ -1,1 +1,0 @@
-import './employees.scss';

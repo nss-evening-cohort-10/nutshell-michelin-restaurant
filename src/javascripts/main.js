@@ -10,7 +10,7 @@ import printHome from './components/Home/home';
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
   printHome.printHome();
-  $('body').on('click', '.activateHome', printHome.printHome());
+  $('body').on('click', '.activateHome', printHome.printHome);
   $('.activateReservations').click(reservations.printReservations);
 };
 
