@@ -4,14 +4,14 @@ body{
   background-color: black;
 }
 
-h1 {
+.whiteh1 {
   color: white;
 }
 
-.card {
+.homeCards {
   margin: 10px 0;
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
