@@ -1,5 +1,17 @@
 @import "~bootstrap/scss/bootstrap";
 
 body{
-  background-color: rgb(189, 194, 194);
+  background-color: black;
+}
+
+h1 {
+  color: white;
+}
+
+.card {
+  margin: 10px 0;
+}
+
+.hide {
+  display: none;
 }
