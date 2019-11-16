@@ -2,10 +2,15 @@ import $ from 'jquery';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 
+const addReservationByClick = () => {
+
+};
+
 const deleteReservationByClick = (event) => {
-  const deleteReservation = $(event.target).id;
-  const reservationId = $(event.target).closest('.card').id;
-  if (deleteReservation === 'delete-reservation') {
+  const deleteReservation = $(event.target).hasClass('delete-reservation');
+  const reservationId = $(event.target).closest('.card')[0].id;
+  console.error(deleteReservation, reservationId);
+  if (deleteReservation) {
     reservationsData.deleteReservation(reservationId)
       .then(() => {
         // eslint-disable-next-line no-use-before-define
@@ -19,6 +24,12 @@ const printReservations = () => {
   reservationsData.getReservations()
     .then((reservations) => {
       let domString = '';
+      domString += `
+      <div class="d-flex flex-wrap justify-content-between m-2 whiteh1">
+        <h1>Reservations</h1>
+        <button class="btn btn-light cudButton" id="add-new-reservation">Add Reservation</button>
+      </div>
+      `;
       domString += '<div id="reservations-section" class="d-flex flex-wrap">';
       reservations.forEach((reservation) => {
         domString += `
@@ -32,14 +43,15 @@ const printReservations = () => {
               <p class="card-text">Table Number: ${reservation.seatingId.split('table-').join('')}</p>
               <p class="card-text">${reservation.timeStamp}</p>
             </div>
-            <a href="#" class="btn btn-light" id="delete-reservation">Delete</a>
-            <a href="#" class="btn btn-light" id="edit-reservation">Edit</a>
+            <a href="#" class="btn btn-light cudButton delete-reservation">Delete</a>
+            <a href="#" class="btn btn-light cudButton" id="edit-reservation">Edit</a>
           </div>
         </div>`;
       });
       domString += '</div>';
       utilities.printToDom('printComponent', domString);
-      $('#printComponent').on('click', '#delete-reservation', deleteReservationByClick);
+      $('#printComponent').on('click', '.delete-reservation', deleteReservationByClick);
+      $('#add-new-reservation').click(addReservationByClick);
     })
     .catch((error) => console.error(error));
 };
