@@ -1,4 +1,5 @@
 import 'bootstrap';
+import $ from 'jquery';
 import '../styles/main.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -10,10 +11,10 @@ import reservations from './components/Reservations/reservations';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
-  auth.printLoginBtn();
+  $('.activateLogin').click(auth.signMeIn);
   authData.checkLoginStatus();
   navbar.logoutEvent();
-  reservations.printReservations();
+  $('.activateReservations').click(reservations.printReservations);
 };
 
 init();

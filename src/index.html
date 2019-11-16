@@ -5,23 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Le Baguette</title>
+  <script src="https://kit.fontawesome.com/77ac921172.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div id='loggedInDiv'>
-    <div id='navbarDiv'>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <div id='loginBtnDiv'></div>
-          </li>
-          <li class="nav-item">
-            <button type='button' id='logoutBtn' class='btn btn-light hide' href='#'>Logout</button>
-          </li>
-        </ul>
+  <div id="loggedInDiv">
+    <div id="navbarDiv">
+      <nav class="navbar this-is-navbar navbar-dark bg-dark d-flex navbar-container">
+        <div class="align-left"> 
+          <a class="navbar-brand activateMenu" href="#">Menu</a>
+          <a class="navbar-brand activateInventory" href="#">Inventory</a>
+          <a class="navbar-brand activateStaff" href="#">Staff</a>
+        </div> 
+        <div class="text-center">
+          <h1 class="activateHome whiteh1" href="#">Le Baguette</h1>
+        </div>
+        <div class="align-right">
+          <a class="navbar-brand activateSeatingChart" href="#">Seating Chart</a>
+          <a class="navbar-brand activateReservations" href="#">Reservations</a>
+          <button class="btn btn-primary activateLogin">Login</button>
+          <button class="btn btn-danger activateLogout hide">Logout</button>
+        </div>
       </nav>
+      
+        <p></p>
     </div>
     <div id="printComponent">
+      <div class="cardOfCards d-flex justify-content-around container">
+        <div class="card d-flex">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+            <h2>Le Baguette</h2>
+              <button class="btn btn-primary activateLogin">Login</button>
+              <button class="btn btn-danger activateLogout hide">Logout</button>
+          </nav>
+          <div class="card-body d-flex align-content-around flex-wrap justify-content-around">
+            <div class="card homeCards" style="width: 18rem;">
+              <div class="card-body text-center activateMenu">
+                <h5 class="card-title"><i class="fas fa-book-open fa-5x"></i></h5>
+                <h3 class="card-subtitle mb-2 text-muted">Menu</h3>
+            </div>
+          </div>
+          <div class="card homeCards" style="width: 18rem;">
+            <div class="card-body text-center activateInventory">
+              <h5 class="card-title"><i class="fas fa-carrot fa-5x"></i></h5>
+              <h3 class="card-subtitle mb-2 text-muted">Inventory</h3>
+            </div>
+          </div>
+          <div class="card homeCards" style="width: 18rem;">
+            <div class="card-body text-center activateStaff">
+              <h5 class="card-title"><i class="fas fa-users fa-5x"></i></h5>
+              <h3 class="card-subtitle mb-2 text-muted">Staff</h3>
+            </div>
+          </div>
+          <div class="card homeCards" style="width: 18rem;">
+            <div class="card-body text-center activateSeatingChart">
+              <h5 class="card-title"><i class="fas fa-chair fa-5x"></i></h5>
+              <h3 class="card-subtitle mb-2 text-muted">Seating Chart</h3>
+            </div>
+          </div>
+          <div class="card homeCards" style="width: 18rem;">
+            <div class="card-body text-center activateReservations">
+              <h5 class="card-title"><i class="far fa-calendar-alt fa-5x"></i></h5>
+              <h3 class="card-subtitle mb-2 text-muted">Reservations</h3>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+      
+      <footer class="d-flex fixed-bottom">
+        <div class="text-center d-flex justify-content-around container-fluid">
+          <i class="fab fa-twitter fa-2x" href="#"></i>
+          <i class="fab fa-instagram fa-2x" href="#"></i>
+          <i class="fab fa-facebook-f fa-2x" href="#"></i>
+          <i class="fab fa-linkedin-in fa-2x" href="#"></i>
+        </div>
+      </footer>
     </div>
   </div>
+
 </body>
 </html>

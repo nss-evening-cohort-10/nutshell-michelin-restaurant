@@ -1,10 +1,11 @@
+import './navbar.scss';
 import $ from 'jquery';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
 const cud = $('.cudButton');
-const login = $('#loginBtnDiv');
-const logout = $('#logoutBtn');
+const login = $('.activateLogin');
+const logout = $('.activateLogout');
 
 const logoutEvent = () => {
   logout.click((e) => {
