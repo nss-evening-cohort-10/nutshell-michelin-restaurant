@@ -1,0 +1,122 @@
+{
+  "ingredient1": {
+    "name": "Tomato",
+    "cost": 80,
+    "amountStocked": 40,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient2": {
+    "name": "Potato",
+    "cost": 200,
+    "amountStocked": 200,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient3": {
+    "name": "Heavy Cream",
+    "cost": 250,
+    "amountStocked": 2,
+    "unitOfMeasurement": "L"
+  },
+  "ingredient4": {
+    "name": "Beef Stock",
+    "cost": 250,
+    "amountStocked": 10,
+    "unitOfMeasurement": "L"
+  },
+  "ingredient5": {
+    "name": "Sour Cream",
+    "cost": 350,
+    "amountStocked": 300,
+    "unitOfMeasurement": "g"
+  },
+  "ingredient6": {
+    "name": "Chicken Breast",
+    "cost": 400,
+    "amountStocked": 500,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient7": {
+    "name": "Sirloin Steak",
+    "cost": 700,
+    "amountStocked": 500,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient8": {
+    "name": "Shrimp",
+    "cost": 900,
+    "amountStocked": 400,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient9": {
+    "name": "Jasmine Rice",
+    "cost": 400,
+    "amountStocked": 700,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient10": {
+    "name": "Flour",
+    "cost": 200,
+    "amountStocked": 700,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient11": {
+    "name": "Sugar",
+    "cost": 200,
+    "amountStocked": 650,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient12": {
+    "name": "Eggs",
+    "cost": 350,
+    "amountStocked": 30,
+    "unitOfMeasurement": "dz"
+  },
+  "ingredient13": {
+    "name": "Parsley",
+    "cost": 100,
+    "amountStocked": 40,
+    "unitOfMeasurement": "g"
+  },
+  "ingredient14": {
+    "name": "Egg Noodles",
+    "cost": 200,
+    "amountStocked": 300,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient15": {
+    "name": "Mushrooms",
+    "cost": 200,
+    "amountStocked": "100",
+    "unitOfMeasurement": "g"
+  },
+  "ingredient16": {
+    "name": "Bratwurst",
+    "cost": 500,
+    "amountStocked": 400,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient17": {
+    "name": "Butter",
+    "cost": 400,
+    "amountStocked": 50,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient18": {
+    "name": "Dill",
+    "cost": 200,
+    "amountStocked": 40,
+    "unitOfMeasurement": "g"
+  },
+  "ingredient19": {
+    "name": "Carrots",
+    "cost": 200,
+    "amountStocked": 100,
+    "unitOfMeasurement": "kg"
+  },
+  "ingredient20": {
+    "name": "Honey",
+    "cost": 900,
+    "amountStocked": 30,
+    "unitOfMeasurement": "kg"
+  }
+}
