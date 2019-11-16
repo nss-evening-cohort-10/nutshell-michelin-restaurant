@@ -3,8 +3,8 @@ import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 
 const deleteReservationByClick = (event) => {
-  const deleteReservation = event.target.id;
-  const reservationId = event.target.closest('.card').id;
+  const deleteReservation = $(event.target).id;
+  const reservationId = $(event.target).closest('.card').id;
   if (deleteReservation === 'delete-reservation') {
     reservationsData.deleteReservation(reservationId)
       .then(() => {
