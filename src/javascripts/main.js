@@ -6,6 +6,7 @@ import 'firebase/auth';
 import apiKeys from './helpers/apiKeys.json';
 import reservations from './components/Reservations/reservations';
 import printHome from './components/Home/home';
+import seating from './components/Seating/seating';
 import employeeDisplay from './components/Employees/employees';
 import inventory from './components/Inventory/inventory';
 
@@ -15,6 +16,7 @@ const init = () => {
   printHome.printHome();
   $('body').on('click', '.activateHome', printHome.printHome);
   $('body').on('click', '.activateReservations', reservations.printReservations);
+  $('body').on('click', '.activateSeatingChart', seating.printSeatingChart);
   $('body').on('click', '.activateStaff', employeeDisplay.displayStaff);
   $('body').on('click', '.activateInventory', inventory.printIngredients);
 };
