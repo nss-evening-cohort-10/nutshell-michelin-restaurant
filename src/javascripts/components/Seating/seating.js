@@ -8,11 +8,12 @@ const printSeatingChart = () => {
       let domString = `
       <h2>Seating Chart</h2>
       <div class="container">
+      <div class="card-columns">
       `;
-      tables.forEach((table) => {
+      tables.id.sort().forEach((table) => {
         domString += makeSeatChart.makeSeatChart(table);
       });
-      domString += '</div>';
+      domString += '</div></div>';
       utilities.printToDom('printComponent', domString);
     })
     .catch((error) => console.error(error));
