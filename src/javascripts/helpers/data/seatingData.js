@@ -12,7 +12,8 @@ const getSeating = () => new Promise((resolve, reject) => {
         demTables[fbId].id = fbId;
         tables.push(demTables[fbId]);
       });
-      resolve(tables);
+      const sortedTables = tables.sort((a, b) => a.id.localeCompare(b.id, 'en', { numeric: true }));
+      resolve(sortedTables);
     })
     .catch((error) => reject(error));
 });
