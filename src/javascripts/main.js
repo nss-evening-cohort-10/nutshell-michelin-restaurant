@@ -7,6 +7,7 @@ import apiKeys from './helpers/apiKeys.json';
 import reservations from './components/Reservations/reservations';
 import printHome from './components/Home/home';
 import seating from './components/Seating/seating';
+import inventory from './components/Inventory/inventory';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
@@ -14,6 +15,7 @@ const init = () => {
   $('body').on('click', '.activateHome', printHome.printHome);
   $('body').on('click', '.activateReservations', reservations.printReservations);
   $('body').on('click', '.activateSeatingChart', seating.printSeatingChart);
+  $('body').on('click', '.activateInventory', inventory.printIngredients);
 };
 
 init();
