@@ -5,11 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Le Baguette</title>
+  <script src="https://kit.fontawesome.com/77ac921172.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <div id="loggedInDiv">
-    <div id="navbarDiv"></div>
-    <div id="printComponent"></div>
+    <div id="navbarDiv">
+      <nav class="navbar this-is-navbar navbar-dark bg-dark d-flex navbar-container">
+        <div class="align-left"> 
+          <a class="navbar-brand activateMenu" href="#">Menu</a>
+          <a class="navbar-brand activateInventory" href="#">Inventory</a>
+          <a class="navbar-brand activateStaff" href="#">Staff</a>
+        </div> 
+        <div class="text-center">
+          <h1 class="activateHome whiteh1" href="#">Le Baguette</h1>
+        </div>
+        <div class="align-right">
+          <a class="navbar-brand activateSeatingChart" href="#">Seating Chart</a>
+          <a class="navbar-brand activateReservations" href="#">Reservations</a>
+          <button class="btn btn-primary activateLogin">Login</button>
+          <button class="btn btn-danger activateLogout hide">Logout</button>
+        </div>
+      </nav>
+      
+        <p></p>
+    </div>
+    <div id="printComponent">
+    </div>
   </div>
+
+  <footer class="d-flex fixed-bottom">
+    <div class="text-center d-flex justify-content-around container-fluid">
+      <i class="fab fa-twitter fa-2x" href="#"></i>
+      <i class="fab fa-instagram fa-2x" href="#"></i>
+      <i class="fab fa-facebook-f fa-2x" href="#"></i>
+      <i class="fab fa-linkedin-in fa-2x" href="#"></i>
+    </div>
+  </footer>
+
 </body>
 </html>

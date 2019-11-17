@@ -1,5 +1,19 @@
+import $ from 'jquery';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
+
+const deleteReservationByClick = (event) => {
+  const deleteReservation = $(event.target).id;
+  const reservationId = $(event.target).closest('.card').id;
+  if (deleteReservation === 'delete-reservation') {
+    reservationsData.deleteReservation(reservationId)
+      .then(() => {
+        // eslint-disable-next-line no-use-before-define
+        printReservations();
+      })
+      .catch((error) => console.error(error));
+  }
+};
 
 const printReservations = () => {
   reservationsData.getReservations()
@@ -8,7 +22,7 @@ const printReservations = () => {
       domString += '<div id="reservations-section" class="d-flex flex-wrap">';
       reservations.forEach((reservation) => {
         domString += `
-        <div class="card col-10 offset-1 px-0">
+        <div class="card col-10 offset-1 px-0" id="${reservation.id}">
           <div class="card-header">
             <h2>${reservation.customerName}</h2>
           </div>
@@ -24,7 +38,8 @@ const printReservations = () => {
         </div>`;
       });
       domString += '</div>';
-      utilities.printToDom('reservations', domString);
+      utilities.printToDom('printComponent', domString);
+      $('#printComponent').on('click', '#delete-reservation', deleteReservationByClick);
     })
     .catch((error) => console.error(error));
 };

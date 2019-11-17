@@ -1,8 +1,8 @@
 import inventoryData from '../../helpers/data/inventoryData';
+import makeIngredientCard from '../MakeIngredientCard/makeIngredientCard';
 import utilities from '../../helpers/utilities';
 
 import './inventory.scss';
-import makeIngredientCard from '../MakeIngredientCard/makeIngredientCard';
 
 const printIngredients = () => {
   inventoryData.getInventory()
@@ -13,8 +13,6 @@ const printIngredients = () => {
       <div class="d-flex flex-wrap flex-row">
       `;
       ingredients.forEach((ingredient) => {
-        // const ingredientId = ingredient.id;
-        // console.log(ingredientId);
         domString += makeIngredientCard.makeIngredientCard(ingredient);
       });
       domString += '</div></div>';
@@ -23,8 +21,5 @@ const printIngredients = () => {
     .catch((error) => console.error(error));
 };
 
-const init = () => {
-  printIngredients();
-};
 
-export default { init };
+export default { printIngredients };
