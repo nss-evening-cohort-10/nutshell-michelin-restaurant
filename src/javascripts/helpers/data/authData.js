@@ -2,22 +2,30 @@ import $ from 'jquery';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-const cud = $('.cudButton');
-const login = $('.activateLogin');
-const logout = $('.activateLogout');
-
 const checkLoginStatus = () => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      cud.removeClass('hide');
-      logout.removeClass('hide');
-      login.addClass('hide');
+      $('.cudButton').removeClass('hide');
+      $('.activateLogout').removeClass('hide');
+      $('.activateLogin').addClass('hide');
     } else {
-      cud.addClass('hide');
-      logout.addClass('hide');
-      login.removeClass('hide');
+      $('.cudButton').addClass('hide');
+      $('.activateLogout').addClass('hide');
+      $('.activateLogin').removeClass('hide');
     }
   });
 };
 
-export default { checkLoginStatus };
+const checkForUser = () => {
+  if (firebase.auth().currentUser) {
+    $('.cudButton').removeClass('hide');
+    $('.activateLogout').removeClass('hide');
+    $('.activateLogin').addClass('hide');
+  } else {
+    $('.cudButton').addClass('hide');
+    $('.activateLogout').addClass('hide');
+    $('.activateLogin').removeClass('hide');
+  }
+};
+
+export default { checkLoginStatus, checkForUser };

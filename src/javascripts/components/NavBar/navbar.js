@@ -3,18 +3,14 @@ import $ from 'jquery';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-const cud = $('.cudButton');
-const login = $('.activateLogin');
-const logout = $('.activateLogout');
-
 const logoutEvent = () => {
-  logout.click((e) => {
+  $('.activateLogout').click((e) => {
     e.preventDefault();
     firebase.auth().signOut()
       .then(() => {
-        cud.addClass('hide');
-        logout.addClass('hide');
-        login.removeClass('hide');
+        $('.cudButton').addClass('hide');
+        $('.activateLogout').addClass('hide');
+        $('.activateLogin').removeClass('hide');
       }).catch((err) => console.error('you are still logged in', err));
   });
 };
