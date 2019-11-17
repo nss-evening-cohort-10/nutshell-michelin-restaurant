@@ -10,11 +10,10 @@ import employeeDisplay from './components/Employees/employees';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
-  // printHome.printHome();
+  printHome.printHome();
   $('body').on('click', '.activateHome', printHome.printHome);
   $('body').on('click', '.activateReservations', reservations.printReservations);
   $('body').on('click', '.activateStaff', employeeDisplay.displayStaff);
-  employeeDisplay.displayStaff();
 };
 
 init();
