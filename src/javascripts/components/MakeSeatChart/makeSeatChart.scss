@@ -1,5 +1,7 @@
 .seating-card {
-  margin: .5rem;
+  margin: 1rem;
+  text-align: center;
+  justify-content: center;
 }
 
 .seating-card h2, h4 { 
@@ -7,22 +9,22 @@
   }
 
 
-// .seat-4-card {
-//   max-height: 10rem;
-//   max-width: 10rem;
-// }
+.seat-4-card {
+  height: 18%;
+  width: 10%;
+}
 
-// .seat-2-card {
-//   max-height: 5rem;
-//   max-width: 10rem;
-// }
+.seat-2-card {
+  height: 9%;
+  width: 10%;
+}
 
-// .seat-8-card {
-//   max-height: 20rem;
-//   max-width: 10rem;
-// }
+.seat-8-card {
+  height: 32%;
+  width: 10%;
+}
 
-// .seat-12-card {
-//   max-height: 30rem;
-//   max-width: 10rem;
-// }
+.seat-12-card {
+  height: 54%;
+  width: 10%;
+}

@@ -18,9 +18,8 @@ const printSeatingChart = () => {
   seatingData.getSeating()
     .then((tables) => {
       let domString = `
-      <h2>Seating Chart</h2>
-      <div class="row seat-row">
-      <div class="d-flex flex-column flex-wrap seat-container">
+      <h2 class="text-center">Seating Chart</h2>
+      <div class="d-flex flex-column flex-wrap seat-container mx-auto justify-content-between">
       `;
       tables.forEach((table) => {
         domString += makeSeatChart.makeSeatChart(table);
