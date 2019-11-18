@@ -3,8 +3,9 @@ import moment from 'moment';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 
-const fillUpdateModal = () => {
-  const reservationId = 'reservation3';
+const updateResModal = (event) => {
+  $('#editReservationModal').modal('show');
+  const reservationId = $(event.target).closest('.card')[0].id;
   reservationsData.getReservationById(reservationId)
     .then((reservation) => {
       let domString = '';
@@ -31,9 +32,11 @@ const fillUpdateModal = () => {
     </div>
       `;
       utilities.printToDom('update-reservation-form', domString);
-      $('#edit-seating-id').val(reservation.seatingId);
+      $('#edit-seating-id').val(reservation.seatingId.split('table-').join(''));
       $('#edit-customer-name').val(reservation.customerName);
       $('#edit-party-size').val(reservation.partySize);
+      $('#edit-reserve-date').val(reservation.timeStamp.split(' ')[0]);
+      $('#edit-reserve-time').val(reservation.timeStamp.split(' ')[1]);
     })
     .catch((error) => console.error(error));
 };
@@ -105,18 +108,17 @@ const printReservations = () => {
               <p class="card-text">${timeFormatted}</p>
             </div>
             <button class="btn btn-light cudButton delete-reservation">Delete</button>
-            <a href="#" class="cudButton btn btn-light edit-reservation" data-toggle="modal" data-target="#editReservationModal">Edit</a>
+            <a href="#" class="cudButton btn btn-light edit-reservation">Edit</a>
           </div>
         </div>`;
       });
       domString += '</div>';
       utilities.printToDom('printComponent', domString);
-      fillUpdateModal();
       $('#printComponent').on('click', '.delete-reservation', deleteReservationByClick);
-      // $('.update-reservation').click(fillUpdateModal);
+      $('.edit-reservation').click(updateResModal);
       $('#add-new-reservation').click(addReservationByClick);
     })
     .catch((error) => console.error(error));
 };
 
-export default { printReservations, fillUpdateModal };
+export default { printReservations };
