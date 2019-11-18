@@ -2,10 +2,39 @@ import $ from 'jquery';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 
-const updateReservationByClick = (event) => {
-  event.stopImmediatePropagation();
-  const reservationId = $(event.target).closest('.card')[0].id;
-  console.error(reservationId);
+const fillUpdateModal = () => {
+  const reservationId = 'reservation2';
+  reservationsData.getReservationById(reservationId)
+    .then((reservation) => {
+      let domString = '';
+      domString += `
+    <div class="form-group">
+      <label for="edit-seating-id">Table Number</label>
+      <input type="text" class="form-control" id="edit-seating-id" placeholder="Table Number Here">
+    </div>
+    <div class="form-group">
+      <label for="edit-customer-name">Customer Name</label>
+      <input type="text" class="form-control" id="edit-customer-name" placeholder="Enter Customer Name">
+    </div>
+    <div class="form-group">
+      <label for="edit-party-size">Party Size</label>
+      <input type="text" class="form-control" id="edit-party-size" placeholder="Enter Party Size">
+    </div>
+    <div class="form-group">
+      <label for="edit-reserve-date">Date</label>
+      <input type="date" class="form-control" id="edit-reserve-date" placeholder="Choose Date">
+    </div>
+    <div class="form-group">
+      <label for="edit-reserve-time">Time</label>
+      <input type="time" class="form-control" id="edit-reserve-time" placeholder="Choose Time">
+    </div>
+      `;
+      utilities.printToDom('update-reservation-form', domString);
+      $('#edit-seating-id').val(reservation.seatingId);
+      $('#edit-customer-name').val(reservation.customerName);
+      $('#edit-party-size').val(reservation.partySize);
+    })
+    .catch((error) => console.error(error));
 };
 
 const deleteReservationByClick = (event) => {
@@ -39,16 +68,17 @@ const printReservations = () => {
               <p class="card-text">${reservation.timeStamp}</p>
             </div>
             <a href="#" class="cudButton hide btn btn-light" id="delete-reservation">Delete</a>
-            <a href="#" class="cudButton btn btn-light edit-reservation">Edit</a>
+            <a href="#" class="cudButton btn btn-light edit-reservation" data-toggle="modal" data-target="#editReservationModal">Edit</a>
           </div>
         </div>`;
       });
       domString += '</div>';
       utilities.printToDom('printComponent', domString);
+      fillUpdateModal();
       $('#printComponent').on('click', '#delete-reservation', deleteReservationByClick);
-      $('#printComponent').on('click', '.edit-reservation', updateReservationByClick);
+      // $('.update-reservation').click(fillUpdateModal);
     })
     .catch((error) => console.error(error));
 };
 
-export default { printReservations };
+export default { printReservations, fillUpdateModal };
