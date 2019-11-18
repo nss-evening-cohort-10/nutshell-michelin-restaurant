@@ -3,7 +3,7 @@ import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 
 const fillUpdateModal = () => {
-  const reservationId = 'reservation2';
+  const reservationId = 'reservation3';
   reservationsData.getReservationById(reservationId)
     .then((reservation) => {
       let domString = '';
