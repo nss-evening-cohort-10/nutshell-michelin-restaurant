@@ -6,6 +6,7 @@ import 'firebase/auth';
 import apiKeys from './helpers/apiKeys.json';
 import auth from './components/auth/auth';
 import authData from './helpers/data/authData';
+import menu from './components/menu/menu';
 import navbar from './components/NavBar/navbar';
 import reservations from './components/Reservations/reservations';
 import printHome from './components/Home/home';
@@ -18,6 +19,7 @@ const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
   $('body').on('click', '.activateLogin', auth.signMeIn);
   authData.checkLoginStatus();
+  menu.printMenuCards();
   navbar.logoutEvent();
   printHome.printHome();
   $('body').on('click', '.activateHome', printHome.printHome);
