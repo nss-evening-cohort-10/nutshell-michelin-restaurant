@@ -82,6 +82,48 @@
   <i class="fab fa-instagram fa-2x" href="#"></i>
   <i class="fab fa-facebook-f fa-2x" href="#"></i>
   <i class="fab fa-linkedin-in fa-2x" href="#"></i></div>
+
+  <div class="modal fade" id="addReservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Board</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="seating-id">Table Number</label>
+              <input type="text" class="form-control" id="seating-id" placeholder="Table Number Here">
+            </div>
+            <div class="form-group">
+              <label for="customer-name">Customer Name</label>
+              <input type="text" class="form-control" id="customer-name" placeholder="Enter Customer Name">
+            </div>
+            <div class="form-group">
+              <label for="party-size">Party Size</label>
+              <input type="text" class="form-control" id="party-size" placeholder="Enter Party Size">
+            </div>
+            <!-- <div class="form-group">
+              <label for="reserve-date">Date</label>
+              <input type="date" class="form-control" id="reserve-date" placeholder="Choose Date">
+            </div>
+            <div class="form-group">
+              <label for="reserve-time">Time</label>
+              <input type="time" class="form-control" id="reserve-time" placeholder="Choose Time">
+            </div> -->
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" id="add-new-reservation">Complete Reservation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </footer>
 </body>
 </html>

@@ -3,13 +3,24 @@ import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 
 const addReservationByClick = () => {
-
+  const newReservation = {
+    seatingId: $('#seating-id').val(),
+    partySize: $('#party-size').val(),
+    customerName: $('#customer-name').val(),
+    timeStamp: '',
+  };
+  reservationsData.addReservation(newReservation)
+    .then(() => {
+      $('#addReservationModal').modal('hide');
+      // eslint-disable-next-line no-use-before-define
+      printReservations();
+    })
+    .catch();
 };
 
 const deleteReservationByClick = (event) => {
   const deleteReservation = $(event.target).hasClass('delete-reservation');
   const reservationId = $(event.target).closest('.card')[0].id;
-  console.error(deleteReservation, reservationId);
   if (deleteReservation) {
     reservationsData.deleteReservation(reservationId)
       .then(() => {
@@ -27,7 +38,7 @@ const printReservations = () => {
       domString += `
       <div class="d-flex flex-wrap justify-content-between m-2 whiteh1">
         <h1>Reservations</h1>
-        <button class="btn btn-light cudButton" id="add-new-reservation">Add Reservation</button>
+        <button class="btn btn-light cudButton" id="addReservation" data-toggle="modal" data-target="#addReservationModal">Add Reservation</button>
       </div>
       `;
       domString += '<div id="reservations-section" class="d-flex flex-wrap">';
