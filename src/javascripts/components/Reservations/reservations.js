@@ -54,13 +54,8 @@ const printReservations = () => {
               <p class="card-text">Table Number: ${reservation.seatingId.split('table-').join('')}</p>
               <p class="card-text">${reservation.timeStamp}</p>
             </div>
-<<<<<<< HEAD
-            <a href="#" class="btn btn-light cudButton delete-reservation">Delete</a>
-            <a href="#" class="btn btn-light cudButton" id="edit-reservation">Edit</a>
-=======
-            <a href="#" class="cudButton hide btn btn-light" id="delete-reservation">Delete</a>
-            <a href="#" class="cudButton hide btn btn-light" id="edit-reservation">Edit</a>
->>>>>>> master
+            <button class="btn btn-light cudButton delete-reservation">Delete</button>
+            <button class="btn btn-light cudButton" id="edit-reservation">Edit</button>
           </div>
         </div>`;
       });
