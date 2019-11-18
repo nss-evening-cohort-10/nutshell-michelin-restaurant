@@ -22,5 +22,41 @@
     "partySize": 4,
     "customerName": "Kanye West",
     "timeStamp": "12/28/2019 5:00 PM"
+  },
+  "reservation5": {
+    "seatingId": "table-14",
+    "partySize": 5,
+    "customerName": "Hannah Montana",
+    "timeStamp": "12/13/2019 5:00 PM"
+  },
+  "reservation6": {
+    "seatingId": "table-20",
+    "partySize": 2,
+    "customerName": "Mila Kunis",
+    "timeStamp": "1/28/2020 9:00 PM"
+  },
+  "reservation7": {
+    "seatingId": "table-12",
+    "partySize": 2,
+    "customerName": "Candice Swanepoel",
+    "timeStamp": "2/14/2020 8:30 PM"
+  },
+  "reservation8": {
+    "seatingId": "table-15",
+    "partySize": 2,
+    "customerName": "Faith Hill",
+    "timeStamp": "2/14/2020 9:00 PM"
+  },
+  "reservation9": {
+    "seatingId": "table-21",
+    "partySize": 2,
+    "customerName": "Tom Brady",
+    "timeStamp": "2/14/2020 9:00 PM"
+  },
+  "reservation10": {
+    "seatingId": "table-25",
+    "partySize": 10,
+    "customerName": "Yolanda Foster",
+    "timeStamp": "3/12/2020 6:00 PM"
   }
 }

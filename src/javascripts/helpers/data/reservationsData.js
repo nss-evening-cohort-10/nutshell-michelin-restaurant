@@ -18,5 +18,6 @@ const getReservations = () => new Promise((resolve, reject) => {
 });
 
 const deleteReservation = (reservationId) => axios.delete(`${baseUrl}/reservations/${reservationId}.json`);
+const addReservation = (newReservation) => axios.post(`${baseUrl}/reservations.json`, newReservation);
 
-export default { getReservations, deleteReservation };
+export default { getReservations, deleteReservation, addReservation };
