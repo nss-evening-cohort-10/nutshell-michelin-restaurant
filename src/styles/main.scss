@@ -13,5 +13,13 @@ body{
 }
 
 .hide {
-  display: none!important;
+  display: none !important;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.grayBack {
+  background-color: gray;
 }

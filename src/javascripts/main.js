@@ -9,6 +9,9 @@ import authData from './helpers/data/authData';
 import navbar from './components/NavBar/navbar';
 import reservations from './components/Reservations/reservations';
 import printHome from './components/Home/home';
+import employeeDisplay from './components/Employees/employees';
+import inventory from './components/Inventory/inventory';
+
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
@@ -18,6 +21,8 @@ const init = () => {
   printHome.printHome();
   $('body').on('click', '.activateHome', printHome.printHome);
   $('body').on('click', '.activateReservations', reservations.printReservations);
+  $('body').on('click', '.activateStaff', employeeDisplay.displayStaff);
+  $('body').on('click', '.activateInventory', inventory.printIngredients);
 };
 
 init();
