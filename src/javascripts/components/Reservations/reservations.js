@@ -1,16 +1,29 @@
 import $ from 'jquery';
+import moment from 'moment';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 
-const addReservationByClick = () => {
+// Should time be formatted on the page for the viewer or also in the database?
+const addReservationByClick = (event) => {
+  event.stopImmediatePropagation();
+  const seatingId = $('#seating-id').val();
+  let seatingIdFormatted = 'table-';
+  seatingIdFormatted += seatingId.toString();
+  const partySize = $('#party-size').val();
+  const partySizeFormatted = parseInt(partySize, 10);
+  const date = $('#reserve-date').val().toString();
+  const time = $('#reserve-time').val().toString();
+  const dateAndTime = [date, time].join(' ');
+  // const dateAndTimeFormatted = moment(dateAndTime).format('LLL');
   const newReservation = {
-    seatingId: $('#seating-id').val(),
-    partySize: $('#party-size').val(),
+    seatingId: seatingIdFormatted,
+    partySize: partySizeFormatted,
     customerName: $('#customer-name').val(),
-    timeStamp: '',
+    timeStamp: dateAndTime,
   };
   reservationsData.addReservation(newReservation)
     .then(() => {
+      document.forms['reservation-form'].reset();
       $('#addReservationModal').modal('hide');
       // eslint-disable-next-line no-use-before-define
       printReservations();
@@ -43,6 +56,8 @@ const printReservations = () => {
       `;
       domString += '<div id="reservations-section" class="d-flex flex-wrap">';
       reservations.forEach((reservation) => {
+        const time = `${reservation.timeStamp}`;
+        const timeFormatted = moment(time).format('LLL');
         domString += `
         <div class="card col-10 offset-1 px-0" id="${reservation.id}">
           <div class="card-header">
@@ -52,7 +67,7 @@ const printReservations = () => {
             <div class="d-flex flex-wrap justify-content-between">
               <p class="card-title">Party Size: ${reservation.partySize}</p>
               <p class="card-text">Table Number: ${reservation.seatingId.split('table-').join('')}</p>
-              <p class="card-text">${reservation.timeStamp}</p>
+              <p class="card-text">${timeFormatted}</p>
             </div>
             <button class="btn btn-light cudButton delete-reservation">Delete</button>
             <button class="btn btn-light cudButton" id="edit-reservation">Edit</button>
