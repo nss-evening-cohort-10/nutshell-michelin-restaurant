@@ -5,14 +5,8 @@ import utilities from '../../helpers/utilities';
 
 import './inventory.scss';
 
-const createNewIngredient = (e) => {
-  e.stopImmediatePropagation();
-  const newIngredient = {
-    name: $('#ingredient-name').val(),
-    amountStocked: $('#amount-stocked').val(),
-    unitOfMeasurement: $('#unit-of-measurement').val(),
-    cost: $('#ingredient-cost').val(),
-  };
+
+const sendNewIngredientToDb = (newIngredient) => {
   inventoryData.addIngredient(newIngredient)
     .then(() => {
       $('#addIngredientModal').modal('hide');
@@ -20,6 +14,30 @@ const createNewIngredient = (e) => {
       printIngredients();
     })
     .catch((error) => console.error(error));
+};
+
+const checkCurrentInventory = (newIngredient) => {
+  inventoryData.getInventory()
+    .then((ingredients) => {
+      const checkData = ingredients.some((ingredient) => ingredient.name === newIngredient.name);
+      if (checkData === true) {
+        $('#existingIngredientWarning').removeClass('hide');
+      } else {
+        sendNewIngredientToDb(newIngredient);
+      }
+    })
+    .catch((error) => console.error(error));
+};
+
+const createNewIngredient = (e) => {
+  e.stopImmediatePropagation();
+  const newIngredient = {
+    name: $('#ingredient-name').val(),
+    amountStocked: $('#amount-stocked').val() * 1,
+    unitOfMeasurement: $('#unit-of-measurement').val(),
+    cost: $('#ingredient-cost').val() * 1,
+  };
+  checkCurrentInventory(newIngredient);
 };
 
 const printIngredients = () => {
