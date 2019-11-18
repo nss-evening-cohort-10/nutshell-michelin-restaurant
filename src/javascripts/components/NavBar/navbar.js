@@ -4,7 +4,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 const logoutEvent = () => {
-  $('.activateLogout').click((e) => {
+  $('body').on('click', '.activateLogout', (e) => {
     e.preventDefault();
     firebase.auth().signOut()
       .then(() => {
