@@ -7,7 +7,7 @@ const displayStaff = () => {
     .then((employees) => {
       let domString = `
       <h2 class="whiteh1">Staff</h2>
-      <i class="fas fa-plus whiteh1">Add Staff Member</i>
+      <i class="fas fa-plus whiteh1 cursor">Add Staff Member</i>
       <div class="container mx-auto">
       <div class="d-flex flex-wrap flex-row">
       `;
