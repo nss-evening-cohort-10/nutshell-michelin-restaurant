@@ -12,7 +12,7 @@ import printHome from './components/Home/home';
 import seating from './components/Seating/seating';
 import employeeDisplay from './components/Employees/employees';
 import inventory from './components/Inventory/inventory';
-
+import employeesData from './helpers/data/employeesData';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
@@ -25,6 +25,7 @@ const init = () => {
   $('body').on('click', '.activateSeatingChart', seating.printSeatingChart);
   $('body').on('click', '.activateStaff', employeeDisplay.displayStaff);
   $('body').on('click', '.activateInventory', inventory.printIngredients);
+  $('body').on('click', '.deleteEmployee', employeesData.employeesDataByEmployeeId, employeeDisplay.deleteEmployeeOnClick);
 };
 
 init();
