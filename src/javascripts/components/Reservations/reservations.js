@@ -2,6 +2,12 @@ import $ from 'jquery';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 
+const updateReservationByClick = (event) => {
+  event.stopImmediatePropagation();
+  const reservationId = $(event.target).closest('.card')[0].id;
+  console.error(reservationId);
+};
+
 const deleteReservationByClick = (event) => {
   const deleteReservation = $(event.target).id;
   const reservationId = $(event.target).closest('.card').id;
@@ -33,13 +39,14 @@ const printReservations = () => {
               <p class="card-text">${reservation.timeStamp}</p>
             </div>
             <a href="#" class="cudButton hide btn btn-light" id="delete-reservation">Delete</a>
-            <a href="#" class="cudButton hide btn btn-light" id="edit-reservation">Edit</a>
+            <a href="#" class="cudButton btn btn-light edit-reservation">Edit</a>
           </div>
         </div>`;
       });
       domString += '</div>';
       utilities.printToDom('printComponent', domString);
       $('#printComponent').on('click', '#delete-reservation', deleteReservationByClick);
+      $('#printComponent').on('click', '.edit-reservation', updateReservationByClick);
     })
     .catch((error) => console.error(error));
 };
