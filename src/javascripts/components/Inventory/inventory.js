@@ -8,9 +8,9 @@ import './inventory.scss';
 const createNewIngredient = (e) => {
   e.stopImmediatePropagation();
   const newIngredient = {
-    ingredientName: $('#ingredient-name').val(),
+    name: $('#ingredient-name').val(),
     amountStocked: $('#amount-stocked').val(),
-    uom: $('#unit-of-measurement').val(),
+    unitOfMeasurement: $('#unit-of-measurement').val(),
     cost: $('#ingredient-cost').val(),
   };
   inventoryData.addIngredient(newIngredient)
@@ -27,7 +27,7 @@ const printIngredients = () => {
     .then((ingredients) => {
       let domString = `
       <h2>Inventory</h2>
-      <button class="btn btn-secondary cudButton" id="addNewIngredient">Add Ingredient</button>
+      <button class="btn btn-secondary cudButton" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
       <div class="container mx-auto">
       <div class="d-flex flex-wrap flex-row">
       `;
