@@ -1,0 +1,37 @@
+{
+  "menuItem1": {
+    "name": "Beef Stroganoff",
+    "price": "11500",
+    "description": "Classic Russian dish with an Asian flare. Finely sliced beef fillet, onions and mushrooms, all sautéed in white wine and sour cream, served over a bed of rice noodles.",
+    "imgUrl": "https://thepioneerwoman.com/wp-content/uploads/2016/02/dsc_0089.jpg",
+    "category": "Entree"
+  },
+  "menuItem2": {
+    "name": "Crêpe le Blini",
+    "price": "3500",
+    "description": "Russian pancakes meet French crêpes. Light and sweet, these make the perfect end to your meal!",
+    "imgUrl": "https://img.theculturetrip.com/1024x/smart/wp-content/uploads/2017/04/pancakes-2020863_1280.jpg",
+    "category": "Dessert"
+  },
+  "menuItem3": {
+    "name": "Bratwurst Stir-Fry",
+    "price": "9000",
+    "description": "Pan seared bratwurst with traditional Asian vegetables over a bed of jasmin rice.",
+    "imgUrl": "https://thefamilydinnerproject.org/wp-content/uploads/2013/06/german-stir-fry-633x326.png",
+    "category": "Entree"
+  },
+  "menuItem4": {
+    "name": "Rouleaux de Printemps",
+    "price": "2200",
+    "description": "Dessert or apéritif? Hard to decide with this Vietnamese gỏi cuốn wrapped in Pâte sucrée.",
+    "imgUrl": "https://i.pinimg.com/originals/b2/3e/51/b23e51d1f3b108aefd0725fa83607cf3.jpg",
+    "category": "Apéritif"
+  },
+  "menuItem5": {
+    "name": "Chicken Latke Sliders",
+    "price": "3000",
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif"
+  }
+}
