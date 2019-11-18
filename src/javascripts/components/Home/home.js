@@ -1,6 +1,5 @@
 import './home.scss';
 import util from '../../helpers/utilities';
-import authData from '../../helpers/data/authData';
 
 const printHome = () => {
   const domString = `<div class="cardOfCards d-flex justify-content-around container">
@@ -45,7 +44,6 @@ const printHome = () => {
       </div>
     </div>`;
   util.printToDom('printComponent', domString);
-  authData.checkForUser();
 };
 
 export default { printHome };

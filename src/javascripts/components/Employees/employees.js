@@ -1,7 +1,6 @@
 import './employees.scss';
 import employeeData from '../../helpers/data/employeesData';
 import util from '../../helpers/utilities';
-import authData from '../../helpers/data/authData';
 
 const displayStaff = () => {
   employeeData.employeesDataByEmployeeId()
@@ -33,7 +32,6 @@ const displayStaff = () => {
       });
       domString += '</div>';
       util.printToDom('printComponent', domString);
-      authData.checkForUser();
     })
     .catch((error) => console.error(error));
 };

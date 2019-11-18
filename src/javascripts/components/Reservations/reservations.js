@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
-import authData from '../../helpers/data/authData';
 
 const deleteReservationByClick = (event) => {
   const deleteReservation = $(event.target).id;
@@ -41,7 +40,6 @@ const printReservations = () => {
       domString += '</div>';
       utilities.printToDom('printComponent', domString);
       $('#printComponent').on('click', '#delete-reservation', deleteReservationByClick);
-      authData.checkForUser();
     })
     .catch((error) => console.error(error));
 };
