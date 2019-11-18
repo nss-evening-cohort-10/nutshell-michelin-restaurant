@@ -7,7 +7,7 @@ const displayStaff = () => {
     .then((employees) => {
       let domString = `
       <h2 class="whiteh1">Staff</h2>
-      <i class="fas fa-plus whiteh1">Add Staff Member</i>
+      <i class="fas fa-plus cudButton hide whiteh1">Add Staff Member</i>
       <div class="container mx-auto">
       <div class="d-flex flex-wrap flex-row">
       `;
@@ -21,8 +21,8 @@ const displayStaff = () => {
               <h6 class="card-text text-center">${employee.position}</h6>
               <p class="card-text">
                 <small class="text-muted d-flex justify-content-between">
-                  <i class="fas fa-pencil-alt cudButton cursor"></i>
-                  <i class="fas fa-trash-alt cudButton cursor"></i>
+                  <i class="fas fa-pencil-alt cudButton hide cursor"></i>
+                  <i class="fas fa-trash-alt cudButton hide cursor"></i>
                 </small>
               </p>
             </div>
