@@ -20,14 +20,30 @@ const displayStaff = () => {
     .then((employees) => {
       let domString = `
       <h2 class="whiteh1">Staff</h2>
+      <div class="d-flex justify-content-between">
       <i class="fas fa-plus cudButton hide whiteh1 cursor">Add Staff Member</i>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Filter Employees
+        </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <button class="dropdown-item" type="button">Sous Chef</button>
+        <button class="dropdown-item" type="button">Executive Sous Chef</button>
+        <button class="dropdown-item" type="button">Head Chef</button>
+        <button class="dropdown-item" type="button">Pastry Chef</button>
+        <button class="dropdown-item" type="button">Chef</button>
+        <button class="dropdown-item" type="button">Head Sommelier</button>
+        <button class="dropdown-item" type="button">Director of Operations</button>
+        <button class="dropdown-item" type="button">Bar Director</button>
+        <button class="dropdown-item" type="button">Restaurant Manager</button>
+      </div>
+      </div>
+      </div>
       <div class="container mx-auto">
       <div class="d-flex flex-wrap flex-row">
       `;
-      console.log(employees[0].employeeImg);
-      if (employees[0].employeeImg) {
-        employees.forEach((employee) => {
-          domString += `
+      employees.forEach((employee) => {
+        domString += `
         <div class="card-deck card-deck-cstm">
           <div class="card">
             <img src="${employee.employeeImg}" alt="picture of ${employee.name}">
@@ -44,10 +60,7 @@ const displayStaff = () => {
           </div>
         </div>
         `;
-        });
-      } else {
-        domString += '<h1>It looks like you do not have any employees. Consider hiring some!</h1>';
-      }
+      });
       domString += '</div>';
       util.printToDom('printComponent', domString);
     })
