@@ -38,7 +38,7 @@ const printReservations = () => {
           </div>
         </div>`;
       });
-      domString += '<div id="testDiv">test div</div></div>';
+      domString += '</div>';
       utilities.printToDom('printComponent', domString);
       $('#printComponent').on('click', '#delete-reservation', deleteReservationByClick);
       authData.checkForUser();

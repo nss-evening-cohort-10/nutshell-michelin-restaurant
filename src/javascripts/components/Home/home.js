@@ -8,7 +8,7 @@ const printHome = () => {
           <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
             <h2>Le Baguette</h2>
               <button class="btn btn-primary activateLogin">Login</button>
-              <button class="btn btn-danger activateLogout">Logout</button>
+              <button class="btn btn-danger activateLogout hide">Logout</button>
           </nav>
           <div class="card-body d-flex align-content-around flex-wrap justify-content-around">
             <div class="card homeCards" style="width: 18rem;">
