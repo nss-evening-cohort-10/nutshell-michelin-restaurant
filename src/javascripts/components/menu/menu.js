@@ -1,6 +1,27 @@
 import './menu.scss';
+import $ from 'jquery';
 import utilities from '../../helpers/utilities';
 import smash from '../../helpers/data/smash';
+import menuData from '../../helpers/data/menuData';
+import menuIngredientsData from '../../helpers/data/MenuIngredientData';
+
+const removeMenuIngredients = (menuId) => {
+  menuIngredientsData.getAllMenuIngredients().then((ingredients) => {
+    const menuIngredientsToDelete = ingredients.filter((x) => x.menuItemId === menuId);
+    menuIngredientsToDelete.forEach((menuIngredient) => {
+      menuIngredientsData.deleteMenuIngredients(menuIngredient.id);
+    });
+  }).catch((err) => console.error(err));
+};
+
+const removeFromMenu = (e) => {
+  const menuToDelete = $(e.target).closest('.card').attr('id');
+  menuData.deleteMenuItem(menuToDelete).then(() => {
+    removeMenuIngredients(menuToDelete);
+    // eslint-disable-next-line no-use-before-define
+    printMenuCards();
+  }).catch((err) => console.error(err));
+};
 
 const printMenuCards = () => {
   smash.getMenuWithIngredients().then((menuArr) => {
@@ -13,7 +34,7 @@ const printMenuCards = () => {
     menuArr.forEach((item) => {
       const ingredientString = item.ingredientName.join(', ');
       menuString += `
-        <div class="card col-6">
+        <div id="${item.id}" class="card col-6">
           <div class="row d-flex">
             <div class="imgDiv col-5">
               <img class="card-img" src="${item.imgUrl}" alt="picture of ${item.name}" />
@@ -49,6 +70,7 @@ const printMenuCards = () => {
     });
     menuString += '</div></div>';
     utilities.printToDom('printComponent', menuString);
+    $('body').on('click', '.deleteMenuItem', removeFromMenu);
   }).catch((err) => console.error(err));
 };
 export default { printMenuCards };
