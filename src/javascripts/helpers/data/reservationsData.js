@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import apiKeys from '../apiKeys.json';
 
 const baseUrl = apiKeys.firebaseConfig.databaseURL;
@@ -12,7 +13,8 @@ const getReservations = () => new Promise((resolve, reject) => {
         demReservations[fbID].id = fbID;
         reservations.push(demReservations[fbID]);
       });
-      resolve(reservations);
+      const sortedReservations = reservations.sort((a, b) => moment(a.timeStamp).unix() - moment(b.timeStamp).unix());
+      resolve(sortedReservations);
     })
     .catch((error) => reject(error));
 });
