@@ -86,7 +86,7 @@
   "ingredient15": {
     "name": "Mushrooms",
     "cost": 200,
-    "amountStocked": "100",
+    "amountStocked": 100,
     "unitOfMeasurement": "g"
   },
   "ingredient16": {
