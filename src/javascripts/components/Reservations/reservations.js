@@ -3,9 +3,37 @@ import moment from 'moment';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 
+const updateReservationByClick = (event) => {
+  event.preventDefault();
+  const reservationId = $(event.target).attr('store-reservationId');
+  const seatingId = $('#edit-seating-id').val();
+  let seatingIdFormatted = 'table-';
+  seatingIdFormatted += seatingId.toString();
+  const partySize = $('#edit-party-size').val();
+  const partySizeFormatted = parseInt(partySize, 10);
+  const date = $('#edit-reserve-date').val().toString();
+  const time = $('#edit-reserve-time').val().toString();
+  const dateAndTime = [date, time].join(' ');
+  const updatedReservation = {
+    seatingId: seatingIdFormatted,
+    partySize: partySizeFormatted,
+    customerName: $('#edit-customer-name').val(),
+    timeStamp: dateAndTime,
+  };
+  reservationsData.updateReservation(reservationId, updatedReservation)
+    .then(() => {
+      document.forms['update-reservation-form'].reset();
+      $('#editReservationModal').modal('hide');
+      // eslint-disable-next-line no-use-before-define
+      printReservations();
+    })
+    .catch((error) => console.error(error));
+};
+
 const updateResModal = (event) => {
   $('#editReservationModal').modal('show');
   const reservationId = $(event.target).closest('.card')[0].id;
+  $('#update-reservation').attr('store-reservationId', reservationId);
   reservationsData.getReservationById(reservationId)
     .then((reservation) => {
       let domString = '';
@@ -117,6 +145,7 @@ const printReservations = () => {
       $('#printComponent').on('click', '.delete-reservation', deleteReservationByClick);
       $('.edit-reservation').click(updateResModal);
       $('#add-new-reservation').click(addReservationByClick);
+      $('#update-reservation').click(updateReservationByClick);
     })
     .catch((error) => console.error(error));
 };
