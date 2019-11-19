@@ -9,6 +9,9 @@ const makeIngredientCard = (ingredient) => {
       <h3 class="card-title text-left">${ingredient.name}</h3>
       <p class="text-left">Cost: ${costFormatted}</p>
       <p class="text-left">Amount Stocked: ${ingredient.amountStocked} ${ingredient.unitOfMeasurement}</p>
+      <div class="card-footer ingredientCardFooter">
+      <button class="btn btn-secondary cudButton delete-ingredient-button" id="delete-ingredient-${ingredient.id}">Delete Item</button>
+      </div>
     </div>
   </div>
   `;
