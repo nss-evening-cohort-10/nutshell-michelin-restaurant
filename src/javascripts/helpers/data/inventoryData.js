@@ -31,9 +31,11 @@ const updatedIngredient = (ingredientId, newCost, newName, newStock, newUom) => 
       ingredientObject.amountStocked = newStock;
       ingredientObject.unitOfMeasurement = newUom;
       // eslint-disable-next-line no-use-before-define
-      updateIngredient(ingredientId, ingredientObject);
-      console.log(ingredientObject);
-      resolve();
+      updateIngredient(ingredientId, ingredientObject)
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => console.error(error));
     })
     .catch((error) => reject(error));
 });
