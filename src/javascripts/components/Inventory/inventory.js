@@ -58,6 +58,14 @@ const deleteIngredient = (e) => {
     .catch((error) => console.error(error));
 };
 
+const updateIngredient = (e) => {
+  e.preventDefault();
+  const ingredientId = e.target.id.split('update-ingredient-')[1];
+  $('.ingredient-update-button').on('click', () => {
+    
+  })
+}
+
 const printIngredients = () => {
   inventoryData.getInventory()
     .then((ingredients) => {
