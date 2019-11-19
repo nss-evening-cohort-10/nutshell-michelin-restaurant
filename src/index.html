@@ -32,6 +32,68 @@
     <div id="printComponent">
     </div>
   </div>
+  
+  <div class="modal fade" id="addReservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Reservation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="reservation-form">
+            <div class="form-group">
+              <label for="seating-id">Table Number</label>
+              <input type="text" class="form-control" id="seating-id" placeholder="Table Number Here">
+            </div>
+            <div class="form-group">
+              <label for="customer-name">Customer Name</label>
+              <input type="text" class="form-control" id="customer-name" placeholder="Enter Customer Name">
+            </div>
+            <div class="form-group">
+              <label for="party-size">Party Size</label>
+              <input type="text" class="form-control" id="party-size" placeholder="Enter Party Size">
+            </div>
+            <div class="form-group">
+              <label for="reserve-date">Date</label>
+              <input type="date" class="form-control" id="reserve-date" placeholder="Choose Date">
+            </div>
+            <div class="form-group">
+              <label for="reserve-time">Time</label>
+              <input type="time" class="form-control" id="reserve-time" placeholder="Choose Time">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" id="add-new-reservation">Complete Reservation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editReservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Reservation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="update-reservation-form">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" id="update-reservation" store-reservationId="">Update Reservation</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer class="d-flex fixed-bottom">
     <div class="text-center d-flex justify-content-around container-fluid grayBack">
@@ -42,54 +104,74 @@
     </div>
   </footer>
 
-  <footer class="d-flex fixed-bottom">
-  <div class="text-center d-flex justify-content-around container-fluid">
-  <i class="fab fa-twitter fa-2x" href="#"></i>
-  <i class="fab fa-instagram fa-2x" href="#"></i>
-  <i class="fab fa-facebook-f fa-2x" href="#"></i>
-  <i class="fab fa-linkedin-in fa-2x" href="#"></i></div>
+<!-- Ingredient Modal: -->
 
-<div class="modal fade" id="addReservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+<div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" aria-labelledby="ingredientModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Board</h5>
+        <h5 class="modal-title" id="ingredientModalLabel">Add New Ingredient</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="reservation-form">
+        <form id="ingredientModalForm">
           <div class="form-group">
-            <label for="seating-id">Table Number</label>
-            <input type="text" class="form-control" id="seating-id" placeholder="Table Number Here">
+            <label for="ingredient-name">Ingredient Name</label>
+            <input type="text" class="form-control" id="ingredient-name" placeholder="Potatoes">
+            <p class="hide" id="existingIngredientWarning">*This ingredient already exists</p>
           </div>
           <div class="form-group">
-            <label for="customer-name">Customer Name</label>
-            <input type="text" class="form-control" id="customer-name" placeholder="Enter Customer Name">
+            <label for="amount-stocked">Amount Stocked</label>
+            <input type="number" class="form-control" id="amount-stocked" placeholder="Enter amount">
           </div>
           <div class="form-group">
-            <label for="party-size">Party Size</label>
-            <input type="text" class="form-control" id="party-size" placeholder="Enter Party Size">
+            <label for="unit-of-measurement">UoM</label>
+            <input type="text" class="form-control" id="unit-of-measurement" placeholder="kg, g, L, etc.">
           </div>
           <div class="form-group">
-            <label for="reserve-date">Date</label>
-            <input type="date" class="form-control" id="reserve-date" placeholder="Choose Date">
-          </div>
-          <div class="form-group">
-            <label for="reserve-time">Time</label>
-            <input type="time" class="form-control" id="reserve-time" placeholder="Choose Time">
+            <label for="ingredient-cost">Cost</label>
+            <input type="number" class="form-control" id="ingredient-cost" placeholder="$1.23">
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-secondary" id="add-new-reservation">Complete Reservation</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-info" id="addNewIngredient">Save changes</button>
       </div>
     </div>
   </div>
 </div>
 
-</footer>
+<div class="modal fade" id="createStaffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Staff Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="staff-name">Name</label>
+            <input type="text" class="form-control" id="staff-name" placeholder="Enter Name">
+          </div>
+          <div class="form-group">
+            <label for="staff-position">Staff Position</label>
+            <input type="text" class="form-control" id="staff-position" placeholder="Enter staff position">
+          </div>
+          <div class="form-group">
+            <label for="staff-photo-url">Enter a url for staff image</label>
+            <input type="text" class="form-control" id="staff-photo-url" placeholder="Enter image Url">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="add-new-staff">Save changes</button>
+
 </body>
 </html>

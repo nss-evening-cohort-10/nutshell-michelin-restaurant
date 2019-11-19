@@ -6,4 +6,9 @@ const printToDom = (divId, textToPrint) => {
   authData.checkForUser();
 };
 
-export default { printToDom };
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
+export default { printToDom, currencyFormatter };
