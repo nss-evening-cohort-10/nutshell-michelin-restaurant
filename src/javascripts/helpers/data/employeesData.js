@@ -51,6 +51,8 @@ const employeesDataByEmployeeId = () => new Promise((resolve, reject) => {
 
 const deleteEmployeeData = (employeeId) => axios.delete(`${baseUrl}/staffs/${employeeId}.json`);
 
-export default { employeesDataByEmployeeId, deleteEmployeeData };
+const createNewEmployee = (newEmployee) => axios.post(`${baseUrl}/staffs.json`, newEmployee);
+
+export default { employeesDataByEmployeeId, deleteEmployeeData, createNewEmployee };
 
 // ?orderBy="employeeId"&equalTo="${employeeId}";
