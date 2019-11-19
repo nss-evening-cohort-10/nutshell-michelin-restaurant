@@ -28,7 +28,7 @@ const updatedIngredient = (ingredientId, newCost, newName, newStock, newUom) => 
       ingredientObject.cost = newCost;
       ingredientObject.name = newName;
       ingredientObject.amountStocked = newStock;
-      ingredientObject.amountStocked = newUom;
+      ingredientObject.unitOfMeasurement = newUom;
       // eslint-disable-next-line no-use-before-define
       updateIngredient(ingredientId, ingredientObject);
       resolve();
