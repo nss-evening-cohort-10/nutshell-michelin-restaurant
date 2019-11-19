@@ -13,10 +13,10 @@ const getMenuWithIngredients = () => new Promise((resolve, reject) => {
             const matchIngredients = mIngredients.filter((x) => x.menuItemId === newMenuItems.id);
             console.log('match ing', matchIngredients);
             if (matchIngredients) {
-              // find inventory match & check amountStocked
-              // if amountStocked < 1, push isAvailaible = false, else true
               const matchInventory = inventory.filter((y) => y.id === matchIngredients.ingredientId);
               console.log('inv name', matchInventory);
+              // find inventory match & check amountStocked
+              // if amountStocked < 1, push isAvailaible = false, else true
               newMenuItems.ingredientName = [];
               matchInventory.forEach((ingredientMatch) => {
                 newMenuItems.ingredientName.push(ingredientMatch.name);
