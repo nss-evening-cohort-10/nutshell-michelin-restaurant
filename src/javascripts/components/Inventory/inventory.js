@@ -82,7 +82,6 @@ const returnModalToOriginalState = () => {
 const printIngredients = () => {
   inventoryData.getInventory()
     .then((ingredients) => {
-      console.log('what do i have in ingredients', ingredients);
       let domString = `
       <h2>Inventory</h2>
       <button class="btn btn-secondary cudButton my-3" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
@@ -105,7 +104,6 @@ const printIngredients = () => {
 const updateIngredient = (e) => {
   e.preventDefault();
   const ingredientId = e.target.id.split('update-ingredient-')[1];
-  console.log('what am i updating?', ingredientId);
   updateModal(ingredientId);
   $('#updateIngredient').on('click', () => {
     const newCost = $('#ingredient-cost').val() * 100;
