@@ -3,6 +3,28 @@ import $ from 'jquery';
 import utilities from '../../helpers/utilities';
 import smash from '../../helpers/data/smash';
 import menuData from '../../helpers/data/menuData';
+import inventoryData from '../../helpers/data/inventoryData';
+
+const saveMenuIngredients = () => {};
+
+const printIngredientsForm = (menuId) => {
+  $('#newMenuIngredientsModal').modal('show');
+  inventoryData.getInventory()
+    .then((ingredients) => {
+      let ingredientString = '<div class="row d-flex flex-wrap p-2">';
+      ingredients.forEach((ingredient) => {
+        ingredientString += `
+          <div class="custom-control custom-switch col-4">
+            <input type="checkbox" class="custom-control-input" id="${ingredient.id}">
+            <label class="custom-control-label" for="${ingredient.id}">${ingredient.name}</label>
+          </div>
+        `;
+      });
+      ingredientString += '</div>';
+      utilities.printToDom('addMenuIngredientsForm', ingredientString);
+      $('#newMenuIngredientBtn').click(saveMenuIngredients(menuId));
+    }).catch((err) => console.error(err));
+};
 
 const createMenuItem = () => {
   const newMenuItem = {
@@ -13,7 +35,8 @@ const createMenuItem = () => {
     category: $('#categoryDropdown').val(),
   };
   menuData.addMenuItem(newMenuItem)
-    .then(() => {
+    .then((newMenuId) => {
+      printIngredientsForm(newMenuId);
       $('#newMenuModal').modal('hide');
       $('#addMenuForm').trigger('reset');
       // eslint-disable-next-line no-use-before-define
