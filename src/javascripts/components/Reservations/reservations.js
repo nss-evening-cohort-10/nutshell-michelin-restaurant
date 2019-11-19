@@ -3,6 +3,72 @@ import moment from 'moment';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 
+const updateReservationByClick = (event) => {
+  event.preventDefault();
+  const reservationId = $(event.target).attr('store-reservationId');
+  const seatingId = $('#edit-seating-id').val();
+  let seatingIdFormatted = 'table-';
+  seatingIdFormatted += seatingId.toString();
+  const partySize = $('#edit-party-size').val();
+  const partySizeFormatted = parseInt(partySize, 10);
+  const date = $('#edit-reserve-date').val().toString();
+  const time = $('#edit-reserve-time').val().toString();
+  const dateAndTime = [date, time].join(' ');
+  const updatedReservation = {
+    seatingId: seatingIdFormatted,
+    partySize: partySizeFormatted,
+    customerName: $('#edit-customer-name').val(),
+    timeStamp: dateAndTime,
+  };
+  reservationsData.updateReservation(reservationId, updatedReservation)
+    .then(() => {
+      document.forms['update-reservation-form'].reset();
+      $('#editReservationModal').modal('hide');
+      // eslint-disable-next-line no-use-before-define
+      printReservations();
+    })
+    .catch((error) => console.error(error));
+};
+
+const updateResModal = (event) => {
+  $('#editReservationModal').modal('show');
+  const reservationId = $(event.target).closest('.card')[0].id;
+  $('#update-reservation').attr('store-reservationId', reservationId);
+  reservationsData.getReservationById(reservationId)
+    .then((reservation) => {
+      let domString = '';
+      domString += `
+    <div class="form-group">
+      <label for="edit-seating-id">Table Number</label>
+      <input type="text" class="form-control" id="edit-seating-id" placeholder="Table Number Here">
+    </div>
+    <div class="form-group">
+      <label for="edit-customer-name">Customer Name</label>
+      <input type="text" class="form-control" id="edit-customer-name" placeholder="Enter Customer Name">
+    </div>
+    <div class="form-group">
+      <label for="edit-party-size">Party Size</label>
+      <input type="text" class="form-control" id="edit-party-size" placeholder="Enter Party Size">
+    </div>
+    <div class="form-group">
+      <label for="edit-reserve-date">Date</label>
+      <input type="date" class="form-control" id="edit-reserve-date" placeholder="Choose Date">
+    </div>
+    <div class="form-group">
+      <label for="edit-reserve-time">Time</label>
+      <input type="time" class="form-control" id="edit-reserve-time" placeholder="Choose Time">
+    </div>
+      `;
+      utilities.printToDom('update-reservation-form', domString);
+      $('#edit-seating-id').val(reservation.seatingId.split('table-').join(''));
+      $('#edit-customer-name').val(reservation.customerName);
+      $('#edit-party-size').val(reservation.partySize);
+      $('#edit-reserve-date').val(reservation.timeStamp.split(' ')[0]);
+      $('#edit-reserve-time').val(reservation.timeStamp.split(' ')[1]);
+    })
+    .catch((error) => console.error(error));
+};
+
 // Should time be formatted on the page for the viewer or also in the database?
 const addReservationByClick = (event) => {
   event.stopImmediatePropagation();
@@ -70,14 +136,16 @@ const printReservations = () => {
               <p class="card-text">${timeFormatted}</p>
             </div>
             <button class="btn btn-light cudButton delete-reservation">Delete</button>
-            <button class="btn btn-light cudButton" id="edit-reservation">Edit</button>
+            <a href="#" class="cudButton btn btn-light edit-reservation">Edit</a>
           </div>
         </div>`;
       });
       domString += '</div>';
       utilities.printToDom('printComponent', domString);
       $('#printComponent').on('click', '.delete-reservation', deleteReservationByClick);
+      $('.edit-reservation').click(updateResModal);
       $('#add-new-reservation').click(addReservationByClick);
+      $('#update-reservation').click(updateReservationByClick);
     })
     .catch((error) => console.error(error));
 };

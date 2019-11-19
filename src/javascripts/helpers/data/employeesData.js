@@ -8,12 +8,30 @@ const baseUrl = apiKeys.firebaseConfig.databaseURL;
 const employeesDataByEmployeeId = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/staffs.json`)
     .then((response) => {
-      console.log('this is response', response);
       const demEmployees = response.data;
       if (demEmployees === null) {
         const domString = `
         <h2 class="whiteh1">Staff</h2>
+        <div class="d-flex justify-content-between">
         <i class="fas fa-plus cudButton hide whiteh1 cursor">Add Staff Member</i>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Filter Employees
+          </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" type="button">All Positions</button>
+          <button class="dropdown-item" type="button">Sous Chef</button>
+          <button class="dropdown-item" type="button">Executive Sous Chef</button>
+          <button class="dropdown-item" type="button">Head Chef</button>
+          <button class="dropdown-item" type="button">Pastry Chef</button>
+          <button class="dropdown-item" type="button">Chef</button>
+          <button class="dropdown-item" type="button">Head Sommelier</button>
+          <button class="dropdown-item" type="button">Director of Operations</button>
+          <button class="dropdown-item" type="button">Bar Director</button>
+          <button class="dropdown-item" type="button">Restaurant Manager</button>
+      </div>
+      </div>
+      </div>
         <div class="container mx-auto">
         <div class="d-flex flex-wrap flex-row">
         <h1>It looks like you don't have any employees. Consider hiring some!</h1>
@@ -25,7 +43,6 @@ const employeesDataByEmployeeId = () => new Promise((resolve, reject) => {
           demEmployees[emId].id = emId;
           employees.push(demEmployees[emId]);
         });
-        console.log('this is employees array', employees);
         resolve(employees);
       }
     })
@@ -34,6 +51,8 @@ const employeesDataByEmployeeId = () => new Promise((resolve, reject) => {
 
 const deleteEmployeeData = (employeeId) => axios.delete(`${baseUrl}/staffs/${employeeId}.json`);
 
-export default { employeesDataByEmployeeId, deleteEmployeeData };
+const createNewEmployee = (newEmployee) => axios.post(`${baseUrl}/staffs.json`, newEmployee);
+
+export default { employeesDataByEmployeeId, deleteEmployeeData, createNewEmployee };
 
 // ?orderBy="employeeId"&equalTo="${employeeId}";
