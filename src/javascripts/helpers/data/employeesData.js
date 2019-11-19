@@ -19,6 +19,7 @@ const employeesDataByEmployeeId = () => new Promise((resolve, reject) => {
           Filter Employees
           </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" type="button">All Positions</button>
           <button class="dropdown-item" type="button">Sous Chef</button>
           <button class="dropdown-item" type="button">Executive Sous Chef</button>
           <button class="dropdown-item" type="button">Head Chef</button>

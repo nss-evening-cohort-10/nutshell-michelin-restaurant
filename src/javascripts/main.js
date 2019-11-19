@@ -26,6 +26,7 @@ const init = () => {
   $('body').on('click', '.activateStaff', employeeDisplay.displayStaff);
   $('body').on('click', '.activateInventory', inventory.printIngredients);
   $('body').on('click', '.deleteEmployee', employeesData.employeesDataByEmployeeId, employeeDisplay.deleteEmployeeOnClick);
+  $('body').on('click', '.filterStaffButton', employeeDisplay.filterStaffButtonClick);
 };
 
 init();

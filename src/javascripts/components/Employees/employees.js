@@ -27,15 +27,16 @@ const displayStaff = () => {
         Filter Employees
         </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <button class="dropdown-item" type="button">Sous Chef</button>
-        <button class="dropdown-item" type="button">Executive Sous Chef</button>
-        <button class="dropdown-item" type="button">Head Chef</button>
-        <button class="dropdown-item" type="button">Pastry Chef</button>
-        <button class="dropdown-item" type="button">Chef</button>
-        <button class="dropdown-item" type="button">Head Sommelier</button>
-        <button class="dropdown-item" type="button">Director of Operations</button>
-        <button class="dropdown-item" type="button">Bar Director</button>
-        <button class="dropdown-item" type="button">Restaurant Manager</button>
+        <button class="dropdown-item filterStaffButton" type="button" id="all">All Positions</button>
+        <button class="dropdown-item filterStaffButton" type="button" id="SousChef">Sous Chef</button>
+        <button class="dropdown-item filterStaffButton" type="button" id="ExecutiveSousChef">Executive Sous Chef</button>
+        <button class="dropdown-item filterStaffButton" type="button" id="HeadChef">Head Chef</button>
+        <button class="dropdown-item filterStaffButton" type="button" id="PastryChef">Pastry Chef</button>
+        <button class="dropdown-item filterStaffButton" type="button" id="Chef">Chef</button>
+        <button class="dropdown-item filterStaffButton" type="button" id="HeadSommelier">Head Sommelier</button>
+        <button class="dropdown-item filterStaffButton" type="button" id="DirectorofOperations">Director of Operations</button>
+        <button class="dropdown-item filterStaffButton" type="button" id="BarDirector">Bar Director</button>
+        <button class="dropdown-item filterStaffButton" type="button" id="RestaurantManager">Restaurant Manager</button>
       </div>
       </div>
       </div>
@@ -67,4 +68,25 @@ const displayStaff = () => {
     .catch((error) => console.error(error));
 };
 
-export default { displayStaff, deleteEmployeeOnClick };
+const filterStaffButtonClick = (e) => {
+  employeeData.employeesDataByEmployeeId()
+    .then((fullStaffs) => {
+      console.log(fullStaffs);
+      const staff = $(e.target).attr('id');
+      console.log(staff);
+      const employeeArrays = [];
+      fullStaffs.forEach((fullStaff) => {
+        if (fullStaff.position === staff) {
+          employeeArrays.push(fullStaff);
+        }
+        console.log(employeeArrays);
+      });
+      if (staff === 'all') {
+        displayStaff();
+      } else {
+        displayStaff(employeeArrays);
+      }
+    });
+};
+
+export default { displayStaff, deleteEmployeeOnClick, filterStaffButtonClick };
