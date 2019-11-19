@@ -22,7 +22,7 @@ const getMenuWithIngredients = () => new Promise((resolve, reject) => {
                 newMenuItems.ingredientName.push(ingredientMatch.name);
               });
               const checkInventory = matchInventory.find((z) => z.amountStocked <= 0);
-              if (checkInventory) {
+              if (checkInventory || newMenuItems.ingredientName[0] === undefined) {
                 newMenuItems.isAvailable = 'Unavailable';
               } else {
                 newMenuItems.isAvailable = 'Available';

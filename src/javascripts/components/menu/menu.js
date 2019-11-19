@@ -1,12 +1,31 @@
 import './menu.scss';
+import $ from 'jquery';
 import utilities from '../../helpers/utilities';
 import smash from '../../helpers/data/smash';
+import menuData from '../../helpers/data/menuData';
+
+const createMenuItem = () => {
+  const newMenuItem = {
+    name: $('#menu-name').val(),
+    price: $('#menu-price').val(),
+    description: $('#menu-description').val(),
+    imgUrl: $('#menu-imgUrl').val(),
+    category: $('#categoryDropdown').val(),
+  };
+  menuData.addMenuItem(newMenuItem)
+    .then(() => {
+      $('#newMenuModal').modal('hide');
+      $('#addMenuForm').trigger('reset');
+      // eslint-disable-next-line no-use-before-define
+      printMenuCards();
+    }).catch((err) => console.error(err));
+};
 
 const printMenuCards = () => {
   smash.getMenuWithIngredients().then((menuArr) => {
     let menuString = `
       <h2 class="whiteh1">Menu</h2>
-      <button class="cudButton hide btn btn-secondary m-1"><i class="fas fa-plus cudButton hide whiteh1 cursor">Add Menu Item</i></button>
+      <button id="createMenuItemBtn" class="cudButton hide btn btn-secondary m-1" data-toggle="modal" data-target="#newMenuModal"><i class="fas fa-plus">Add Menu Item</i></button>
       <div class="container mx-auto">
       <div class="d-flex flex-wrap flex-row">
     `;
@@ -49,6 +68,7 @@ const printMenuCards = () => {
     });
     menuString += '</div></div>';
     utilities.printToDom('printComponent', menuString);
+    $('body').on('click', '#newMenuBtn', createMenuItem);
   }).catch((err) => console.error(err));
 };
 export default { printMenuCards };

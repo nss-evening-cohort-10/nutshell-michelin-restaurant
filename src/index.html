@@ -95,6 +95,56 @@
     </div>
   </div>
 
+  <!-- Menu Item Modal: -->
+
+  <div class="modal fade" id="newMenuModal" tabindex="-1" role="dialog" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create a New Menu Item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id='addMenuForm'>
+              <div class="form-group">
+                <label for="menu-name">Name</label>
+                <input type="text" class="form-control" id="menu-name" placeholder="Enter Name">
+              </div>
+              <div class="form-group">
+                <label for="menu-description">Description</label>
+                <input type="text" class="form-control" id="menu-description" placeholder="Brief Description">
+              </div>
+              <div class="form-group">
+                <label for="menu-price">Price <span>[in cents] </span></label>
+                <input type="number" class="form-control" id="menu-price">
+              </div>
+              <div class="form-group">
+                <label for="menu-imgUrl">Image URL <span>[Hint: right-click image, select 'Copy Image Address'] </span></label>
+                <input type="text" class="form-control" id="menu-imgUrl" placeholder="http//...jpg,png,gif">
+              </div>
+              <div class="form-group">
+                <label for="categoryDropdown">Category</label>
+                <select class="form-control" id="categoryDropdown">
+                  <option value="Beverage">Beverage</option>
+                  <option value="Apéritif">Apéritif</option>
+                  <option value="Salad">Salad</option>
+                  <option value="Entree">Entree</option>
+                  <option value="Dessert">Dessert</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="newMenuBtn" class="btn btn-info">Save</button>
+            <button type="button" id="saveMenuUpdate" class="btn btn-info hide">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   <footer class="d-flex fixed-bottom">
     <div class="text-center d-flex justify-content-around container-fluid grayBack">
       <i class="fab fa-twitter fa-2x cursor" href="#"></i>

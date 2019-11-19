@@ -3,6 +3,14 @@ import apiKey from '../apiKeys.json';
 
 const baseUrl = apiKey.firebaseConfig.databaseURL;
 
+const addMenuItem = (newMenuItem) => new Promise((resolve, reject) => {
+  axios.post(`${baseUrl}/menuItems.json`, newMenuItem)
+    .then((response) => {
+      const newMenuId = response.data;
+      resolve(newMenuId.name);
+    }).catch((err) => reject(err));
+});
+
 const getAllMenuItems = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/menuItems.json`)
     .then((response) => {
@@ -16,4 +24,4 @@ const getAllMenuItems = () => new Promise((resolve, reject) => {
     }).catch((err) => reject(err));
 });
 
-export default { getAllMenuItems };
+export default { getAllMenuItems, addMenuItem };
