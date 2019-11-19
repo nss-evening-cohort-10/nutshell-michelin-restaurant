@@ -5,47 +5,47 @@ import utilities from '../../helpers/utilities';
 
 import './inventory.scss';
 
-// const clearForm = () => {
-//   $('#ingredient-name').val('');
-//   $('#amount-stocked').val('');
-//   $('#unit-of-measurement').val('');
-//   $('#ingredient-cost').val('');
-// };
+const clearForm = () => {
+  $('#ingredient-name').val('');
+  $('#amount-stocked').val('');
+  $('#unit-of-measurement').val('');
+  $('#ingredient-cost').val('');
+};
 
-// const sendNewIngredientToDb = (newIngredient) => {
-//   inventoryData.addIngredient(newIngredient)
-//     .then(() => {
-//       $('#addIngredientModal').modal('hide');
-//       clearForm();
-//       // eslint-disable-next-line no-use-before-define
-//       printIngredients();
-//     })
-//     .catch((error) => console.error(error));
-// };
+const sendNewIngredientToDb = (newIngredient) => {
+  inventoryData.addIngredient(newIngredient)
+    .then(() => {
+      $('#addIngredientModal').modal('hide');
+      clearForm();
+      // eslint-disable-next-line no-use-before-define
+      printIngredients();
+    })
+    .catch((error) => console.error(error));
+};
 
-// const checkCurrentInventory = (newIngredient) => {
-//   inventoryData.getInventory()
-//     .then((ingredients) => {
-//       const checkData = ingredients.some((ingredient) => ingredient.name === newIngredient.name);
-//       if (checkData === true) {
-//         $('#existingIngredientWarning').removeClass('hide');
-//       } else {
-//         sendNewIngredientToDb(newIngredient);
-//       }
-//     })
-//     .catch((error) => console.error(error));
-// };
+const checkCurrentInventory = (newIngredient) => {
+  inventoryData.getInventory()
+    .then((ingredients) => {
+      const checkData = ingredients.some((ingredient) => ingredient.name === newIngredient.name);
+      if (checkData === true) {
+        $('#existingIngredientWarning').removeClass('hide');
+      } else {
+        sendNewIngredientToDb(newIngredient);
+      }
+    })
+    .catch((error) => console.error(error));
+};
 
-// const createNewIngredient = (e) => {
-//   e.stopImmediatePropagation();
-//   const newIngredient = {
-//     name: $('#ingredient-name').val(),
-//     amountStocked: $('#amount-stocked').val() * 1,
-//     unitOfMeasurement: $('#unit-of-measurement').val(),
-//     cost: $('#ingredient-cost').val() * 100,
-//   };
-//   checkCurrentInventory(newIngredient);
-// };
+const createNewIngredient = (e) => {
+  e.stopImmediatePropagation();
+  const newIngredient = {
+    name: $('#ingredient-name').val(),
+    amountStocked: $('#amount-stocked').val() * 1,
+    unitOfMeasurement: $('#unit-of-measurement').val(),
+    cost: $('#ingredient-cost').val() * 100,
+  };
+  checkCurrentInventory(newIngredient);
+};
 
 const deleteIngredient = (e) => {
   e.preventDefault();
@@ -60,7 +60,8 @@ const deleteIngredient = (e) => {
 
 const updateModal = (ingredientId) => {
   $('#ingredientModalLabel').html('Update Ingredient');
-  $('#addNewIngredient').attr('id', 'updateIngredient');
+  $('#addNewIngredient').addClass('hide');
+  $('#updateIngredient').removeClass('hide');
   inventoryData.getInventory()
     .then((ingredients) => {
       const matchedIngredient = ingredients.find((x) => x.id === ingredientId);
@@ -72,35 +73,16 @@ const updateModal = (ingredientId) => {
     .catch((error) => console.error(error));
 };
 
-// const returnModalToOriginalState = () => {
-//   $('#ingredientModalLabel').html('Add New Ingredient');
-//   $('#updateIngredient').attr('id', 'addNewIngredient');
-//   clearForm();
-// };
-
-const updateIngredient = (e) => {
-  e.preventDefault();
-  const ingredientId = e.target.id.split('update-ingredient-')[1];
-  updateModal(ingredientId);
-  $('#updateIngredient').on('click', () => {
-    const newCost = $('#ingredient-cost').val() * 100;
-    const newName = $('#ingredient-name').val();
-    const newStock = $('#amount-stocked').val() * 1;
-    const newUom = $('#unit-of-measurement').val();
-    inventoryData.updatedIngredient(ingredientId, newCost, newName, newStock, newUom)
-      .then(() => {
-        $('#addIngredientModal').modal('hide');
-        // returnModalToOriginalState();
-      })
-      .catch((error) => console.error(error));
-    // eslint-disable-next-line no-use-before-define
-    printIngredients();
-  });
+const returnModalToOriginalState = () => {
+  $('#ingredientModalLabel').html('Add New Ingredient');
+  $('#updateIngredient').addClass('hide');
+  clearForm();
 };
 
 const printIngredients = () => {
   inventoryData.getInventory()
     .then((ingredients) => {
+      console.log('what do i have in ingredients', ingredients);
       let domString = `
       <h2>Inventory</h2>
       <button class="btn btn-secondary cudButton my-3" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
@@ -112,12 +94,32 @@ const printIngredients = () => {
       });
       domString += '</div></div>';
       utilities.printToDom('printComponent', domString);
-      // $('#addNewIngredient').on('click', createNewIngredient);
+      $('#addNewIngredient').on('click', createNewIngredient);
       $('.ingredient-card').on('click', '.delete-ingredient-button', deleteIngredient);
+      // eslint-disable-next-line no-use-before-define
       $('.ingredient-card').on('click', '.update-ingredient-button', updateIngredient);
     })
     .catch((error) => console.error(error));
 };
 
+const updateIngredient = (e) => {
+  e.preventDefault();
+  const ingredientId = e.target.id.split('update-ingredient-')[1];
+  console.log('what am i updating?', ingredientId);
+  updateModal(ingredientId);
+  $('#updateIngredient').on('click', () => {
+    const newCost = $('#ingredient-cost').val() * 100;
+    const newName = $('#ingredient-name').val();
+    const newStock = $('#amount-stocked').val() * 1;
+    const newUom = $('#unit-of-measurement').val();
+    inventoryData.updatedIngredient(ingredientId, newCost, newName, newStock, newUom)
+      .then(() => {
+        $('#addIngredientModal').modal('hide');
+        returnModalToOriginalState();
+        printIngredients();
+      })
+      .catch((error) => console.error(error));
+  });
+};
 
 export default { printIngredients };

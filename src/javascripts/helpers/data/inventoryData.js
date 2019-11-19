@@ -8,6 +8,7 @@ const getInventory = () => new Promise((resolve, reject) => {
     .then((response) => {
       const demIngredients = response.data;
       const ingredients = [];
+      console.log('from promise', ingredients);
       Object.keys(demIngredients).forEach((fbId) => {
         demIngredients[fbId].id = fbId;
         ingredients.push(demIngredients[fbId]);
@@ -31,6 +32,7 @@ const updatedIngredient = (ingredientId, newCost, newName, newStock, newUom) => 
       ingredientObject.unitOfMeasurement = newUom;
       // eslint-disable-next-line no-use-before-define
       updateIngredient(ingredientId, ingredientObject);
+      console.log(ingredientObject);
       resolve();
     })
     .catch((error) => reject(error));
