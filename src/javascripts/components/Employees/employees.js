@@ -21,7 +21,7 @@ const displayStaff = () => {
       let domString = `
       <h2 class="whiteh1">Staff</h2>
       <div class="d-flex justify-content-between">
-      <i class="fas fa-plus cudButton hide whiteh1 cursor">Add Staff Member</i>
+      <i class="fas fa-plus cudButton hide whiteh1 cursor" data-toggle="modal" data-target="#createStaffModal">Add Staff Member</i>
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Filter Employees
@@ -68,6 +68,25 @@ const displayStaff = () => {
     .catch((error) => console.error(error));
 };
 
+const createEmployeeOnClick = (e) => {
+  e.stopImmediatePropagation();
+  const newEmployee = {
+    name: $('#staff-name').val(),
+    position: $('#staff-position').val(),
+    employeeImg: $('#staff-photo-url').val(),
+    uid: '',
+  };
+  employeeData.createNewEmployee(newEmployee)
+    .then(() => {
+      displayStaff();
+      $('#createStaffModal').modal('hide');
+      $('#staff-name').val('');
+      $('#staff-position').val('');
+      $('#staff-photo-url').val('');
+    })
+    .catch((error) => console.error(error));
+};
+
 const filterStaffButtonClick = (e) => {
   employeeData.employeesDataByEmployeeId()
     .then((fullStaffs) => {
@@ -89,4 +108,9 @@ const filterStaffButtonClick = (e) => {
     });
 };
 
-export default { displayStaff, deleteEmployeeOnClick, filterStaffButtonClick };
+export default {
+  displayStaff,
+  deleteEmployeeOnClick,
+  filterStaffButtonClick,
+  createEmployeeOnClick,
+};
