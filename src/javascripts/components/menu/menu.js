@@ -1,7 +1,9 @@
 import './menu.scss';
 import utilities from '../../helpers/utilities';
+import smash from '../../helpers/data/smash';
 
 const printMenuCards = () => {
+  console.log(smash.getMenuWithIngredients());
   const menuArr = [];
   let menuString = `
     <h2 class="whiteh1">Menu</h2>

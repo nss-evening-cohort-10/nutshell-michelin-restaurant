@@ -19,10 +19,10 @@ const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
   $('body').on('click', '.activateLogin', auth.signMeIn);
   authData.checkLoginStatus();
-  menu.printMenuCards();
   navbar.logoutEvent();
   printHome.printHome();
   $('body').on('click', '.activateHome', printHome.printHome);
+  $('body').on('click', '.activateMenu', menu.printMenuCards);
   $('body').on('click', '.activateReservations', reservations.printReservations);
   $('body').on('click', '.activateSeatingChart', seating.printSeatingChart);
   $('body').on('click', '.activateStaff', employeeDisplay.displayStaff);
