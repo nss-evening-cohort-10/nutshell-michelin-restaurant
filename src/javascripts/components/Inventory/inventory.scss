@@ -25,10 +25,6 @@
   color: red;
 }
 
-.ingredientCardFooter {
-  display: none;
-}
-
-.ingredientCardFooter:hover {
-  display: block;
+i {
+  pointer-events: none;
 }

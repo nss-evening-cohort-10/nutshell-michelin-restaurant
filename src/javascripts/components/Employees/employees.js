@@ -6,7 +6,6 @@ import util from '../../helpers/utilities';
 const deleteEmployeeOnClick = (e) => {
   e.preventDefault();
   const employeeId = $(e.target).attr('id');
-  console.log(employeeId);
   employeeData.deleteEmployeeData(employeeId)
     .then(() => {
       // eslint-disable-next-line no-use-before-define
@@ -24,7 +23,6 @@ const displayStaff = () => {
       <div class="container mx-auto">
       <div class="d-flex flex-wrap flex-row">
       `;
-      console.log(employees[0].employeeImg);
       if (employees[0].employeeImg) {
         employees.forEach((employee) => {
           domString += `

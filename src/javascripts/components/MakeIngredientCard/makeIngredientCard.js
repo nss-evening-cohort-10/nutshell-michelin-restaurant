@@ -10,7 +10,7 @@ const makeIngredientCard = (ingredient) => {
       <p class="text-left">Cost: ${costFormatted}</p>
       <p class="text-left">Amount Stocked: ${ingredient.amountStocked} ${ingredient.unitOfMeasurement}</p>
       <div class="card-footer ingredientCardFooter">
-      <button class="btn btn-secondary cudButton delete-ingredient-button" id="delete-ingredient-${ingredient.id}">Delete Item</button>
+      <button class="btn btn-secondary cudButton delete-ingredient-button" id="delete-ingredient-${ingredient.id}"><i class="fa fa-trash" aria-hidden="true"></i></button>
       </div>
     </div>
   </div>
