@@ -5,11 +5,18 @@ import utilities from '../../helpers/utilities';
 
 import './inventory.scss';
 
+const clearForm = () => {
+  $('#ingredient-name').val('');
+  $('#amount-stocked').val('');
+  $('#unit-of-measurement').val('');
+  $('#ingredient-cost').val('');
+};
 
 const sendNewIngredientToDb = (newIngredient) => {
   inventoryData.addIngredient(newIngredient)
     .then(() => {
       $('#addIngredientModal').modal('hide');
+      clearForm();
       // eslint-disable-next-line no-use-before-define
       printIngredients();
     })
@@ -35,7 +42,7 @@ const createNewIngredient = (e) => {
     name: $('#ingredient-name').val(),
     amountStocked: $('#amount-stocked').val() * 1,
     unitOfMeasurement: $('#unit-of-measurement').val(),
-    cost: $('#ingredient-cost').val() * 1,
+    cost: $('#ingredient-cost').val() * 100,
   };
   checkCurrentInventory(newIngredient);
 };
@@ -45,7 +52,7 @@ const printIngredients = () => {
     .then((ingredients) => {
       let domString = `
       <h2>Inventory</h2>
-      <button class="btn btn-secondary cudButton" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
+      <button class="btn btn-secondary cudButton my-3" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
       <div class="container mx-auto">
       <div class="d-flex flex-wrap flex-row">
       `;

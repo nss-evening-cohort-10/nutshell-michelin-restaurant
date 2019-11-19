@@ -55,7 +55,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="ingredientModalForm">
           <div class="form-group">
             <label for="ingredient-name">Ingredient Name</label>
             <input type="text" class="form-control" id="ingredient-name" placeholder="Potatoes">
@@ -67,17 +67,17 @@
           </div>
           <div class="form-group">
             <label for="unit-of-measurement">UoM</label>
-            <input type="text" class="form-control" id="unit-of-measurement" placeholder="Enter Unit of Measurement">
+            <input type="text" class="form-control" id="unit-of-measurement" placeholder="kg, g, L, etc.">
           </div>
           <div class="form-group">
             <label for="ingredient-cost">Cost</label>
-            <input type="number" class="form-control" id="ingredient-cost" placeholder="Enter cost">
+            <input type="number" class="form-control" id="ingredient-cost" placeholder="$1.23">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-info" id="addNewIngredient">Save changes</button>
+        <button type="submit" class="btn btn-info" id="addNewIngredient">Save changes</button>
       </div>
     </div>
   </div>
