@@ -12,7 +12,6 @@ const getAllMenuIngredients = () => new Promise((resolve, reject) => {
         menuIngredients[fbId].id = fbId;
         menuIngredientsArr.push(menuIngredients[fbId]);
       });
-      console.log('getAllMenuIngredients', menuIngredientsArr);
       resolve(menuIngredientsArr);
     }).catch((err) => reject(err));
 });

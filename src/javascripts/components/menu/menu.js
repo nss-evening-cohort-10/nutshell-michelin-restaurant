@@ -4,7 +4,6 @@ import smash from '../../helpers/data/smash';
 
 const printMenuCards = () => {
   smash.getMenuWithIngredients().then((menuArr) => {
-    console.log('from print', menuArr);
     let menuString = `
       <h2 class="whiteh1">Menu</h2>
       <button class="cudButton hide btn btn-secondary m-1"><i class="fas fa-plus cudButton hide whiteh1 cursor">Add Menu Item</i></button>
