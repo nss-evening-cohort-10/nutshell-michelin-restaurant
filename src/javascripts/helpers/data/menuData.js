@@ -4,6 +4,14 @@ import utilities from '../utilities';
 
 const baseUrl = apiKey.firebaseConfig.databaseURL;
 
+const addMenuItem = (newMenuItem) => new Promise((resolve, reject) => {
+  axios.post(`${baseUrl}/menuItems.json`, newMenuItem)
+    .then((response) => {
+      const newMenuId = response.data;
+      resolve(newMenuId.name);
+    }).catch((err) => reject(err));
+});
+
 const deleteMenuItem = (menuItemId) => axios.delete(`${baseUrl}/menuItems/${menuItemId}.json`);
 
 const getAllMenuItems = () => new Promise((resolve, reject) => {
@@ -30,4 +38,4 @@ const getAllMenuItems = () => new Promise((resolve, reject) => {
     }).catch((err) => reject(err));
 });
 
-export default { getAllMenuItems, deleteMenuItem };
+export default { getAllMenuItems, deleteMenuItem, addMenuItem };
