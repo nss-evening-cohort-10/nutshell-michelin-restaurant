@@ -47,6 +47,17 @@ const createNewIngredient = (e) => {
   checkCurrentInventory(newIngredient);
 };
 
+const deleteIngredient = (e) => {
+  e.preventDefault();
+  const ingredientId = e.target.id.split('delete-ingredient-')[1];
+  inventoryData.deleteIngredient(ingredientId)
+    .then(() => {
+      // eslint-disable-next-line no-use-before-define
+      printIngredients();
+    })
+    .catch((error) => console.error(error));
+};
+
 const printIngredients = () => {
   inventoryData.getInventory()
     .then((ingredients) => {
@@ -62,6 +73,7 @@ const printIngredients = () => {
       domString += '</div></div>';
       utilities.printToDom('printComponent', domString);
       $('#addNewIngredient').on('click', createNewIngredient);
+      $('.ingredient-card').on('click', '.delete-ingredient-button', deleteIngredient);
     })
     .catch((error) => console.error(error));
 };

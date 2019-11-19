@@ -6,7 +6,6 @@ import util from '../../helpers/utilities';
 const deleteEmployeeOnClick = (e) => {
   e.preventDefault();
   const employeeId = $(e.target).attr('id');
-  console.log(employeeId);
   employeeData.deleteEmployeeData(employeeId)
     .then(() => {
       // eslint-disable-next-line no-use-before-define
