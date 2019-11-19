@@ -6,7 +6,6 @@ import util from '../../helpers/utilities';
 const deleteEmployeeOnClick = (e) => {
   e.preventDefault();
   const employeeId = $(e.target).attr('id');
-  console.log(employeeId);
   employeeData.deleteEmployeeData(employeeId)
     .then(() => {
       // eslint-disable-next-line no-use-before-define
@@ -21,7 +20,7 @@ const displayStaff = () => {
       let domString = `
       <h2 class="whiteh1">Staff</h2>
       <div class="d-flex justify-content-between">
-      <i class="fas fa-plus cudButton hide whiteh1 cursor" data-toggle="modal" data-target="#createStaffModal">Add Staff Member</i>
+      <button class="btn btn-secondary cudButton hide cudButton hide whiteh1 cursor" data-toggle="modal" data-target="#createStaffModal"><i class="fas fa-plus"></i> Add Staff Member</button>
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Filter Employees
@@ -53,8 +52,8 @@ const displayStaff = () => {
               <h6 class="card-text text-center">${employee.position}</h6>
               <p class="card-text">
                 <small class="text-muted d-flex justify-content-between">
-                  <i class="fas fa-pencil-alt cudButton hide cursor"></i>
-                  <i class="fas fa-trash-alt cudButton hide cursor deleteEmployee" id=${employee.id}></i>
+                  <button class="btn btn-secondary cudButton hide cursor"><i class="fas fa-pencil-alt"></i></button>
+                  <button class="btn btn-secondary cudButton hide cursor deleteEmployee" id=${employee.id}><i class="fas fa-trash-alt"></i></button>
                 </small>
               </p>
             </div>
