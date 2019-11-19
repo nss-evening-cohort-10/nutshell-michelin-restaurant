@@ -1,0 +1,122 @@
+{
+  "menuItemIngredient1": {
+    "menuItemId": "menuItem5",
+    "ingredientId": "ingredient3"
+  },
+  "menuItemIngredient2": {
+    "menuItemId": "menuItem1",
+    "ingredientId": "ingredient7"
+  },
+  "menuItemIngredient3": {
+    "menuItemId": "menuItem1",
+    "ingredientId": "ingredient14"
+  },
+  "menuItemIngredient4": {
+    "menuItemId": "menuItem1",
+    "ingredientId": "ingredient15"
+  },
+  "menuItemIngredient5": {
+    "menuItemId": "menuItem1",
+    "ingredientId": "ingredient17"
+  },
+  "menuItemIngredient6": {
+    "menuItemId": "menuItem2",
+    "ingredientId": "ingredient5"
+  },
+  "menuItemIngredient7": {
+    "menuItemId": "menuItem2",
+    "ingredientId": "ingredient10"
+  },
+  "menuItemIngredient8": {
+    "menuItemId": "menuItem2",
+    "ingredientId": "ingredient11"
+  },
+  "menuItemIngredient9": {
+    "menuItemId": "menuItem2",
+    "ingredientId": "ingredient12"
+  },
+  "menuItemIngredient10": {
+    "menuItemId": "menuItem2",
+    "ingredientId": "ingredient17"
+  },
+  "menuItemIngredient11": {
+    "menuItemId": "menuItem2",
+    "ingredientId": "ingredient20"
+  },
+  "menuItemIngredient12": {
+    "menuItemId": "menuItem3",
+    "ingredientId": "ingredient9"
+  },
+  "menuItemIngredient13": {
+    "menuItemId": "menuItem3",
+    "ingredientId": "ingredient11"
+  },
+  "menuItemIngredient14": {
+    "menuItemId": "menuItem3",
+    "ingredientId": "ingredient12"
+  },
+  "menuItemIngredient15": {
+    "menuItemId": "menuItem3",
+    "ingredientId": "ingredient15"
+  },
+  "menuItemIngredient16": {
+    "menuItemId": "menuItem3",
+    "ingredientId": "ingredient16"
+  },
+  "menuItemIngredient17": {
+    "menuItemId": "menuItem3",
+    "ingredientId": "ingredient17"
+  },
+  "menuItemIngredient18": {
+    "menuItemId": "menuItem3",
+    "ingredientId": "ingredient19"
+  },
+  "menuItemIngredient19": {
+    "menuItemId": "menuItem3",
+    "ingredientId": "ingredient8"
+  },
+  "menuItemIngredient20": {
+    "menuItemId": "menuItem4",
+    "ingredientId": "ingredient3"
+  },
+  "menuItemIngredient21": {
+    "menuItemId": "menuItem4",
+    "ingredientId": "ingredient11"
+  },
+  "menuItemIngredient22": {
+    "menuItemId": "menuItem4",
+    "ingredientId": "ingredient12"
+  },
+  "menuItemIngredient23": {
+    "menuItemId": "menuItem4",
+    "ingredientId": "ingredient13"
+  },
+  "menuItemIngredient24": {
+    "menuItemId": "menuItem4",
+    "ingredientId": "ingredient15"
+  },
+  "menuItemIngredient25": {
+    "menuItemId": "menuItem4",
+    "ingredientId": "ingredient19"
+  },
+  "menuItemIngredient26": {
+    "menuItemId": "menuItem5",
+    "ingredientId": "ingredient1"
+  },
+  "menuItemIngredient27": {
+    "menuItemId": "menuItem5",
+    "ingredientId": "ingredient2"
+  },
+  "menuItemIngredient28": {
+    "menuItemId": "menuItem5",
+    "ingredientId": "ingredient6"
+  },
+  "menuItemIngredient29": {
+    "menuItemId": "menuItem5",
+    "ingredientId": "ingredient12"
+  },
+  "menuItemIngredient30": {
+    "menuItemId": "menuItem5",
+    "ingredientId": "ingredient17"
+  }
+}
