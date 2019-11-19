@@ -104,5 +104,46 @@
     </div>
   </footer>
 
+
+<!-- Ingredient Modal: -->
+
+<div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" aria-labelledby="ingredientModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ingredientModalLabel">Add New Ingredient</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="ingredientModalForm">
+          <div class="form-group">
+            <label for="ingredient-name">Ingredient Name</label>
+            <input type="text" class="form-control" id="ingredient-name" placeholder="Potatoes">
+            <p class="hide" id="existingIngredientWarning">*This ingredient already exists</p>
+          </div>
+          <div class="form-group">
+            <label for="amount-stocked">Amount Stocked</label>
+            <input type="number" class="form-control" id="amount-stocked" placeholder="Enter amount">
+          </div>
+          <div class="form-group">
+            <label for="unit-of-measurement">UoM</label>
+            <input type="text" class="form-control" id="unit-of-measurement" placeholder="kg, g, L, etc.">
+          </div>
+          <div class="form-group">
+            <label for="ingredient-cost">Cost</label>
+            <input type="number" class="form-control" id="ingredient-cost" placeholder="$1.23">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-info" id="addNewIngredient">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
