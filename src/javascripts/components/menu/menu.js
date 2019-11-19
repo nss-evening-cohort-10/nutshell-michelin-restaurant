@@ -7,7 +7,7 @@ const printMenuCards = () => {
     console.log('from print', menuArr);
     let menuString = `
       <h2 class="whiteh1">Menu</h2>
-      <i class="fas fa-plus cudButton hide whiteh1 cursor">Add Menu Item</i>
+      <button class="cudButton hide btn btn-secondary m-1"><i class="fas fa-plus cudButton hide whiteh1 cursor">Add Menu Item</i></button>
       <div class="container mx-auto">
       <div class="d-flex flex-wrap flex-row">
     `;
@@ -33,15 +33,15 @@ const printMenuCards = () => {
           <div class="card-body">
             <div class="row d-flex">
               <p class="card-text col-11">${item.description}</p>
-              <button class="cudButton hide col-1"><i class="fas fa-pencil-alt"></i></button>
+              <button class="cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
             </div>
             <div class="row d-flex">
               <p class="card-text col-11">Ingredients: ${ingredientString}</p>
-              <button class="cudButton hide col-1"><i class="fas fa-pencil-alt"></i></button>
+              <button class="cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
             </div>
             <div class="card-text">
-              <small class="text-muted d-flex justify-content-between">
-              <button class="cudButton hide col-1 deleteMenuItem"><i class="fas fa-trash-alt" id=${item.id}></i></button>
+              <small class="text-muted d-flex align-right">
+              <button class="cudButton hide btn btn-secondary col-1 deleteMenuItem"><i class="fas fa-trash-alt" id=${item.id}></i></button>
               </small>
             </div>
           </div>
