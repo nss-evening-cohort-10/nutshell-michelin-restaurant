@@ -40,6 +40,13 @@ const removeFromMenu = (e) => {
   }).catch((err) => console.error(err));
 };
 
+const changeMenuItem = (e) => {
+  const selectedMenuId = $(e.target).closest('.menuCard').attr('id');
+  menuData.getMenuItemById(selectedMenuId).then((menuObj) => console.log(menuObj)).catch((err) => console.error(err));
+};
+
+const changeMenuIngredients = () => {};
+
 const printMenuCards = () => {
   smash.getMenuWithIngredients().then((menuArr) => {
     let menuString = `
@@ -70,11 +77,11 @@ const printMenuCards = () => {
           <div class="card-body">
             <div class="row d-flex">
               <p class="card-text col-11">${item.description}</p>
-              <button class="cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
+              <button class="editMenuItemBtn cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
             </div>
             <div class="row d-flex">
               <p class="card-text col-11">Ingredients: ${ingredientString}</p>
-              <button class="cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
+              <button class="editMenuIngredientsBtn cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
             </div>
             <div class="card-text">
               <small class="text-muted d-flex align-right">
@@ -89,6 +96,8 @@ const printMenuCards = () => {
     utilities.printToDom('printComponent', menuString);
     $('body').on('click', '#newMenuBtn', createMenuItem);
     $('body').on('click', '.deleteMenuItem', removeFromMenu);
+    $('body').on('click', '.editMenuItemBtn', changeMenuItem);
+    $('body').on('click', '.editMenuIngredientsBtn', changeMenuIngredients);
   }).catch((err) => console.error(err));
 };
 

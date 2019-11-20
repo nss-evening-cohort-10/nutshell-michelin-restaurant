@@ -14,6 +14,13 @@ const addMenuItem = (newMenuItem) => new Promise((resolve, reject) => {
 
 const deleteMenuItem = (menuItemId) => axios.delete(`${baseUrl}/menuItems/${menuItemId}.json`);
 
+const getMenuItemById = (menuItemId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/menuItems/${menuItemId}.json`)
+    .then((response) => {
+      resolve(response.data);
+    }).catch((err) => reject(err));
+});
+
 const getAllMenuItems = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/menuItems.json`)
     .then((response) => {
@@ -38,4 +45,9 @@ const getAllMenuItems = () => new Promise((resolve, reject) => {
     }).catch((err) => reject(err));
 });
 
-export default { getAllMenuItems, deleteMenuItem, addMenuItem };
+export default {
+  getAllMenuItems,
+  deleteMenuItem,
+  addMenuItem,
+  getMenuItemById,
+};
