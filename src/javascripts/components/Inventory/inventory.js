@@ -104,26 +104,40 @@ const updateModal = (e) => {
     .catch((error) => console.error(error));
 };
 
+// const searchEvent = () => {
+//   const userSearchInput =
+// };
+
+const printIngredientHeader = () => {
+  const domString = `
+  <h2>Inventory</h2>
+  <button class="btn btn-secondary cudButton my-3" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
+  <div class="container mx-auto">
+  <div class="d-flex flex-wrap flex-row" id="ingredient-holder">
+  </div></div>
+  `;
+  utilities.printToDom('printComponent', domString);
+  $('#addNewIngredient').on('click', createNewIngredient);
+};
+
+
 const printIngredients = () => {
   inventoryData.getInventory()
     .then((ingredients) => {
-      let domString = `
-      <h2>Inventory</h2>
-      <button class="btn btn-secondary cudButton my-3" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
-      <div class="container mx-auto">
-      <div class="d-flex flex-wrap flex-row">
-      `;
+      let domString = '';
       ingredients.forEach((ingredient) => {
         domString += makeIngredientCard.makeIngredientCard(ingredient);
       });
-      domString += '</div></div>';
-      utilities.printToDom('printComponent', domString);
-      $('#addNewIngredient').on('click', createNewIngredient);
+      utilities.printToDom('ingredient-holder', domString);
       $('.ingredient-card').on('click', '.delete-ingredient-button', deleteIngredient);
-      // eslint-disable-next-line no-use-before-define
       $('.ingredient-card').on('click', '.update-ingredient-button', updateModal);
     })
     .catch((error) => console.error(error));
 };
 
-export default { printIngredients };
+const init = () => {
+  printIngredientHeader();
+  printIngredients();
+};
+
+export default { init };
