@@ -14,6 +14,8 @@ const addMenuItem = (newMenuItem) => new Promise((resolve, reject) => {
 
 const deleteMenuItem = (menuItemId) => axios.delete(`${baseUrl}/menuItems/${menuItemId}.json`);
 
+const updateMenuItem = (menuId, updatedMenuItem) => axios.put(`${baseUrl}/menuItems/${menuId}.json`, updatedMenuItem);
+
 const getMenuItemById = (menuItemId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/menuItems/${menuItemId}.json`)
     .then((response) => {
@@ -50,4 +52,5 @@ export default {
   deleteMenuItem,
   addMenuItem,
   getMenuItemById,
+  updateMenuItem,
 };

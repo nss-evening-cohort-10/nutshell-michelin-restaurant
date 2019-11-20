@@ -40,17 +40,42 @@ const removeFromMenu = (e) => {
   }).catch((err) => console.error(err));
 };
 
+const saveMenuChange = (e) => {
+  e.stopImmediatePropagation();
+  const menuToUpdate = $('.menuIdPlaceholder').attr('id');
+  console.log('saveMenuChange', menuToUpdate);
+  const updatedMenuItem = {
+    name: $('#menu-name').val(),
+    price: $('#menu-price').val(),
+    description: $('#menu-description').val(),
+    imgUrl: $('#menu-imgUrl').val(),
+    category: $('#categoryDropdown').val(),
+  };
+  menuData.updateMenuItem(menuToUpdate, updatedMenuItem)
+    .then(() => {
+      $('#newMenuModal').modal('hide');
+      $('#addMenuForm').trigger('reset');
+      // eslint-disable-next-line no-use-before-define
+      printMenuCards();
+    }).catch((err) => console.error(err));
+};
+
 const changeMenuItem = (e) => {
+  e.stopImmediatePropagation();
   const selectedMenuId = $(e.target).attr('id').split('edit-')[1];
-  console.log(selectedMenuId);
+  console.log('changeMenuItem', selectedMenuId);
   menuData.getMenuItemById(selectedMenuId)
     .then((menuObj) => {
+      $('.menuIdPlaceholder').attr('id', selectedMenuId);
       $('#newMenuModal').modal('show');
+      $('#newMenuBtn').addClass('hide');
+      $('#saveMenuUpdate').removeClass('hide');
       $('#menu-name').val(menuObj.name);
       $('#menu-description').val(menuObj.description);
       $('#menu-price').val(menuObj.price);
       $('#menu-imgUrl').val(menuObj.imgUrl);
-      // $('#categoryDropdown').val();
+      $(`select#categoryDropdown option[value='${menuObj.category}']`).prop('selected', true);
+      $('#saveMenuUpdate').click(saveMenuChange);
       console.log(menuObj);
     }).catch((err) => console.error(err));
 };
