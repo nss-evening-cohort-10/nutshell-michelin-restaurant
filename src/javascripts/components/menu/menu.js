@@ -121,40 +121,60 @@ const changeMenuItem = (e) => {
     }).catch((err) => console.error(err));
 };
 
-const updateIngredients = (menuIngredientId, currentIngredients) => new Promise((resolve, reject) => {
+const updateIngredients = () => new Promise((resolve, reject) => {
   const chosenIngredients = $('.ingredientCheckboxes input:checked');
-  const newIngredients = [];
-  for (let i = 0; i < chosenIngredients.length; i += 1) {
-    newIngredients.push($(chosenIngredients[i]).attr('id'));
-  }
-  const ingredientsToDelete = currentIngredients.filter((x) => !newIngredients.includes(x.ingredientId));
-  ingredientsToDelete.forEach((removal) => {
-    menuIngredientsData.deleteMenuIngredients(removal.id);
-  });
-  const oldIngredients = [];
-  currentIngredients.forEach((menuIngredient) => {
-    oldIngredients.push(menuIngredient.ingredientId);
-  });
-  const toAdd = newIngredients.filter((x) => !oldIngredients.includes(x));
+  const menuIngredientId = $('.selectIngredientList').attr('id').split('for-')[1];
+  console.log('chosenIngredients', chosenIngredients, menuIngredientId);
   menuIngredientsData.getAllMenuIngredients()
-    .then((response) => {
-      response.forEach((ingredientItem) => {
-        const menuIngredientIdsToAdd = toAdd.filter((y) => y === ingredientItem.ingredientId);
-        if (menuIngredientIdsToAdd[0]) {
-          const addedIngredient = {};
-          addedIngredient.menuItemId = menuIngredientId;
-          addedIngredient.ingredientId = ingredientItem.ingredientId;
-          menuIngredientsData.addMenuIngredient(addedIngredient);
+    .then((allMenuIngredients) => {
+      const currentIngredients = [];
+      allMenuIngredients.forEach((ingredient) => {
+        if (ingredient.menuItemId === menuIngredientId) {
+          currentIngredients.push(ingredient);
         }
       });
+      console.log('currentIngredients', currentIngredients);
+      const newIngredients = [];
+      for (let i = 0; i < chosenIngredients.length; i += 1) {
+        newIngredients.push($(chosenIngredients[i]).attr('id'));
+      }
+      console.log('newIngredients', newIngredients);
+      const ingredientsToDelete = currentIngredients.filter((x) => !newIngredients.includes(x.ingredientId));
+      ingredientsToDelete.forEach((removal) => {
+        console.log('to delete', removal.id);
+        menuIngredientsData.deleteMenuIngredients(removal.id);
+      });
+      const oldIngredients = [];
+      currentIngredients.forEach((menuIngredient) => {
+        oldIngredients.push(menuIngredient.ingredientId);
+      });
+      console.log('old match current', oldIngredients);
+      const toAdd = newIngredients.filter((x) => !oldIngredients.includes(x));
+      console.log('toadd', toAdd);
+      menuIngredientsData.getAllMenuIngredients()
+        .then((response) => {
+          toAdd.forEach((addition) => {
+            const menuIngredientIdsToAdd = response.find((y) => y.ingredientId === addition);
+            console.log('menuIngredientIdsToAdd', menuIngredientIdsToAdd);
+            // const ingredientToPrint = response.find((z) => z.id === menuIngredientIdsToAdd.id);
+            // console.log(ingredientToPrint);
+            if (menuIngredientIdsToAdd) {
+              const addedIngredient = {};
+              console.log(response.ingredientId);
+              addedIngredient.menuItemId = menuIngredientId;
+              addedIngredient.ingredientId = menuIngredientIdsToAdd.ingredientId;
+              menuIngredientsData.addMenuIngredient(addedIngredient);
+              console.log('added', addedIngredient);
+            }
+          });
+        });
       resolve();
     }).catch((err) => reject(err));
 });
 
-const saveMenuIngredientChanges = (e, menuIngredientId, currentIngredients) => {
+const saveMenuIngredientChanges = (e) => {
   e.stopImmediatePropagation();
-  console.log(menuIngredientId, currentIngredients);
-  updateIngredients(menuIngredientId, currentIngredients)
+  updateIngredients()
     .then(() => {
       $('#newMenuIngredientBtn').removeClass('hide');
       $('#updateMenuIngredientBtn').addClass('hide');
@@ -168,7 +188,7 @@ const changeMenuIngredients = (e) => {
   e.stopImmediatePropagation();
   const selectedMenuIngredientId = $(e.target).attr('id').split('editIngredients-')[1];
   console.log('changeMenuIngredients', selectedMenuIngredientId);
-  printIngredientsForm();
+  printIngredientsForm(selectedMenuIngredientId);
   $('#newMenuIngredientBtn').addClass('hide');
   $('#updateMenuIngredientBtn').removeClass('hide');
   menuIngredientsData.getAllMenuIngredients()
