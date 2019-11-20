@@ -18,26 +18,28 @@ const displayStaff = () => {
   employeeData.employeesDataByEmployeeId()
     .then((employees) => {
       let domString = `
-      <h2 class="whiteh1">Staff</h2>
-      <div class="d-flex justify-content-between">
-      <button class="btn btn-secondary cudButton hide cudButton hide whiteh1 cursor" data-toggle="modal" data-target="#createStaffModal"><i class="fas fa-plus"></i> Add Staff Member</button>
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Filter Employees
-        </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <button class="dropdown-item filterStaffButton" type="button" id="all">All Positions</button>
-        <button class="dropdown-item filterStaffButton" type="button" id="SousChef">Sous Chef</button>
-        <button class="dropdown-item filterStaffButton" type="button" id="ExecutiveSousChef">Executive Sous Chef</button>
-        <button class="dropdown-item filterStaffButton" type="button" id="HeadChef">Head Chef</button>
-        <button class="dropdown-item filterStaffButton" type="button" id="PastryChef">Pastry Chef</button>
-        <button class="dropdown-item filterStaffButton" type="button" id="Chef">Chef</button>
-        <button class="dropdown-item filterStaffButton" type="button" id="HeadSommelier">Head Sommelier</button>
-        <button class="dropdown-item filterStaffButton" type="button" id="DirectorofOperations">Director of Operations</button>
-        <button class="dropdown-item filterStaffButton" type="button" id="BarDirector">Bar Director</button>
-        <button class="dropdown-item filterStaffButton" type="button" id="RestaurantManager">Restaurant Manager</button>
-        <button class="dropdown-item filterStaffButton" type="button" id="HeadofWaitStaff">Head of Wait Staff</button>
-      </div>
+      <div class="d-flex justify-content-between m-2">
+      <h1 class="whiteh1">Staff</h1>
+      <div class="d-flex justify-content-end">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle editHeight" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Filter Employees
+          </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item filterStaffButton" type="button" id="all">All Positions</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="SousChef">Sous Chef</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="ExecutiveSousChef">Executive Sous Chef</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="HeadChef">Head Chef</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="PastryChef">Pastry Chef</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="Chef">Chef</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="HeadSommelier">Head Sommelier</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="DirectorofOperations">Director of Operations</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="BarDirector">Bar Director</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="RestaurantManager">Restaurant Manager</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="HeadofWaitStaff">Head of Wait Staff</button>
+        </div>
+        </div>
+          <button class="btn btn-secondary cudButton hide cudButton hide whiteh1 cursor" data-toggle="modal" data-target="#createStaffModal"><i class="fas fa-plus"></i> Add Staff Member</button>
       </div>
       </div>
       <div class="container mx-auto">
@@ -157,6 +159,7 @@ const filterStaffButtonClick = (e) => {
             <button class="dropdown-item filterStaffButton" type="button" id="DirectorofOperations">Director of Operations</button>
             <button class="dropdown-item filterStaffButton" type="button" id="BarDirector">Bar Director</button>
             <button class="dropdown-item filterStaffButton" type="button" id="RestaurantManager">Restaurant Manager</button>
+            <button class="dropdown-item filterStaffButton" type="button" id="HeadofWaitStaff">Head of Wait Staff</button>
           </div>
           </div>
           </div>

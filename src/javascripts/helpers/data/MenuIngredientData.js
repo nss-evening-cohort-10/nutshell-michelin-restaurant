@@ -5,6 +5,8 @@ const baseUrl = apiKey.firebaseConfig.databaseURL;
 
 const deleteMenuIngredients = (menuIngredientId) => axios.delete(`${baseUrl}/menuItemIngredients/${menuIngredientId}.json`);
 
+const addMenuIngredient = (newMenuIngredient) => axios.post(`${baseUrl}/menuItemIngredients.json`, newMenuIngredient);
+
 const getAllMenuIngredients = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/menuItemIngredients.json`)
     .then((response) => {
@@ -20,4 +22,4 @@ const getAllMenuIngredients = () => new Promise((resolve, reject) => {
     }).catch((err) => reject(err));
 });
 
-export default { getAllMenuIngredients, deleteMenuIngredients };
+export default { getAllMenuIngredients, deleteMenuIngredients, addMenuIngredient };

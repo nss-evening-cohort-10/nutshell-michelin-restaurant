@@ -6,24 +6,26 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Le Baguette</title>
   <script src="https://kit.fontawesome.com/77ac921172.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Orbitron:400,700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="loggedInDiv">
     <div id="navbarDiv">
-      <nav class="navbar this-is-navbar navbar-dark bg-dark d-flex navbar-container my-0">
+      <nav class="navbar this-is-navbar navbar-warning bg-warning d-flex navbar-container my-0">
         <div class="align-left"> 
-          <a class="navbar-brand activateMenu" href="#">Menu</a>
-          <a class="navbar-brand activateInventory" href="#">Inventory</a>
-          <a class="navbar-brand activateStaff" href="#">Staff</a>
+          <a class="navbar-brand activateMenu blackText" href="#">Menu</a>
+          <a class="navbar-brand activateInventory blackText" href="#">Inventory</a>
+          <a class="navbar-brand activateStaff blackText" href="#">Staff</a>
         </div> 
         <div class="text-center">
-          <h1 class="activateHome whiteh1 cursor" href="#">Le Baguette</h1>
+          <h1 class="activateHome blackText cursor brandName" href="#">Le Baguette</h1>
         </div>
         <div class="align-right">
-          <a class="navbar-brand activateSeatingChart" href="#">Seating Chart</a>
-          <a class="navbar-brand activateReservations" href="#">Reservations</a>
-          <button class="btn btn-primary activateLogin">Login</button>
-          <button class="btn btn-danger activateLogout hide">Logout</button>
+          <a class="navbar-brand activateSeatingChart blackText" href="#">Seating Chart</a>
+          <a class="navbar-brand activateReservations blackText" href="#">Reservations</a>
+          <button class="btn btn-outline-dark activateLogin">Login</button>
+          <button class="btn btn-outline-dark activateLogout hide">Logout</button>
         </div>
       </nav>
     </div>
@@ -70,7 +72,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-secondary" id="add-new-reservation">Complete Reservation</button>
+          <button type="button" class="btn btn-outline-dark" id="add-new-reservation">Complete Reservation</button>
         </div>
       </div>
     </div>
@@ -93,7 +95,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-secondary" id="update-reservation" store-reservationId="">Update Reservation</button>
+          <button type="button" class="btn btn-outline-dark" id="update-reservation" store-reservationId="">Update Reservation</button>
         </div>
       </div>
     </div>
@@ -141,9 +143,33 @@
             </form>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+            <button type="button" id="newMenuBtn" class="btn btn-outline-dark">Save</button>
+            <button type="button" id="saveMenuUpdate" class="btn btn-outline-dark hide">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- Menu Ingredient Modal: -->
+
+  <div class="modal fade" id="newMenuIngredientsModal" tabindex="-1" role="dialog" aria-labelledby="newMenuIngredientsModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create a New Menu Item Ingredients</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id='addMenuIngredientsForm'>
+            </form>
+          </div>
+          <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" id="newMenuBtn" class="btn btn-info">Save</button>
-            <button type="button" id="saveMenuUpdate" class="btn btn-info hide">Update</button>
+            <button type="button" id="newMenuIngredientBtn" class="btn btn-info">Save</button>
+            <button type="button" id="updateMenuIngredientBtn" class="btn btn-info hide">Update</button>
           </div>
         </div>
       </div>
@@ -182,8 +208,10 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-info" id="addNewIngredient">Save changes</button>
+        <p class="hacker-space"></p>
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-dark" id="addNewIngredient">Save changes</button>
+        <button type="button" class="btn btn-outline-dark hide" id="updateIngredient">Save changes</button>
       </div>
     </div>
   </div>

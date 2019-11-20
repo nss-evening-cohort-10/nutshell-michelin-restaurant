@@ -26,7 +26,7 @@ const init = () => {
   $('body').on('click', '.activateReservations', reservations.printReservations);
   $('body').on('click', '.activateSeatingChart', seating.printSeatingChart);
   $('body').on('click', '.activateStaff', employeeDisplay.displayStaff);
-  $('body').on('click', '.activateInventory', inventory.printIngredients);
+  $('body').on('click', '.activateInventory', inventory.init);
   $('body').on('click', '.deleteEmployee', employeesData.employeesDataByEmployeeId, employeeDisplay.deleteEmployeeOnClick);
   $('body').on('click', '#add-new-staff', employeeDisplay.createEmployeeOnClick);
   $('body').on('click', '.filterStaffButton', employeeDisplay.filterStaffButtonClick);

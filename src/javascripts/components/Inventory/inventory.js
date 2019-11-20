@@ -12,6 +12,13 @@ const clearForm = () => {
   $('#ingredient-cost').val('');
 };
 
+const returnModalToOriginalState = () => {
+  $('#ingredientModalLabel').html('Add New Ingredient');
+  $('#updateIngredient').addClass('hide');
+  $('#addNewIngredient').removeClass('hide');
+  clearForm();
+};
+
 const sendNewIngredientToDb = (newIngredient) => {
   inventoryData.addIngredient(newIngredient)
     .then(() => {
@@ -58,25 +65,97 @@ const deleteIngredient = (e) => {
     .catch((error) => console.error(error));
 };
 
-const printIngredients = () => {
-  inventoryData.getInventory()
-    .then((ingredients) => {
-      let domString = `
-      <h2>Inventory</h2>
-      <button class="btn btn-secondary cudButton my-3" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
-      <div class="container mx-auto">
-      <div class="d-flex flex-wrap flex-row">
-      `;
-      ingredients.forEach((ingredient) => {
-        domString += makeIngredientCard.makeIngredientCard(ingredient);
-      });
-      domString += '</div></div>';
-      utilities.printToDom('printComponent', domString);
-      $('#addNewIngredient').on('click', createNewIngredient);
-      $('.ingredient-card').on('click', '.delete-ingredient-button', deleteIngredient);
+const updateIngredient = (event) => {
+  event.stopImmediatePropagation();
+  const ingredientId = $('.hacker-space').attr('id');
+  const updatedIngredient = {
+    name: $('#ingredient-name').val(),
+    amountStocked: $('#amount-stocked').val() * 1,
+    unitOfMeasurement: $('#unit-of-measurement').val(),
+    cost: $('#ingredient-cost').val() * 100,
+  };
+  inventoryData.updateIngredient(ingredientId, updatedIngredient)
+    .then(() => {
+      $('#addIngredientModal').modal('hide');
+      returnModalToOriginalState();
+      // eslint-disable-next-line no-use-before-define
+      printIngredients();
+      clearForm();
     })
     .catch((error) => console.error(error));
 };
 
+const updateModal = (e) => {
+  const ingredientId = e.target.id.split('update-ingredient-')[1];
+  $('#updateIngredient').click(updateIngredient);
+  $('#ingredientModalLabel').html('Update Ingredient');
+  $('#addNewIngredient').addClass('hide');
+  $('#updateIngredient').removeClass('hide');
+  $('.hacker-space').attr('id', ingredientId);
+  clearForm();
+  inventoryData.getInventory()
+    .then((ingredients) => {
+      const matchedIngredient = ingredients.find((x) => x.id === ingredientId);
+      $('#ingredient-name').val(matchedIngredient.name);
+      $('#amount-stocked').val(matchedIngredient.amountStocked);
+      $('#unit-of-measurement').val(matchedIngredient.unitOfMeasurement);
+      $('#ingredient-cost').val(matchedIngredient.cost / 100);
+    })
+    .catch((error) => console.error(error));
+};
 
-export default { printIngredients };
+const filteredIngredientPrinter = (filteredIngredients) => {
+  let domString = '';
+  filteredIngredients.forEach((ingredient) => {
+    domString += makeIngredientCard.makeIngredientCard(ingredient);
+  });
+  utilities.printToDom('ingredient-holder', domString);
+  $('.ingredient-card').on('click', '.delete-ingredient-button', deleteIngredient);
+  $('.ingredient-card').on('click', '.update-ingredient-button', updateModal);
+};
+
+const searchIngredients = (e) => {
+  const userSearchInput = e.target.value.toLowerCase();
+  inventoryData.getInventory()
+    .then((ingredients) => {
+      const filteredIngredients = ingredients.filter((x) => x.name.toLowerCase().includes(userSearchInput));
+      filteredIngredientPrinter(filteredIngredients);
+    })
+    .catch((error) => console.error(error));
+};
+
+const printIngredientHeader = () => {
+  const domString = `
+  <h2>Inventory</h2>
+  <input id="ingredientSearchInput" class="form-control col-3" type="search" placeholder="Search for ingredients" aria-label="Search">
+  <button class="btn btn-secondary cudButton my-3" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
+  <div class="container mx-auto">
+  <div class="d-flex flex-wrap flex-row" id="ingredient-holder">
+  </div></div>
+  `;
+  utilities.printToDom('printComponent', domString);
+  $('#addNewIngredient').on('click', createNewIngredient);
+  $('#ingredientSearchInput').on('keyup', searchIngredients);
+};
+
+
+const printIngredients = () => {
+  inventoryData.getInventory()
+    .then((ingredients) => {
+      let domString = '';
+      ingredients.forEach((ingredient) => {
+        domString += makeIngredientCard.makeIngredientCard(ingredient);
+      });
+      utilities.printToDom('ingredient-holder', domString);
+      $('.ingredient-card').on('click', '.delete-ingredient-button', deleteIngredient);
+      $('.ingredient-card').on('click', '.update-ingredient-button', updateModal);
+    })
+    .catch((error) => console.error(error));
+};
+
+const init = () => {
+  printIngredientHeader();
+  printIngredients();
+};
+
+export default { init };
