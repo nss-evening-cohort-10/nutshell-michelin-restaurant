@@ -14,9 +14,13 @@ const findMenuIngredients = (e) => {
     const selectedIngredients = {};
     selectedIngredients.menuItemId = newMenuId;
     selectedIngredients.ingredientId = $(checked[i]).attr('id');
-    menuIngredientsData.addMenuIngredient(selectedIngredients);
+    menuIngredientsData.addMenuIngredient(selectedIngredients)
+      .then(() => {
+        // eslint-disable-next-line no-use-before-define
+        printMenuCards();
+        $('#newMenuIngredientsModal').modal('hide');
+      }).catch((err) => console.error(err));
   }
-  $('#newMenuIngredientsModal').modal('hide');
 };
 
 const printIngredientsForm = (menuId) => {
@@ -88,6 +92,8 @@ const saveMenuChange = (e) => {
   };
   menuData.updateMenuItem(menuToUpdate, updatedMenuItem)
     .then(() => {
+      $('#newMenuBtn').removeClass('hide');
+      $('#saveMenuUpdate').addClass('hide');
       $('#newMenuModal').modal('hide');
       $('#addMenuForm').trigger('reset');
       // eslint-disable-next-line no-use-before-define
@@ -115,9 +121,47 @@ const changeMenuItem = (e) => {
     }).catch((err) => console.error(err));
 };
 
+const updateIngredients = (menuIngredientId, currentIngredients) => new Promise((resolve, reject) => {
+  const chosenIngredients = $('.ingredientCheckboxes input:checked');
+  const newIngredients = [];
+  for (let i = 0; i < chosenIngredients.length; i += 1) {
+    newIngredients.push($(chosenIngredients[i]).attr('id'));
+  }
+  const ingredientsToDelete = currentIngredients.filter((x) => !newIngredients.includes(x.ingredientId));
+  ingredientsToDelete.forEach((removal) => {
+    menuIngredientsData.deleteMenuIngredients(removal.id);
+  });
+  const oldIngredients = [];
+  currentIngredients.forEach((menuIngredient) => {
+    oldIngredients.push(menuIngredient.ingredientId);
+  });
+  const toAdd = newIngredients.filter((x) => !oldIngredients.includes(x));
+  menuIngredientsData.getAllMenuIngredients()
+    .then((response) => {
+      response.forEach((ingredientItem) => {
+        const menuIngredientIdsToAdd = toAdd.filter((y) => y === ingredientItem.ingredientId);
+        if (menuIngredientIdsToAdd[0]) {
+          const addedIngredient = {};
+          addedIngredient.menuItemId = menuIngredientId;
+          addedIngredient.ingredientId = ingredientItem.ingredientId;
+          menuIngredientsData.addMenuIngredient(addedIngredient);
+        }
+      });
+      resolve();
+    }).catch((err) => reject(err));
+});
+
 const saveMenuIngredientChanges = (e, menuIngredientId, currentIngredients) => {
   e.stopImmediatePropagation();
   console.log(menuIngredientId, currentIngredients);
+  updateIngredients(menuIngredientId, currentIngredients)
+    .then(() => {
+      $('#newMenuIngredientBtn').removeClass('hide');
+      $('#updateMenuIngredientBtn').addClass('hide');
+      $('#newMenuIngredientsModal').modal('hide');
+      // eslint-disable-next-line no-use-before-define
+      printMenuCards();
+    }).catch((err) => console.error(err));
 };
 
 const changeMenuIngredients = (e) => {
