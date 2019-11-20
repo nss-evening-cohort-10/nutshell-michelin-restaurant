@@ -2,6 +2,11 @@
   margin: 1rem;
   text-align: center;
   justify-content: center;
+  background-color: rgb(61, 61, 61);
+
+  &:hover {
+    box-shadow: 0 0 30px whitesmoke;
+  }
 }
 
 .seating-card h2, h4 { 
