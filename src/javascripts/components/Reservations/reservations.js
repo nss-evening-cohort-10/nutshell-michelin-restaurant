@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import moment from 'moment';
+import './reservations.scss';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 
@@ -117,7 +118,7 @@ const printReservations = () => {
       domString += `
       <div class="d-flex flex-wrap justify-content-between m-2 whiteh1">
         <h1>Reservations</h1>
-        <button class="btn btn-light cudButton" id="addReservation" data-toggle="modal" data-target="#addReservationModal">Add Reservation</button>
+        <button class="btn btn-secondary cudButton" id="addReservation" data-toggle="modal" data-target="#addReservationModal">Add Reservation</button>
       </div>
       `;
       domString += '<div id="reservations-section" class="d-flex flex-wrap">';
@@ -125,7 +126,7 @@ const printReservations = () => {
         const time = `${reservation.timeStamp}`;
         const timeFormatted = moment(time).format('LLL');
         domString += `
-        <div class="card col-10 offset-1 px-0" id="${reservation.id}">
+        <div class="card col-10 offset-1 px-0 my-2" id="${reservation.id}">
           <div class="card-header">
             <h2>${reservation.customerName}</h2>
           </div>
@@ -135,8 +136,10 @@ const printReservations = () => {
               <p class="card-text">Table Number: ${reservation.seatingId.split('table-').join('')}</p>
               <p class="card-text">${timeFormatted}</p>
             </div>
-            <button class="btn btn-light cudButton delete-reservation">Delete</button>
-            <a href="#" class="cudButton btn btn-light edit-reservation">Edit</a>
+            <div class="d-flex justify-content-end">
+            <button class="btn btn-light cudButton delete-reservation"><i class="fas fa-trash-alt"></i></button>
+            <a href="#" class="cudButton btn btn-light edit-reservation"><i class="fas fa-pencil-alt"></i></a>
+            </div>
           </div>
         </div>`;
       });

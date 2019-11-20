@@ -21,4 +21,11 @@ const addIngredient = (newIngredient) => axios.post(`${baseUrl}/ingredients.json
 
 const deleteIngredient = (ingredientId) => axios.delete(`${baseUrl}/ingredients/${ingredientId}.json`);
 
-export default { getInventory, addIngredient, deleteIngredient };
+const updateIngredient = (ingredientId, updatedIngredientObject) => axios.put(`${baseUrl}/ingredients/${ingredientId}.json`, updatedIngredientObject);
+
+export default {
+  getInventory,
+  addIngredient,
+  deleteIngredient,
+  updateIngredient,
+};

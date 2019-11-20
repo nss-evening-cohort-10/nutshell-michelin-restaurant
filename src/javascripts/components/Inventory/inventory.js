@@ -12,6 +12,13 @@ const clearForm = () => {
   $('#ingredient-cost').val('');
 };
 
+const returnModalToOriginalState = () => {
+  $('#ingredientModalLabel').html('Add New Ingredient');
+  $('#updateIngredient').addClass('hide');
+  $('#addNewIngredient').removeClass('hide');
+  clearForm();
+};
+
 const sendNewIngredientToDb = (newIngredient) => {
   inventoryData.addIngredient(newIngredient)
     .then(() => {
@@ -58,12 +65,53 @@ const deleteIngredient = (e) => {
     .catch((error) => console.error(error));
 };
 
+const updateIngredient = (event) => {
+  event.stopImmediatePropagation();
+  const ingredientId = $('.hacker-space').attr('id');
+  const updatedIngredient = {
+    name: $('#ingredient-name').val(),
+    amountStocked: $('#amount-stocked').val() * 1,
+    unitOfMeasurement: $('#unit-of-measurement').val(),
+    cost: $('#ingredient-cost').val() * 100,
+  };
+  inventoryData.updateIngredient(ingredientId, updatedIngredient)
+    .then(() => {
+      $('#addIngredientModal').modal('hide');
+      returnModalToOriginalState();
+      // eslint-disable-next-line no-use-before-define
+      printIngredients();
+      clearForm();
+    })
+    .catch((error) => console.error(error));
+};
+
+const updateModal = (e) => {
+  const ingredientId = e.target.id.split('update-ingredient-')[1];
+  $('#updateIngredient').click(updateIngredient);
+  $('#ingredientModalLabel').html('Update Ingredient');
+  $('#addNewIngredient').addClass('hide');
+  $('#updateIngredient').removeClass('hide');
+  $('.hacker-space').attr('id', ingredientId);
+  clearForm();
+  inventoryData.getInventory()
+    .then((ingredients) => {
+      const matchedIngredient = ingredients.find((x) => x.id === ingredientId);
+      $('#ingredient-name').val(matchedIngredient.name);
+      $('#amount-stocked').val(matchedIngredient.amountStocked);
+      $('#unit-of-measurement').val(matchedIngredient.unitOfMeasurement);
+      $('#ingredient-cost').val(matchedIngredient.cost / 100);
+    })
+    .catch((error) => console.error(error));
+};
+
 const printIngredients = () => {
   inventoryData.getInventory()
     .then((ingredients) => {
       let domString = `
-      <h2>Inventory</h2>
-      <button class="btn btn-secondary cudButton my-3" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
+      <div class="d-flex flex-wrap justify-content-between m-2 whiteh1">
+        <h1>Inventory</h1>
+        <button class="btn btn-secondary cudButton" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
+      </div>
       <div class="container mx-auto">
       <div class="d-flex flex-wrap flex-row">
       `;
@@ -74,9 +122,10 @@ const printIngredients = () => {
       utilities.printToDom('printComponent', domString);
       $('#addNewIngredient').on('click', createNewIngredient);
       $('.ingredient-card').on('click', '.delete-ingredient-button', deleteIngredient);
+      // eslint-disable-next-line no-use-before-define
+      $('.ingredient-card').on('click', '.update-ingredient-button', updateModal);
     })
     .catch((error) => console.error(error));
 };
-
 
 export default { printIngredients };

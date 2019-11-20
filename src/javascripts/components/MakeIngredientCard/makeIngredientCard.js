@@ -11,6 +11,9 @@ const makeIngredientCard = (ingredient) => {
       <p class="text-left">Amount Stocked: ${ingredient.amountStocked} ${ingredient.unitOfMeasurement}</p>
       <div class="card-footer ingredientCardFooter">
       <button class="btn btn-secondary cudButton delete-ingredient-button" id="delete-ingredient-${ingredient.id}"><i class="fa fa-trash" aria-hidden="true"></i></button>
+      <button class="btn btn-secondary cudButton update-ingredient-button" data-toggle="modal" data-target="#addIngredientModal" id="update-ingredient-${ingredient.id}">
+        <i class="fas fa-pencil-alt"></i>
+      </button>
       </div>
     </div>
   </div>
