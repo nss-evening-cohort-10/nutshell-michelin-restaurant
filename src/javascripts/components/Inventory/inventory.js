@@ -62,8 +62,10 @@ const printIngredients = () => {
   inventoryData.getInventory()
     .then((ingredients) => {
       let domString = `
-      <h2>Inventory</h2>
-      <button class="btn btn-secondary cudButton my-3" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
+      <div class="d-flex flex-wrap justify-content-between m-2 whiteh1">
+        <h1>Inventory</h1>
+        <button class="btn btn-secondary cudButton" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
+      </div>
       <div class="container mx-auto">
       <div class="d-flex flex-wrap flex-row">
       `;

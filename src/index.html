@@ -6,24 +6,25 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Le Baguette</title>
   <script src="https://kit.fontawesome.com/77ac921172.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="loggedInDiv">
     <div id="navbarDiv">
-      <nav class="navbar this-is-navbar navbar-dark bg-dark d-flex navbar-container my-0">
+      <nav class="navbar this-is-navbar navbar-warning bg-warning d-flex navbar-container my-0">
         <div class="align-left"> 
-          <a class="navbar-brand activateMenu" href="#">Menu</a>
-          <a class="navbar-brand activateInventory" href="#">Inventory</a>
-          <a class="navbar-brand activateStaff" href="#">Staff</a>
+          <a class="navbar-brand activateMenu blackText" href="#">Menu</a>
+          <a class="navbar-brand activateInventory blackText" href="#">Inventory</a>
+          <a class="navbar-brand activateStaff blackText" href="#">Staff</a>
         </div> 
         <div class="text-center">
-          <h1 class="activateHome whiteh1 cursor" href="#">Le Baguette</h1>
+          <h1 class="activateHome blackText cursor" href="#">Le Baguette</h1>
         </div>
         <div class="align-right">
-          <a class="navbar-brand activateSeatingChart" href="#">Seating Chart</a>
-          <a class="navbar-brand activateReservations" href="#">Reservations</a>
-          <button class="btn btn-primary activateLogin">Login</button>
-          <button class="btn btn-danger activateLogout hide">Logout</button>
+          <a class="navbar-brand activateSeatingChart blackText" href="#">Seating Chart</a>
+          <a class="navbar-brand activateReservations blackText" href="#">Reservations</a>
+          <button class="btn btn-outline-dark activateLogin">Login</button>
+          <button class="btn btn-outline-dark activateLogout hide">Logout</button>
         </div>
       </nav>
     </div>
@@ -68,7 +69,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-secondary" id="add-new-reservation">Complete Reservation</button>
+          <button type="button" class="btn btn-outline-dark" id="add-new-reservation">Complete Reservation</button>
         </div>
       </div>
     </div>
@@ -91,7 +92,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-secondary" id="update-reservation" store-reservationId="">Update Reservation</button>
+          <button type="button" class="btn btn-outline-dark" id="update-reservation" store-reservationId="">Update Reservation</button>
         </div>
       </div>
     </div>
@@ -139,20 +140,20 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" id="newMenuBtn" class="btn btn-info">Save</button>
-            <button type="button" id="saveMenuUpdate" class="btn btn-info hide">Update</button>
+            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+            <button type="button" id="newMenuBtn" class="btn btn-outline-dark">Save</button>
+            <button type="button" id="saveMenuUpdate" class="btn btn-outline-dark hide">Update</button>
           </div>
         </div>
       </div>
     </div>
 
   <footer class="d-flex fixed-bottom">
-    <div class="text-center d-flex justify-content-around container-fluid grayBack">
-      <i class="fab fa-twitter fa-2x cursor" href="#"></i>
-      <i class="fab fa-instagram fa-2x cursor" href="#"></i>
-      <i class="fab fa-facebook-f fa-2x cursor" href="#"></i>
-      <i class="fab fa-linkedin-in fa-2x cursor" href="#"></i>
+    <div class="text-center d-flex justify-content-around container-fluid grayBack p-2">
+      <i class="fab fa-twitter fa-2x cursor blackText" href="#"></i>
+      <i class="fab fa-instagram fa-2x cursor blackText" href="#"></i>
+      <i class="fab fa-facebook-f fa-2x cursor blackText" href="#"></i>
+      <i class="fab fa-linkedin-in fa-2x cursor blackText" href="#"></i>
     </div>
   </footer>
 
@@ -189,8 +190,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-info" id="addNewIngredient">Save changes</button>
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-dark" id="addNewIngredient">Save changes</button>
       </div>
     </div>
   </div>
@@ -224,8 +225,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="add-new-staff">Save changes</button>
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-dark" id="add-new-staff">Save changes</button>
 
 </body>
 </html>
