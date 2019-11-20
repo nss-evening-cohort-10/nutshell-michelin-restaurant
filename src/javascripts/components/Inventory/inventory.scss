@@ -3,7 +3,6 @@
 .ingredient-card {
   background-image: linear-gradient(-25deg, rgb(36, 36, 36), rgb(77, 77, 77));
   color: whitesmoke;
-  // background: whitesmoke;
   border-radius: .2rem;
   padding: 2rem;
   height: 12rem;
@@ -27,4 +26,8 @@
 
 i {
   pointer-events: none;
+}
+
+.ingredient-titles {
+  background-color: ffc107;
 }
