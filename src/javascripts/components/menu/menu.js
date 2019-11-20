@@ -115,7 +115,33 @@ const changeMenuItem = (e) => {
     }).catch((err) => console.error(err));
 };
 
-const changeMenuIngredients = () => {};
+const saveMenuIngredientChanges = (e, menuIngredientId, currentIngredients) => {
+  e.stopImmediatePropagation();
+  console.log(menuIngredientId, currentIngredients);
+};
+
+const changeMenuIngredients = (e) => {
+  e.stopImmediatePropagation();
+  const selectedMenuIngredientId = $(e.target).attr('id').split('editIngredients-')[1];
+  console.log('changeMenuIngredients', selectedMenuIngredientId);
+  printIngredientsForm();
+  $('#newMenuIngredientBtn').addClass('hide');
+  $('#updateMenuIngredientBtn').removeClass('hide');
+  menuIngredientsData.getAllMenuIngredients()
+    .then((allMenuIngredients) => {
+      const currentIngredients = [];
+      allMenuIngredients.forEach((ingredient) => {
+        if (ingredient.menuItemId === selectedMenuIngredientId) {
+          currentIngredients.push(ingredient);
+          $(`#${ingredient.ingredientId}`).prop('checked', true);
+        }
+      });
+      console.log('curren ing', currentIngredients);
+      $('#updateMenuIngredientBtn').click((event) => {
+        saveMenuIngredientChanges(event, selectedMenuIngredientId, currentIngredients);
+      });
+    }).catch((err) => console.error(err));
+};
 
 const printMenuCards = () => {
   smash.getMenuWithIngredients().then((menuArr) => {
