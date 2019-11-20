@@ -49,6 +49,14 @@ const employeesDataByEmployeeId = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getStaffById = (employeeId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/staffs/${employeeId}.json`)
+    .then((response) => {
+      resolve(response.data);
+    })
+    .catch((error) => reject(error));
+});
+
 const deleteEmployeeData = (employeeId) => axios.delete(`${baseUrl}/staffs/${employeeId}.json`);
 
 const createNewEmployee = (newEmployee) => axios.post(`${baseUrl}/staffs.json`, newEmployee);
@@ -57,6 +65,7 @@ const updateEmployee = (employeeId, updatedEmployee) => axios.put(`${baseUrl}/st
 
 export default {
   employeesDataByEmployeeId,
+  getStaffById,
   deleteEmployeeData,
   createNewEmployee,
   updateEmployee,

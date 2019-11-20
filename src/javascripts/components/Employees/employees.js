@@ -69,6 +69,14 @@ const displayStaff = () => {
 };
 
 $('body').on('click', '.editEmployee', (e) => {
+  const employeeId = $(e.target).attr('id');
+  console.log('this is in update employee', employeeId);
+  employeeData.getStaffById(employeeId)
+    .then((information) => {
+      $('#update-employee-name').val(information.name);
+      $('#update-employee-position').val(information.position);
+      $('#update-employee-Img').val(information.employeeImg);
+    });
   $('#updateStaffModal').modal('show');
   $('#updateStaffModal').find('.modal-footer').attr('id', e.target.id);
   console.log('this is e.target.id', e.target.id);
@@ -117,17 +125,13 @@ const updateEmployeeOnClick = (e) => {
 const filterStaffButtonClick = (e) => {
   employeeData.employeesDataByEmployeeId()
     .then((fullStaffs) => {
-      console.log(fullStaffs);
       const staff = $(e.target).attr('id');
-      console.log(staff);
       const employeeArrays = [];
       fullStaffs.forEach((fullStaff) => {
         const formattedPosition = fullStaff.position.replace(/\s/g, '');
-        console.log(formattedPosition);
         if (formattedPosition === staff) {
           employeeArrays.push(fullStaff);
         }
-        console.log(employeeArrays);
       });
       if (staff === 'all') {
         displayStaff();
