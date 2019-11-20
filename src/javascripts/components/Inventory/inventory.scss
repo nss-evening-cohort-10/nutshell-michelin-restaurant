@@ -19,6 +19,19 @@
   }
 }
 
+.ingredient-header {
+  height: 3rem;
+  padding: 0.5rem;
+  background-color: #ffc107;
+  color: black;
+  margin: 0;
+}
+
+.ingredientCardFooter {
+  padding: 0.5rem;
+  border-top-color: #ffc107;
+}
+
 #existingIngredientWarning {
   font-style: italic;
   color: red;
@@ -26,8 +39,4 @@
 
 i {
   pointer-events: none;
-}
-
-.ingredient-titles {
-  background-color: ffc107;
 }
