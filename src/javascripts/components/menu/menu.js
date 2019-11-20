@@ -14,9 +14,13 @@ const findMenuIngredients = (e) => {
     const selectedIngredients = {};
     selectedIngredients.menuItemId = newMenuId;
     selectedIngredients.ingredientId = $(checked[i]).attr('id');
-    menuIngredientsData.addMenuIngredient(selectedIngredients);
+    menuIngredientsData.addMenuIngredient(selectedIngredients)
+      .then(() => {
+        // eslint-disable-next-line no-use-before-define
+        printMenuCards();
+        $('#newMenuIngredientsModal').modal('hide');
+      }).catch((err) => console.error(err));
   }
-  $('#newMenuIngredientsModal').modal('hide');
 };
 
 const printIngredientsForm = (menuId) => {
@@ -75,6 +79,133 @@ const removeFromMenu = (e) => {
   }).catch((err) => console.error(err));
 };
 
+const saveMenuChange = (e) => {
+  e.stopImmediatePropagation();
+  const menuToUpdate = $('.menuIdPlaceholder').attr('id');
+  console.log('saveMenuChange', menuToUpdate);
+  const updatedMenuItem = {
+    name: $('#menu-name').val(),
+    price: $('#menu-price').val(),
+    description: $('#menu-description').val(),
+    imgUrl: $('#menu-imgUrl').val(),
+    category: $('#categoryDropdown').val(),
+  };
+  menuData.updateMenuItem(menuToUpdate, updatedMenuItem)
+    .then(() => {
+      $('#newMenuBtn').removeClass('hide');
+      $('#saveMenuUpdate').addClass('hide');
+      $('#newMenuModal').modal('hide');
+      $('#addMenuForm').trigger('reset');
+      // eslint-disable-next-line no-use-before-define
+      printMenuCards();
+    }).catch((err) => console.error(err));
+};
+
+const changeMenuItem = (e) => {
+  e.stopImmediatePropagation();
+  const selectedMenuId = $(e.target).attr('id').split('edit-')[1];
+  console.log('changeMenuItem', selectedMenuId);
+  menuData.getMenuItemById(selectedMenuId)
+    .then((menuObj) => {
+      $('.menuIdPlaceholder').attr('id', selectedMenuId);
+      $('#newMenuModal').modal('show');
+      $('#newMenuBtn').addClass('hide');
+      $('#saveMenuUpdate').removeClass('hide');
+      $('#menu-name').val(menuObj.name);
+      $('#menu-description').val(menuObj.description);
+      $('#menu-price').val(menuObj.price);
+      $('#menu-imgUrl').val(menuObj.imgUrl);
+      $(`select#categoryDropdown option[value='${menuObj.category}']`).prop('selected', true);
+      $('#saveMenuUpdate').click(saveMenuChange);
+      console.log(menuObj);
+    }).catch((err) => console.error(err));
+};
+
+const updateIngredients = () => new Promise((resolve, reject) => {
+  const chosenIngredients = $('.ingredientCheckboxes input:checked');
+  const menuIngredientId = $('.selectIngredientList').attr('id').split('for-')[1];
+  console.log('chosenIngredients', chosenIngredients, menuIngredientId);
+  menuIngredientsData.getAllMenuIngredients()
+    .then((allMenuIngredients) => {
+      const currentIngredients = [];
+      allMenuIngredients.forEach((ingredient) => {
+        if (ingredient.menuItemId === menuIngredientId) {
+          currentIngredients.push(ingredient);
+        }
+      });
+      console.log('currentIngredients', currentIngredients);
+      const newIngredients = [];
+      for (let i = 0; i < chosenIngredients.length; i += 1) {
+        newIngredients.push($(chosenIngredients[i]).attr('id'));
+      }
+      console.log('newIngredients', newIngredients);
+      const ingredientsToDelete = currentIngredients.filter((x) => !newIngredients.includes(x.ingredientId));
+      ingredientsToDelete.forEach((removal) => {
+        console.log('to delete', removal.id);
+        menuIngredientsData.deleteMenuIngredients(removal.id);
+      });
+      const oldIngredients = [];
+      currentIngredients.forEach((menuIngredient) => {
+        oldIngredients.push(menuIngredient.ingredientId);
+      });
+      console.log('old match current', oldIngredients);
+      const toAdd = newIngredients.filter((x) => !oldIngredients.includes(x));
+      console.log('toadd', toAdd);
+      menuIngredientsData.getAllMenuIngredients()
+        .then((response) => {
+          toAdd.forEach((addition) => {
+            const menuIngredientIdsToAdd = response.find((y) => y.ingredientId === addition);
+            console.log('menuIngredientIdsToAdd', menuIngredientIdsToAdd);
+            // const ingredientToPrint = response.find((z) => z.id === menuIngredientIdsToAdd.id);
+            // console.log(ingredientToPrint);
+            if (menuIngredientIdsToAdd) {
+              const addedIngredient = {};
+              addedIngredient.menuItemId = menuIngredientId;
+              addedIngredient.ingredientId = menuIngredientIdsToAdd.ingredientId;
+              menuIngredientsData.addMenuIngredient(addedIngredient);
+              console.log('added', addedIngredient);
+            }
+          });
+        });
+      resolve();
+    }).catch((err) => reject(err));
+});
+
+const saveMenuIngredientChanges = (e) => {
+  e.stopImmediatePropagation();
+  updateIngredients()
+    .then(() => {
+      $('#newMenuIngredientBtn').removeClass('hide');
+      $('#updateMenuIngredientBtn').addClass('hide');
+      $('#newMenuIngredientsModal').modal('hide');
+      // eslint-disable-next-line no-use-before-define
+      printMenuCards();
+    }).catch((err) => console.error(err));
+};
+
+const changeMenuIngredients = (e) => {
+  e.stopImmediatePropagation();
+  const selectedMenuIngredientId = $(e.target).attr('id').split('editIngredients-')[1];
+  console.log('changeMenuIngredients', selectedMenuIngredientId);
+  printIngredientsForm(selectedMenuIngredientId);
+  $('#newMenuIngredientBtn').addClass('hide');
+  $('#updateMenuIngredientBtn').removeClass('hide');
+  menuIngredientsData.getAllMenuIngredients()
+    .then((allMenuIngredients) => {
+      const currentIngredients = [];
+      allMenuIngredients.forEach((ingredient) => {
+        if (ingredient.menuItemId === selectedMenuIngredientId) {
+          currentIngredients.push(ingredient);
+          $(`#${ingredient.ingredientId}`).prop('checked', true);
+        }
+      });
+      console.log('curren ing', currentIngredients);
+      $('#updateMenuIngredientBtn').click((event) => {
+        saveMenuIngredientChanges(event, selectedMenuIngredientId, currentIngredients);
+      });
+    }).catch((err) => console.error(err));
+};
+
 const searchMenuByIngredients = (e) => {
   const userSearchInput = e.target.value.toLowerCase();
   smash.getMenuWithIngredients()
@@ -117,11 +248,11 @@ const cardBuilder = (menuArr) => {
         <div class="card-body">
           <div class="row d-flex">
             <p class="card-text col-11">${item.description}</p>
-            <button class="cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
+            <button id="edit-${item.id}" class="editMenuItemBtn cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
           </div>
           <div class="row d-flex">
             <p class="card-text col-11">Ingredients: ${ingredientString}</p>
-            <button class="cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
+            <button id="editIngredients-${item.id}" class="editMenuIngredientsBtn cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
           </div>
           <div class="card-text">
             <small class="text-muted d-flex align-right">
@@ -144,13 +275,15 @@ const printMenuCards = () => {
       <button id="createMenuItemBtn" class="cudButton hide btn btn-secondary editHeight" data-toggle="modal" data-target="#newMenuModal"><i class="fas fa-plus">Add Menu Item</i></button>
     </div>
       <div class="container mx-auto">
-      <div id="menuCardDiv" class="d-flex flex-wrap flex-row">
+        <div id="menuCardDiv" class="d-flex flex-wrap flex-row">
     `;
     menuString += cardBuilder(menuArr);
     menuString += '</div></div>';
     utilities.printToDom('printComponent', menuString);
     $('body').on('click', '#newMenuBtn', createMenuItem);
     $('body').on('click', '.deleteMenuItem', removeFromMenu);
+    $('body').on('click', '.editMenuItemBtn', changeMenuItem);
+    $('body').on('click', '.editMenuIngredientsBtn', changeMenuIngredients);
     $('#menuSearchInput').on('keyup', searchMenuByIngredients);
   }).catch((err) => console.error(err));
 };
