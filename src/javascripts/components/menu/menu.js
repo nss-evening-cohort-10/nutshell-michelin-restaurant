@@ -98,14 +98,14 @@ const cardBuilder = (menuArr) => {
   menuArr.forEach((item) => {
     const ingredientString = item.ingredientName.join(', ');
     menuString += `
-      <div id="${item.id}" class="card col-6">
+      <div id="${item.id}" class="card col-6 bg-secondary">
         <div class="row d-flex">
           <div class="imgDiv col-5">
             <img class="card-img" src="${item.imgUrl}" alt="picture of ${item.name}" />
           </div>
           <div class="menuDetails col-7">
             <div class="row d-flex">
-              <h5 class="card-title text-center col-6 p-0">${item.name}</h5>
+              <h2 class="card-title text-center col-6 p-0 whiteh1">${item.name}</h2>
               <h5 class="card-title text-center col-5 offset-1 p-0">$${(item.price / 100).toFixed(2)}</h5>
             </div>
             <div class="row d-flex">
