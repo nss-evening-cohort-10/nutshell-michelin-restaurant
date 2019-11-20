@@ -2,47 +2,15 @@ import './home.scss';
 import util from '../../helpers/utilities';
 
 const printHome = () => {
-  const domString = `<div class="cardOfCards d-flex justify-content-around container">
-        <div class="card d-flex">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
-            <h2>Le Baguette</h2>
-              <button class="btn btn-primary activateLogin">Login</button>
-              <button class="btn btn-danger activateLogout hide">Logout</button>
-          </nav>
-          <div class="card-body d-flex align-content-around flex-wrap justify-content-around">
-            <div class="card homeCards" style="width: 18rem;">
-              <div class="card-body text-center activateMenu cursor">
-                <h5 class="card-title"><i class="fas fa-book-open fa-5x"></i></h5>
-                <h3 class="card-subtitle mb-2 text-muted">Menu</h3>
-            </div>
-          </div>
-          <div class="card homeCards" style="width: 18rem;">
-            <div class="card-body text-center activateInventory cursor">
-              <h5 class="card-title"><i class="fas fa-carrot fa-5x"></i></h5>
-              <h3 class="card-subtitle mb-2 text-muted">Inventory</h3>
-            </div>
-          </div>
-          <div class="card homeCards" style="width: 18rem;">
-            <div class="card-body text-center activateStaff cursor">
-              <h5 class="card-title"><i class="fas fa-users fa-5x"></i></h5>
-              <h3 class="card-subtitle mb-2 text-muted">Staff</h3>
-            </div>
-          </div>
-          <div class="card homeCards" style="width: 18rem;">
-            <div class="card-body text-center activateSeatingChart cursor">
-              <h5 class="card-title"><i class="fas fa-chair fa-5x"></i></h5>
-              <h3 class="card-subtitle mb-2 text-muted">Seating Chart</h3>
-            </div>
-          </div>
-          <div class="card homeCards" style="width: 18rem;">
-            <div class="card-body text-center activateReservations cursor">
-              <h5 class="card-title"><i class="far fa-calendar-alt fa-5x"></i></h5>
-              <h3 class="card-subtitle mb-2 text-muted">Reservations</h3>
-             </div>
-          </div>
-        </div>
-      </div>
-    </div>`;
+  const domString = `
+  <div class="row">
+  <div class="col activateMenu cursor" id="menu">Menu</div>
+  <div class="col activateInventory cursor" id="inventory">Inventory</div>
+  <div class="col activateStaff cursor" id="staff">Staff</div>
+  <div class="col activateSeatingChart cursor" id="seatingChart">Seating Chart</div>
+  <div class="col activateReservations cursor" id="reservation">Reservations</div>
+</div> 
+`;
   util.printToDom('printComponent', domString);
 };
 
