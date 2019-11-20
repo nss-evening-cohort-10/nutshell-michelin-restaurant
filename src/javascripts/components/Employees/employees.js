@@ -47,12 +47,12 @@ const displayStaff = () => {
       employees.forEach((employee) => {
         domString += `
         <div class="card-deck card-deck-cstm">
-          <div class="card">
+          <div class="card staffCompleteCard">
             <img src="${employee.employeeImg}" alt="picture of ${employee.name}">
-            <div class="card-body">
-              <h5 class="card-title text-center">${employee.name}</h5>
+            <div class="card-body staff-cards p-0">
+              <h5 class="card-title staff-card-title text-center py-3 px-0 mx-0">${employee.name}</h5>
               <h6 class="card-text text-center">${employee.position}</h6>
-              <p class="card-text">
+              <p class="card-text px-3 pb-3">
                 <small class="text-muted d-flex justify-content-between">
                   <button class="btn btn-secondary cudButton hide cursor"><i class="fas fa-pencil-alt"></i></button>
                   <button class="btn btn-secondary cudButton hide cursor deleteEmployee" id=${employee.id}><i class="fas fa-trash-alt"></i></button>

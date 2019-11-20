@@ -10,3 +10,16 @@ img {
   height: 57px;
   margin-right: 5px;
 }
+.staff-card-title {
+  background-color: #ffc107;
+  color: black;
+}
+
+.staff-cards {
+  background-color: rgb(33,33,33);
+  color: whitesmoke;
+}
+
+.staffCompleteCard:hover {
+  box-shadow: 0 0 30px #ffc107;
+}
