@@ -34,7 +34,7 @@ As an employee, you have the ability to sign in and make modifications to the me
 
 
 ## Run this Project
-* Clown down project from Github
+* Clone down project from Github
 * Add apiKeys from Firebase formatted identically to the `apiKeysExample.json` file
 * At the root, run the command `npm start`
 * This should automatically redirect you to the local host, but if not, run `hs -p 8080`, and in your browser, navigate to https://localost:8080
