@@ -91,17 +91,13 @@ const createEmployeeOnClick = (e) => {
 const filterStaffButtonClick = (e) => {
   employeeData.employeesDataByEmployeeId()
     .then((fullStaffs) => {
-      console.log(fullStaffs);
       const staff = $(e.target).attr('id');
-      console.log(staff);
       const employeeArrays = [];
       fullStaffs.forEach((fullStaff) => {
         const formattedPosition = fullStaff.position.replace(/\s/g, '');
-        console.log(formattedPosition);
         if (formattedPosition === staff) {
           employeeArrays.push(fullStaff);
         }
-        console.log(employeeArrays);
       });
       if (staff === 'all') {
         displayStaff();
