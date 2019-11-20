@@ -36,6 +36,7 @@ const displayStaff = () => {
         <button class="dropdown-item filterStaffButton" type="button" id="DirectorofOperations">Director of Operations</button>
         <button class="dropdown-item filterStaffButton" type="button" id="BarDirector">Bar Director</button>
         <button class="dropdown-item filterStaffButton" type="button" id="RestaurantManager">Restaurant Manager</button>
+        <button class="dropdown-item filterStaffButton" type="button" id="HeadofWaitStaff">Head of Wait Staff</button>
       </div>
       </div>
       </div>
@@ -86,7 +87,7 @@ const createEmployeeOnClick = (e) => {
   e.stopImmediatePropagation();
   const newEmployee = {
     name: $('#staff-name').val(),
-    position: $('#staff-position').val(),
+    position: $('#addStaffDropdown').val(),
     employeeImg: $('#staff-photo-url').val(),
     uid: '',
   };
@@ -110,6 +111,7 @@ const updateEmployeeOnClick = (e) => {
     name: $('#update-employee-name').val(),
     position: $('#update-employee-position').val(),
     employeeImg: $('#update-employee-Img').val(),
+    uid: '',
   };
   employeeData.updateEmployee(employeeId, updatedEmployee)
     .then(() => {
