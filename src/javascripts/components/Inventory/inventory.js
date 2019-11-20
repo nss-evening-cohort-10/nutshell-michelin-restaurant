@@ -104,28 +104,58 @@ const updateModal = (e) => {
     .catch((error) => console.error(error));
 };
 
+const filteredIngredientPrinter = (filteredIngredients) => {
+  let domString = '';
+  filteredIngredients.forEach((ingredient) => {
+    domString += makeIngredientCard.makeIngredientCard(ingredient);
+  });
+  utilities.printToDom('ingredient-holder', domString);
+  $('.ingredient-card').on('click', '.delete-ingredient-button', deleteIngredient);
+  $('.ingredient-card').on('click', '.update-ingredient-button', updateModal);
+};
+
+const searchIngredients = (e) => {
+  const userSearchInput = e.target.value.toLowerCase();
+  inventoryData.getInventory()
+    .then((ingredients) => {
+      const filteredIngredients = ingredients.filter((x) => x.name.toLowerCase().includes(userSearchInput));
+      filteredIngredientPrinter(filteredIngredients);
+    })
+    .catch((error) => console.error(error));
+};
+
+const printIngredientHeader = () => {
+  const domString = `
+  <h2>Inventory</h2>
+  <input id="ingredientSearchInput" class="form-control col-3" type="search" placeholder="Search for ingredients" aria-label="Search">
+  <button class="btn btn-secondary cudButton my-3" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
+  <div class="container mx-auto">
+  <div class="d-flex flex-wrap flex-row" id="ingredient-holder">
+  </div></div>
+  `;
+  utilities.printToDom('printComponent', domString);
+  $('#addNewIngredient').on('click', createNewIngredient);
+  $('#ingredientSearchInput').on('keyup', searchIngredients);
+};
+
+
 const printIngredients = () => {
   inventoryData.getInventory()
     .then((ingredients) => {
-      let domString = `
-      <div class="d-flex flex-wrap justify-content-between m-2 whiteh1">
-        <h1>Inventory</h1>
-        <button class="btn btn-secondary cudButton" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
-      </div>
-      <div class="container mx-auto">
-      <div class="d-flex flex-wrap flex-row">
-      `;
+      let domString = '';
       ingredients.forEach((ingredient) => {
         domString += makeIngredientCard.makeIngredientCard(ingredient);
       });
-      domString += '</div></div>';
-      utilities.printToDom('printComponent', domString);
-      $('#addNewIngredient').on('click', createNewIngredient);
+      utilities.printToDom('ingredient-holder', domString);
       $('.ingredient-card').on('click', '.delete-ingredient-button', deleteIngredient);
-      // eslint-disable-next-line no-use-before-define
       $('.ingredient-card').on('click', '.update-ingredient-button', updateModal);
     })
     .catch((error) => console.error(error));
 };
 
-export default { printIngredients };
+const init = () => {
+  printIngredientHeader();
+  printIngredients();
+};
+
+export default { init };
