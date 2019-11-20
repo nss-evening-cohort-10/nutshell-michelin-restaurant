@@ -8,7 +8,6 @@ const getInventory = () => new Promise((resolve, reject) => {
     .then((response) => {
       const demIngredients = response.data;
       const ingredients = [];
-      console.log('from promise', ingredients);
       Object.keys(demIngredients).forEach((fbId) => {
         demIngredients[fbId].id = fbId;
         ingredients.push(demIngredients[fbId]);
