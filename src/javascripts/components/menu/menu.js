@@ -9,13 +9,13 @@ import inventoryData from '../../helpers/data/inventoryData';
 const findMenuIngredients = (e) => {
   e.stopImmediatePropagation();
   const newMenuId = $('.selectIngredientList').attr('id').split('for-')[1];
-  const selectedIngredients = {};
-  $('.ingredientCheckboxes input:checked').each((index, value) => {
+  const checked = $('.ingredientCheckboxes input:checked');
+  for (let i = 0; i < checked.length; i += 1) {
+    const selectedIngredients = {};
     selectedIngredients.menuItemId = newMenuId;
-    selectedIngredients.ingredientId = $(value).attr('id');
-    console.log(index);
+    selectedIngredients.ingredientId = $(checked[i]).attr('id');
     menuIngredientsData.addMenuIngredient(selectedIngredients);
-  });
+  }
   $('#newMenuIngredientsModal').modal('hide');
 };
 
