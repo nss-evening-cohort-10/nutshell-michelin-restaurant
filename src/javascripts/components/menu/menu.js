@@ -160,7 +160,6 @@ const updateIngredients = () => new Promise((resolve, reject) => {
             // console.log(ingredientToPrint);
             if (menuIngredientIdsToAdd) {
               const addedIngredient = {};
-              console.log(response.ingredientId);
               addedIngredient.menuItemId = menuIngredientId;
               addedIngredient.ingredientId = menuIngredientIdsToAdd.ingredientId;
               menuIngredientsData.addMenuIngredient(addedIngredient);
