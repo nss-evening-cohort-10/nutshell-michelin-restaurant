@@ -82,7 +82,6 @@ const removeFromMenu = (e) => {
 const saveMenuChange = (e) => {
   e.stopImmediatePropagation();
   const menuToUpdate = $('.menuIdPlaceholder').attr('id');
-  console.log('saveMenuChange', menuToUpdate);
   const updatedMenuItem = {
     name: $('#menu-name').val(),
     price: $('#menu-price').val(),
@@ -104,7 +103,6 @@ const saveMenuChange = (e) => {
 const changeMenuItem = (e) => {
   e.stopImmediatePropagation();
   const selectedMenuId = $(e.target).attr('id').split('edit-')[1];
-  console.log('changeMenuItem', selectedMenuId);
   menuData.getMenuItemById(selectedMenuId)
     .then((menuObj) => {
       $('.menuIdPlaceholder').attr('id', selectedMenuId);
@@ -117,14 +115,12 @@ const changeMenuItem = (e) => {
       $('#menu-imgUrl').val(menuObj.imgUrl);
       $(`select#categoryDropdown option[value='${menuObj.category}']`).prop('selected', true);
       $('#saveMenuUpdate').click(saveMenuChange);
-      console.log(menuObj);
     }).catch((err) => console.error(err));
 };
 
 const updateIngredients = () => new Promise((resolve, reject) => {
   const chosenIngredients = $('.ingredientCheckboxes input:checked');
   const menuIngredientId = $('.selectIngredientList').attr('id').split('for-')[1];
-  console.log('chosenIngredients', chosenIngredients, menuIngredientId);
   menuIngredientsData.getAllMenuIngredients()
     .then((allMenuIngredients) => {
       const currentIngredients = [];
@@ -133,29 +129,23 @@ const updateIngredients = () => new Promise((resolve, reject) => {
           currentIngredients.push(ingredient);
         }
       });
-      console.log('currentIngredients', currentIngredients);
       const newIngredients = [];
       for (let i = 0; i < chosenIngredients.length; i += 1) {
         newIngredients.push($(chosenIngredients[i]).attr('id'));
       }
-      console.log('newIngredients', newIngredients);
       const ingredientsToDelete = currentIngredients.filter((x) => !newIngredients.includes(x.ingredientId));
       ingredientsToDelete.forEach((removal) => {
-        console.log('to delete', removal.id);
         menuIngredientsData.deleteMenuIngredients(removal.id);
       });
       const oldIngredients = [];
       currentIngredients.forEach((menuIngredient) => {
         oldIngredients.push(menuIngredient.ingredientId);
       });
-      console.log('old match current', oldIngredients);
       const toAdd = newIngredients.filter((x) => !oldIngredients.includes(x));
-      console.log('toadd', toAdd);
       menuIngredientsData.getAllMenuIngredients()
         .then((response) => {
           toAdd.forEach((addition) => {
             const menuIngredientIdsToAdd = response.find((y) => y.ingredientId === addition);
-            console.log('menuIngredientIdsToAdd', menuIngredientIdsToAdd);
             // const ingredientToPrint = response.find((z) => z.id === menuIngredientIdsToAdd.id);
             // console.log(ingredientToPrint);
             if (menuIngredientIdsToAdd) {
@@ -163,7 +153,6 @@ const updateIngredients = () => new Promise((resolve, reject) => {
               addedIngredient.menuItemId = menuIngredientId;
               addedIngredient.ingredientId = menuIngredientIdsToAdd.ingredientId;
               menuIngredientsData.addMenuIngredient(addedIngredient);
-              console.log('added', addedIngredient);
             }
           });
         });
@@ -186,7 +175,6 @@ const saveMenuIngredientChanges = (e) => {
 const changeMenuIngredients = (e) => {
   e.stopImmediatePropagation();
   const selectedMenuIngredientId = $(e.target).attr('id').split('editIngredients-')[1];
-  console.log('changeMenuIngredients', selectedMenuIngredientId);
   printIngredientsForm(selectedMenuIngredientId);
   $('#newMenuIngredientBtn').addClass('hide');
   $('#updateMenuIngredientBtn').removeClass('hide');
@@ -199,7 +187,6 @@ const changeMenuIngredients = (e) => {
           $(`#${ingredient.ingredientId}`).prop('checked', true);
         }
       });
-      console.log('curren ing', currentIngredients);
       $('#updateMenuIngredientBtn').click((event) => {
         saveMenuIngredientChanges(event, selectedMenuIngredientId, currentIngredients);
       });

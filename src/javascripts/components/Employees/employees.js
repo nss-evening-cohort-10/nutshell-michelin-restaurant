@@ -73,7 +73,6 @@ const displayStaff = () => {
 
 $('body').on('click', '.editEmployee', (e) => {
   const employeeId = $(e.target).attr('id');
-  console.log('this is in update employee', employeeId);
   employeeData.getStaffById(employeeId)
     .then((information) => {
       $('#update-employee-name').val(information.name);
@@ -82,7 +81,6 @@ $('body').on('click', '.editEmployee', (e) => {
     });
   $('#updateStaffModal').modal('show');
   $('#updateStaffModal').find('.modal-footer').attr('id', e.target.id);
-  console.log('this is e.target.id', e.target.id);
 });
 
 const createEmployeeOnClick = (e) => {
@@ -107,8 +105,6 @@ const createEmployeeOnClick = (e) => {
 const updateEmployeeOnClick = (e) => {
   e.stopImmediatePropagation();
   const employeeId = e.target.parentNode.id;
-  // console.log('this is e.target.id', e.target.id);
-  console.log('this is employeeId', employeeId);
   const updatedEmployee = {
     name: $('#update-employee-name').val(),
     position: $('#update-employee-position').val(),
