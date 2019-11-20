@@ -94,7 +94,9 @@ const filterStaffButtonClick = (e) => {
       console.log(staff);
       const employeeArrays = [];
       fullStaffs.forEach((fullStaff) => {
-        if (fullStaff.position === staff) {
+        const formattedPosition = fullStaff.position.replace(/\s/g, '');
+        console.log(formattedPosition);
+        if (formattedPosition === staff) {
           employeeArrays.push(fullStaff);
         }
         console.log(employeeArrays);
