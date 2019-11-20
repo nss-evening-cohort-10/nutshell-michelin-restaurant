@@ -104,9 +104,25 @@ const updateModal = (e) => {
     .catch((error) => console.error(error));
 };
 
-// const searchEvent = () => {
-//   const userSearchInput =
-// };
+const filteredIngredientPrinter = (filteredIngredients) => {
+  let domString = '';
+  filteredIngredients.forEach((ingredient) => {
+    domString += makeIngredientCard.makeIngredientCard(ingredient);
+  });
+  utilities.printToDom('ingredient-holder', domString);
+  $('.ingredient-card').on('click', '.delete-ingredient-button', deleteIngredient);
+  $('.ingredient-card').on('click', '.update-ingredient-button', updateModal);
+};
+
+const searchIngredients = (e) => {
+  const userSearchInput = e.target.value.toLowerCase();
+  inventoryData.getInventory()
+    .then((ingredients) => {
+      const filteredIngredients = ingredients.filter((x) => x.name.toLowerCase().includes(userSearchInput));
+      filteredIngredientPrinter(filteredIngredients);
+    })
+    .catch((error) => console.error(error));
+};
 
 const printIngredientHeader = () => {
   const domString = `
@@ -119,6 +135,7 @@ const printIngredientHeader = () => {
   `;
   utilities.printToDom('printComponent', domString);
   $('#addNewIngredient').on('click', createNewIngredient);
+  $('#ingredientSearchInput').on('keyup', searchIngredients);
 };
 
 
