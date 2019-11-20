@@ -1,0 +1,67 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1 0 18%; /* The important bit. This percentage decides your columns. 
+ The percent can be px. It just represents your minimum starting width.
+  */
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0px;
+  height: 100vh;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#menu {
+  background-image: url("https://images.unsplash.com/photo-1564759298141-cef86f51d4d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80")
+}
+
+#menu:hover {
+    opacity:0.5;
+    font-size: 30px;
+}
+
+/* https://images.unsplash.com/photo-1536236397240-9b229a37a286?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80 */
+
+#inventory {
+  background-image: url("https://images.unsplash.com/photo-1563865436874-9aef32095fad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80")
+}
+
+#inventory:hover {
+    opacity:0.5;
+    font-size: 30px;
+    color: white;
+}
+
+#staff {
+  background-image: url("https://images.unsplash.com/photo-1543716627-839b54c40519?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80")
+}
+
+#staff:hover {
+    opacity:0.5;
+    font-size: 30px;
+}
+
+#seatingChart {
+  background-image: url("https://images.unsplash.com/photo-1488324346298-5ad3d8f96d0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=683&q=80")
+}
+
+#seatingChart:hover {
+    opacity:0.5;
+    font-size: 30px;
+    color: white;
+}
+
+#reservation {
+  background-image: url("https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&auto=format&fit=crop&w=966&q=80")
+}
+
+#reservation:hover {
+    opacity:0.5;
+    font-size: 30px;
+}
