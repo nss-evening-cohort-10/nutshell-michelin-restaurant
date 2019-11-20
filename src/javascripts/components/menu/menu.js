@@ -75,57 +75,83 @@ const removeFromMenu = (e) => {
   }).catch((err) => console.error(err));
 };
 
+const searchMenuByIngredients = (e) => {
+  const userSearchInput = e.target.value.toLowerCase();
+  smash.getMenuWithIngredients()
+    .then((menuDetails) => {
+      const searchMenuDetails = [];
+      menuDetails.forEach((menuObj) => {
+        const newMenuObj = { ...menuObj };
+        const ingredients = menuObj.ingredientName.join(' ');
+        newMenuObj.ing = ingredients;
+        searchMenuDetails.push(newMenuObj);
+      });
+      const filteredMenu = searchMenuDetails.filter((x) => x.ing.toLowerCase().includes(userSearchInput));
+      // eslint-disable-next-line no-use-before-define
+      utilities.printToDom('menuCardDiv', cardBuilder(filteredMenu));
+    })
+    .catch((error) => console.error(error));
+};
+
+const cardBuilder = (menuArr) => {
+  let menuString = '';
+  menuArr.forEach((item) => {
+    const ingredientString = item.ingredientName.join(', ');
+    menuString += `
+      <div id="${item.id}" class="card col-6">
+        <div class="row d-flex">
+          <div class="imgDiv col-5">
+            <img class="card-img" src="${item.imgUrl}" alt="picture of ${item.name}" />
+          </div>
+          <div class="menuDetails col-7">
+            <div class="row d-flex">
+              <h5 class="card-title text-center col-6 p-0">${item.name}</h5>
+              <h5 class="card-title text-center col-5 offset-1 p-0">$${(item.price / 100).toFixed(2)}</h5>
+            </div>
+            <div class="row d-flex">
+              <p class="card-title text-center col-6 p-0">${item.category}</p>
+              <p class="card-title text-center col-5 offset-1 p-0">${item.isAvailable}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row d-flex">
+            <p class="card-text col-11">${item.description}</p>
+            <button class="cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
+          </div>
+          <div class="row d-flex">
+            <p class="card-text col-11">Ingredients: ${ingredientString}</p>
+            <button class="cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
+          </div>
+          <div class="card-text">
+            <small class="text-muted d-flex align-right">
+            <button class="cudButton hide btn btn-secondary col-1 deleteMenuItem"><i class="fas fa-trash-alt" id=${item.id}></i></button>
+            </small>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+  return menuString;
+};
+
 const printMenuCards = () => {
   smash.getMenuWithIngredients().then((menuArr) => {
     let menuString = `
     <div class="d-flex flex-wrap justify-content-between m-2">
-      <h1 class="whiteh1">Menu</h1>
-      <button id="createMenuItemBtn" class="cudButton hide btn btn-secondary" data-toggle="modal" data-target="#newMenuModal"><i class="fas fa-plus"> Add Menu Item</i></button>
+      <h2 class="whiteh1 m-1">Menu</h2>
+      <input id="menuSearchInput" class="form-control col-3 editHeight" type="search" placeholder="Search Menu By Ingredient" aria-label="Search">
+      <button id="createMenuItemBtn" class="cudButton hide btn btn-secondary editHeight" data-toggle="modal" data-target="#newMenuModal"><i class="fas fa-plus">Add Menu Item</i></button>
     </div>
       <div class="container mx-auto">
-      <div class="d-flex flex-wrap flex-row">
+      <div id="menuCardDiv" class="d-flex flex-wrap flex-row">
     `;
-    menuArr.forEach((item) => {
-      const ingredientString = item.ingredientName.join(', ');
-      menuString += `
-        <div id="${item.id}" class="card col-6 bg-secondary p-2">
-          <div class="row d-flex">
-            <div class="imgDiv col-5">
-              <img class="card-img" src="${item.imgUrl}" alt="picture of ${item.name}" />
-            </div>
-            <div class="menuDetails col-7">
-              <div class="row d-flex">
-                <h3 class="card-title text-center col-6 p-0 whiteh1">${item.name}</h3>
-                <h5 class="card-title text-center col-5 offset-1 p-0">$${(item.price / 100).toFixed(2)}</h5>
-              </div>
-              <div class="row d-flex">
-                <p class="card-title text-center col-6 p-0">${item.category}</p>
-                <p class="card-title text-center col-5 offset-1 p-0">${item.isAvailable}</p>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="row d-flex">
-              <p class="card-text col-11">${item.description}</p>
-              <button class="cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
-            </div>
-            <div class="row d-flex">
-              <p class="card-text col-11">Ingredients: ${ingredientString}</p>
-              <button class="cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
-            </div>
-            <div class="card-text">
-              <small class="text-muted d-flex align-right">
-              <button class="cudButton hide btn btn-secondary col-1 deleteMenuItem"><i class="fas fa-trash-alt" id=${item.id}></i></button>
-              </small>
-            </div>
-          </div>
-        </div>
-      `;
-    });
+    menuString += cardBuilder(menuArr);
     menuString += '</div></div>';
     utilities.printToDom('printComponent', menuString);
     $('body').on('click', '#newMenuBtn', createMenuItem);
     $('body').on('click', '.deleteMenuItem', removeFromMenu);
+    $('#menuSearchInput').on('keyup', searchMenuByIngredients);
   }).catch((err) => console.error(err));
 };
 
