@@ -53,6 +53,13 @@ const deleteEmployeeData = (employeeId) => axios.delete(`${baseUrl}/staffs/${emp
 
 const createNewEmployee = (newEmployee) => axios.post(`${baseUrl}/staffs.json`, newEmployee);
 
-export default { employeesDataByEmployeeId, deleteEmployeeData, createNewEmployee };
+const updateEmployee = (employeeId, updatedEmployee) => axios.put(`${baseUrl}/staffs/${employeeId}.json`, updatedEmployee);
+
+export default {
+  employeesDataByEmployeeId,
+  deleteEmployeeData,
+  createNewEmployee,
+  updateEmployee,
+};
 
 // ?orderBy="employeeId"&equalTo="${employeeId}";
