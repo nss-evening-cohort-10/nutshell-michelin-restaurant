@@ -4,8 +4,42 @@ import utilities from '../../helpers/utilities';
 import smash from '../../helpers/data/smash';
 import menuData from '../../helpers/data/menuData';
 import menuIngredientsData from '../../helpers/data/MenuIngredientData';
+import inventoryData from '../../helpers/data/inventoryData';
 
-const createMenuItem = () => {
+const findMenuIngredients = (e) => {
+  e.stopImmediatePropagation();
+  const newMenuId = $('.selectIngredientList').attr('id').split('for-')[1];
+  const checked = $('.ingredientCheckboxes input:checked');
+  for (let i = 0; i < checked.length; i += 1) {
+    const selectedIngredients = {};
+    selectedIngredients.menuItemId = newMenuId;
+    selectedIngredients.ingredientId = $(checked[i]).attr('id');
+    menuIngredientsData.addMenuIngredient(selectedIngredients);
+  }
+  $('#newMenuIngredientsModal').modal('hide');
+};
+
+const printIngredientsForm = (menuId) => {
+  $('#newMenuIngredientsModal').modal('show');
+  inventoryData.getInventory()
+    .then((ingredients) => {
+      let ingredientString = `<div id="for-${menuId}" class="selectIngredientList row d-flex flex-wrap p-2">`;
+      ingredients.forEach((ingredient) => {
+        ingredientString += `
+          <div class="ingredientCheckboxes custom-control custom-switch col-4">
+            <input type="checkbox" class="custom-control-input ingredientsListItem" id="${ingredient.id}">
+            <label class="custom-control-label" for="${ingredient.id}">${ingredient.name}</label>
+          </div>
+        `;
+      });
+      ingredientString += '</div>';
+      utilities.printToDom('addMenuIngredientsForm', ingredientString);
+      $('#newMenuIngredientBtn').click(findMenuIngredients);
+    }).catch((err) => console.error(err));
+};
+
+const createMenuItem = (e) => {
+  e.stopImmediatePropagation();
   const newMenuItem = {
     name: $('#menu-name').val(),
     price: $('#menu-price').val(),
@@ -14,7 +48,8 @@ const createMenuItem = () => {
     category: $('#categoryDropdown').val(),
   };
   menuData.addMenuItem(newMenuItem)
-    .then(() => {
+    .then((newMenuId) => {
+      printIngredientsForm(newMenuId);
       $('#newMenuModal').modal('hide');
       $('#addMenuForm').trigger('reset');
       // eslint-disable-next-line no-use-before-define
