@@ -62,6 +62,7 @@ const updateModal = (ingredientId) => {
   $('#ingredientModalLabel').html('Update Ingredient');
   $('#addNewIngredient').addClass('hide');
   $('#updateIngredient').removeClass('hide');
+  clearForm();
   inventoryData.getInventory()
     .then((ingredients) => {
       const matchedIngredient = ingredients.find((x) => x.id === ingredientId);
@@ -104,17 +105,21 @@ const printIngredients = () => {
 const updateIngredient = (e) => {
   e.preventDefault();
   const ingredientId = e.target.id.split('update-ingredient-')[1];
+  console.log(ingredientId);
   updateModal(ingredientId);
   $('#updateIngredient').on('click', () => {
-    const newCost = $('#ingredient-cost').val() * 100;
-    const newName = $('#ingredient-name').val();
-    const newStock = $('#amount-stocked').val() * 1;
-    const newUom = $('#unit-of-measurement').val();
-    inventoryData.updatedIngredient(ingredientId, newCost, newName, newStock, newUom)
+    const updatedIngredient = {
+      name: $('#ingredient-name').val(),
+      amountStocked: $('#amount-stocked').val() * 1,
+      unitOfMeasurement: $('#unit-of-measurement').val(),
+      cost: $('#ingredient-cost').val() * 100,
+    };
+    inventoryData.updateIngredient(ingredientId, updatedIngredient)
       .then(() => {
         $('#addIngredientModal').modal('hide');
         returnModalToOriginalState();
         printIngredients();
+        clearForm();
       })
       .catch((error) => console.error(error));
   });

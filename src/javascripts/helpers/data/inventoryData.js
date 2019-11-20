@@ -22,29 +22,11 @@ const addIngredient = (newIngredient) => axios.post(`${baseUrl}/ingredients.json
 
 const deleteIngredient = (ingredientId) => axios.delete(`${baseUrl}/ingredients/${ingredientId}.json`);
 
-const updatedIngredient = (ingredientId, newCost, newName, newStock, newUom) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/ingredients/${ingredientId}.json`)
-    .then((result) => {
-      const ingredientObject = result.data;
-      ingredientObject.cost = newCost;
-      ingredientObject.name = newName;
-      ingredientObject.amountStocked = newStock;
-      ingredientObject.unitOfMeasurement = newUom;
-      // eslint-disable-next-line no-use-before-define
-      updateIngredient(ingredientId, ingredientObject)
-        .then(() => {
-          resolve();
-        })
-        .catch((error) => console.error(error));
-    })
-    .catch((error) => reject(error));
-});
-
 const updateIngredient = (ingredientId, updatedIngredientObject) => axios.put(`${baseUrl}/ingredients/${ingredientId}.json`, updatedIngredientObject);
 
 export default {
   getInventory,
   addIngredient,
   deleteIngredient,
-  updatedIngredient,
+  updateIngredient,
 };
