@@ -47,7 +47,7 @@ const displayStaff = () => {
       employees.forEach((employee) => {
         domString += `
         <div class="card-deck card-deck-cstm">
-          <div class="card">
+          <div class="card bg-secondary">
             <img src="${employee.employeeImg}" alt="picture of ${employee.name}">
             <div class="card-body">
               <h5 class="card-title text-center">${employee.name}</h5>

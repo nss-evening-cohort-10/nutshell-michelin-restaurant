@@ -126,19 +126,19 @@ const printReservations = () => {
         const time = `${reservation.timeStamp}`;
         const timeFormatted = moment(time).format('LLL');
         domString += `
-        <div class="card col-10 offset-1 px-0 my-2" id="${reservation.id}">
-          <div class="card-header">
+        <div class="card bg-secondary col-10 offset-1 px-0 my-2" id="${reservation.id}">
+          <div class="card-header bg-dark whiteh1">
             <h2>${reservation.customerName}</h2>
           </div>
           <div class="card-body">
-            <div class="d-flex flex-wrap justify-content-between">
-              <p class="card-title">Party Size: ${reservation.partySize}</p>
-              <p class="card-text">Table Number: ${reservation.seatingId.split('table-').join('')}</p>
+            <div class="d-flex flex-wrap justify-content-between reservationFont">
+              <p class="card-title">Party Size — ${reservation.partySize}</p>
+              <p class="card-text">Table Number — ${reservation.seatingId.split('table-').join('')}</p>
               <p class="card-text">${timeFormatted}</p>
             </div>
             <div class="d-flex justify-content-end">
-            <button class="btn btn-light cudButton delete-reservation"><i class="fas fa-trash-alt"></i></button>
-            <a href="#" class="cudButton btn btn-light edit-reservation"><i class="fas fa-pencil-alt"></i></a>
+            <button class="btn btn-secondary cudButton delete-reservation"><i class="fas fa-trash-alt"></i></button>
+            <a href="#" class="cudButton btn btn-secondary edit-reservation"><i class="fas fa-pencil-alt"></i></a>
             </div>
           </div>
         </div>`;
