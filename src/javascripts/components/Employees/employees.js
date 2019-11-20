@@ -141,11 +141,11 @@ const filterStaffButtonClick = (e) => {
         displayStaff();
       } else {
         let domString = `
-          <h2 class="whiteh1">Staff</h2>
-          <div class="d-flex justify-content-between">
-          <button class="btn btn-secondary cudButton hide cudButton hide whiteh1 cursor" data-toggle="modal" data-target="#createStaffModal"><i class="fas fa-plus"></i> Add Staff Member</button>
+        <div class="d-flex justify-content-between m-2">
+        <h1 class="whiteh1">Staff</h1>
+        <div class="d-flex justify-content-end">
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle editHeight" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Filter Employees
             </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -162,10 +162,12 @@ const filterStaffButtonClick = (e) => {
             <button class="dropdown-item filterStaffButton" type="button" id="HeadofWaitStaff">Head of Wait Staff</button>
           </div>
           </div>
-          </div>
-          <div class="container mx-auto">
-          <div class="d-flex flex-wrap flex-row">
-          `;
+            <button class="btn btn-secondary cudButton hide cudButton hide whiteh1 cursor" data-toggle="modal" data-target="#createStaffModal"><i class="fas fa-plus"></i> Add Staff Member</button>
+        </div>
+        </div>
+        <div class="container mx-auto">
+        <div class="d-flex flex-wrap flex-row">
+        `;
         employeeArrays.forEach((employee) => {
           domString += `
             <div class="card-deck card-deck-cstm">
