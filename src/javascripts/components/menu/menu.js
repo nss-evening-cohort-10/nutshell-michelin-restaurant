@@ -41,8 +41,18 @@ const removeFromMenu = (e) => {
 };
 
 const changeMenuItem = (e) => {
-  const selectedMenuId = $(e.target).closest('.menuCard').attr('id');
-  menuData.getMenuItemById(selectedMenuId).then((menuObj) => console.log(menuObj)).catch((err) => console.error(err));
+  const selectedMenuId = $(e.target).attr('id').split('edit-')[1];
+  console.log(selectedMenuId);
+  menuData.getMenuItemById(selectedMenuId)
+    .then((menuObj) => {
+      $('#newMenuModal').modal('show');
+      $('#menu-name').val(menuObj.name);
+      $('#menu-description').val(menuObj.description);
+      $('#menu-price').val(menuObj.price);
+      $('#menu-imgUrl').val(menuObj.imgUrl);
+      // $('#categoryDropdown').val();
+      console.log(menuObj);
+    }).catch((err) => console.error(err));
 };
 
 const changeMenuIngredients = () => {};
@@ -77,11 +87,11 @@ const printMenuCards = () => {
           <div class="card-body">
             <div class="row d-flex">
               <p class="card-text col-11">${item.description}</p>
-              <button class="editMenuItemBtn cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
+              <button id="edit-${item.id}" class="editMenuItemBtn cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
             </div>
             <div class="row d-flex">
               <p class="card-text col-11">Ingredients: ${ingredientString}</p>
-              <button class="editMenuIngredientsBtn cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
+              <button id="editIngredients-${item.id}" class="editMenuIngredientsBtn cudButton hide btn btn-secondary col-1"><i class="fas fa-pencil-alt"></i></button>
             </div>
             <div class="card-text">
               <small class="text-muted d-flex align-right">
