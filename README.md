@@ -21,17 +21,17 @@ As an employee, you have the ability to sign in and make modifications to the me
 
 ## Screenshots
 #### Home Page
-
+![homePage](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/homeView.png)
 #### Menu
-
+![menu](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/homeView.png)
 #### Ingredients
-
+![ingredients](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/inventoryView.png)
 #### Staff
-
+![staff](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/staffView.PNG)
 #### Seating Chart
-
+![seatingChart](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/seatingChart.png)
 #### Reservations
-
+![reservations](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/reservationView.png)
 
 ## Run this Project
 * Clone down project from Github
@@ -41,6 +41,7 @@ As an employee, you have the ability to sign in and make modifications to the me
 
 ## Firebase Link
 
+[Click HERE to go to Application](https://le-baguette-af839.web.app/)
 
 ## Contributors
 * [Ashley Claiborne](https://github.com/aclai4067)
