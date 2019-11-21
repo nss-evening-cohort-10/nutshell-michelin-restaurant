@@ -23,7 +23,7 @@ As an employee, you have the ability to sign in and make modifications to the me
 #### Home Page
 ![homePage](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/homeView.png)
 #### Menu
-![menu](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/homeView.png)
+![menu](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/menuView.png)
 #### Ingredients
 ![ingredients](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/inventoryView.png)
 #### Staff
