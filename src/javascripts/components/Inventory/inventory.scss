@@ -29,3 +29,10 @@
 i {
   pointer-events: none;
 }
+
+.toast {
+  position: absolute;
+  top: 25%;
+  left: 40%;
+  z-index: 0;
+}

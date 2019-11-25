@@ -8,11 +8,15 @@ const getReservations = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/reservations.json`)
     .then((response) => {
       const demReservations = response.data;
-      const reservations = [];
-      Object.keys(demReservations).forEach((fbID) => {
-        demReservations[fbID].id = fbID;
-        reservations.push(demReservations[fbID]);
-      });
+      let reservations = [];
+      if (demReservations.length > 0) {
+        Object.keys(demReservations).forEach((fbID) => {
+          demReservations[fbID].id = fbID;
+          reservations.push(demReservations[fbID]);
+        });
+      } else {
+        reservations = [];
+      }
       const sortedReservations = reservations.sort((a, b) => moment(a.timeStamp).unix() - moment(b.timeStamp).unix());
       resolve(sortedReservations);
     })
