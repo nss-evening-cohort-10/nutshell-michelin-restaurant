@@ -30,8 +30,8 @@ const printIngredientsForm = (menuId) => {
       ingredients.forEach((ingredient) => {
         ingredientString += `
           <div class="ingredientCheckboxes custom-control custom-switch col-4">
-            <input type="checkbox" class="custom-control-input ingredientsListItem" id="${ingredient.id}">
-            <label class="custom-control-label" for="${ingredient.id}">${ingredient.name}</label>
+            <input type="checkbox" class="custom-control-input ingredientsListItem" id="checkbox-${ingredient.id}">
+            <label class="custom-control-label" for="checkbox-${ingredient.id}">${ingredient.name}</label>
           </div>
         `;
       });
@@ -116,45 +116,48 @@ const changeMenuItem = (e) => {
     }).catch((err) => console.error(err));
 };
 
-const updateIngredients = () => new Promise((resolve, reject) => {
-  const chosenIngredients = $('.ingredientCheckboxes input:checked');
-  const menuIngredientId = $('.selectIngredientList').attr('id').split('for-')[1];
-  menuIngredientsData.getAllMenuIngredients()
+const deleteItemsFromRecipe = (chosenIngredients, menuId) => {
+  const newIngredients = chosenIngredients;
+  menuIngredientsData.checkRecipesForMenuItems(menuId)
     .then((allMenuIngredients) => {
-      const currentIngredients = [];
-      allMenuIngredients.forEach((ingredient) => {
-        if (ingredient.menuItemId === menuIngredientId) {
-          currentIngredients.push(ingredient);
-        }
-      });
-      const newIngredients = [];
-      for (let i = 0; i < chosenIngredients.length; i += 1) {
-        newIngredients.push($(chosenIngredients[i]).attr('id'));
-      }
+      const currentIngredients = allMenuIngredients;
       const ingredientsToDelete = currentIngredients.filter((x) => !newIngredients.includes(x.ingredientId));
       ingredientsToDelete.forEach((removal) => {
         menuIngredientsData.deleteMenuIngredients(removal.id);
       });
-      const oldIngredients = [];
-      currentIngredients.forEach((menuIngredient) => {
-        oldIngredients.push(menuIngredient.ingredientId);
-      });
-      const toAdd = newIngredients.filter((x) => !oldIngredients.includes(x));
-      menuIngredientsData.getAllMenuIngredients()
-        .then((response) => {
-          toAdd.forEach((addition) => {
-            const menuIngredientIdsToAdd = response.find((y) => y.ingredientId === addition);
-            // const ingredientToPrint = response.find((z) => z.id === menuIngredientIdsToAdd.id);
-            // console.log(ingredientToPrint);
-            if (menuIngredientIdsToAdd) {
-              const addedIngredient = {};
-              addedIngredient.menuItemId = menuIngredientId;
-              addedIngredient.ingredientId = menuIngredientIdsToAdd.ingredientId;
-              menuIngredientsData.addMenuIngredient(addedIngredient);
-            }
+    }).catch((error) => console.error(error));
+};
+
+const updateIngredients = () => new Promise((resolve, reject) => {
+  const chosenIngredients = $('.ingredientCheckboxes input:checked');
+  const menuIngredientId = $('.selectIngredientList').attr('id').split('for-')[1];
+  const newIngredients = [];
+  for (let i = 0; i < chosenIngredients.length; i += 1) {
+    newIngredients.push($(chosenIngredients[i]).attr('id').split('checkbox-')[1]);
+  }
+  deleteItemsFromRecipe(newIngredients, menuIngredientId);
+  const oldIngredients = [];
+  menuIngredientsData.checkRecipesForMenuItems(menuIngredientId)
+    .then((allMenuIngredients) => {
+      allMenuIngredients.forEach((ingredient) => {
+        oldIngredients.push(ingredient.ingredientId);
+        const toAdd = newIngredients.filter((x) => !oldIngredients.includes(x));
+        menuIngredientsData.getAllMenuIngredients()
+          .then((response) => {
+            toAdd.forEach((addition) => {
+              const menuIngredientIdsToAdd = response.find((y) => y.ingredientId === addition);
+              console.log(menuIngredientIdsToAdd);
+              // const ingredientToPrint = response.find((z) => z.id === menuIngredientIdsToAdd.id);
+              // console.log(ingredientToPrint);
+              if (menuIngredientIdsToAdd) {
+                const addedIngredient = {};
+                addedIngredient.menuItemId = menuIngredientId;
+                addedIngredient.ingredientId = menuIngredientIdsToAdd.ingredientId;
+                menuIngredientsData.addMenuIngredient(addedIngredient);
+              }
+            });
           });
-        });
-      resolve();
+      });
     }).catch((err) => reject(err));
 });
 
@@ -177,7 +180,7 @@ const changeMenuIngredients = (e) => {
   menuIngredientsData.checkRecipesForMenuItems(selectedMenuIngredientId)
     .then((recipeIngredients) => {
       recipeIngredients.forEach((ingredient) => {
-        $(`#${ingredient.ingredientId}`).attr('checked', true);
+        $(`#checkbox-${ingredient.ingredientId}`).attr('checked', true);
       });
       $('#updateMenuIngredientBtn').click((event) => {
         saveMenuIngredientChanges(event, selectedMenuIngredientId, recipeIngredients);
