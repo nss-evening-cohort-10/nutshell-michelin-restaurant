@@ -6,8 +6,7 @@ import menuData from '../../helpers/data/menuData';
 import menuIngredientsData from '../../helpers/data/MenuIngredientData';
 import inventoryData from '../../helpers/data/inventoryData';
 
-const findMenuIngredients = (e) => {
-  e.stopImmediatePropagation();
+const findMenuIngredients = () => {
   const newMenuId = $('.selectIngredientList').attr('id').split('for-')[1];
   const checked = $('.ingredientCheckboxes input:checked');
   for (let i = 0; i < checked.length; i += 1) {
@@ -42,8 +41,7 @@ const printIngredientsForm = (menuId) => {
     }).catch((err) => console.error(err));
 };
 
-const createMenuItem = (e) => {
-  e.stopImmediatePropagation();
+const createMenuItem = () => {
   const newMenuItem = {
     name: $('#menu-name').val(),
     price: $('#menu-price').val(),
@@ -62,12 +60,14 @@ const createMenuItem = (e) => {
 };
 
 const removeMenuIngredients = (menuId) => {
-  menuIngredientsData.getAllMenuIngredients().then((ingredients) => {
-    const menuIngredientsToDelete = ingredients.filter((x) => x.menuItemId === menuId);
-    menuIngredientsToDelete.forEach((menuIngredient) => {
-      menuIngredientsData.deleteMenuIngredients(menuIngredient.id);
-    });
-  }).catch((err) => console.error(err));
+  menuIngredientsData.getAllMenuIngredients()
+    .then((ingredients) => {
+      const menuIngredientsToDelete = ingredients.filter((x) => x.menuItemId === menuId);
+      menuIngredientsToDelete.forEach((menuIngredient) => {
+        menuIngredientsData.deleteMenuIngredients(menuIngredient.id);
+      });
+    })
+    .catch((err) => console.error(err));
 };
 
 const removeFromMenu = (e) => {
@@ -79,8 +79,7 @@ const removeFromMenu = (e) => {
   }).catch((err) => console.error(err));
 };
 
-const saveMenuChange = (e) => {
-  e.stopImmediatePropagation();
+const saveMenuChange = () => {
   const menuToUpdate = $('.menuIdPlaceholder').attr('id');
   const updatedMenuItem = {
     name: $('#menu-name').val(),
@@ -101,7 +100,6 @@ const saveMenuChange = (e) => {
 };
 
 const changeMenuItem = (e) => {
-  e.stopImmediatePropagation();
   const selectedMenuId = $(e.target).attr('id').split('edit-')[1];
   menuData.getMenuItemById(selectedMenuId)
     .then((menuObj) => {
@@ -160,8 +158,7 @@ const updateIngredients = () => new Promise((resolve, reject) => {
     }).catch((err) => reject(err));
 });
 
-const saveMenuIngredientChanges = (e) => {
-  e.stopImmediatePropagation();
+const saveMenuIngredientChanges = () => {
   updateIngredients()
     .then(() => {
       $('#newMenuIngredientBtn').removeClass('hide');
@@ -173,22 +170,17 @@ const saveMenuIngredientChanges = (e) => {
 };
 
 const changeMenuIngredients = (e) => {
-  e.stopImmediatePropagation();
   const selectedMenuIngredientId = $(e.target).attr('id').split('editIngredients-')[1];
   printIngredientsForm(selectedMenuIngredientId);
   $('#newMenuIngredientBtn').addClass('hide');
   $('#updateMenuIngredientBtn').removeClass('hide');
-  menuIngredientsData.getAllMenuIngredients()
-    .then((allMenuIngredients) => {
-      const currentIngredients = [];
-      allMenuIngredients.forEach((ingredient) => {
-        if (ingredient.menuItemId === selectedMenuIngredientId) {
-          currentIngredients.push(ingredient);
-          $(`#${ingredient.ingredientId}`).prop('checked', true);
-        }
+  menuIngredientsData.checkRecipesForMenuItems(selectedMenuIngredientId)
+    .then((recipeIngredients) => {
+      recipeIngredients.forEach((ingredient) => {
+        $(`#${ingredient.ingredientId}`).attr('checked', true);
       });
       $('#updateMenuIngredientBtn').click((event) => {
-        saveMenuIngredientChanges(event, selectedMenuIngredientId, currentIngredients);
+        saveMenuIngredientChanges(event, selectedMenuIngredientId, recipeIngredients);
       });
     }).catch((err) => console.error(err));
 };

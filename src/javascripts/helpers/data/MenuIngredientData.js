@@ -20,6 +20,20 @@ const getAllMenuIngredients = () => new Promise((resolve, reject) => {
     }).catch((err) => reject(err));
 });
 
+const checkRecipesForMenuItems = (menuItemId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/menuItemIngredients.json?orderBy="menuItemId"&equalTo="${menuItemId}"`)
+    .then((response) => {
+      const recipeIngredients = response.data;
+      const recipeIngredientList = [];
+      Object.keys(recipeIngredients).forEach((fbId) => {
+        recipeIngredients[fbId].id = fbId;
+        recipeIngredientList.push(recipeIngredients[fbId]);
+      });
+      resolve(recipeIngredientList);
+    })
+    .catch((error) => reject(error));
+});
+
 const checkRecipesForIngredients = (ingredientId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/menuItemIngredients.json?orderBy="ingredientId"&equalTo="${ingredientId}"`)
     .then((response) => {
@@ -39,4 +53,5 @@ export default {
   deleteMenuIngredients,
   addMenuIngredient,
   checkRecipesForIngredients,
+  checkRecipesForMenuItems,
 };
