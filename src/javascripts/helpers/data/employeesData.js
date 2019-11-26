@@ -9,6 +9,7 @@ const employeesDataByEmployeeId = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/staffs.json`)
     .then((response) => {
       const demEmployees = response.data;
+      let employees = [];
       if (demEmployees === null) {
         const domString = `
         <div class="d-flex justify-content-between m-2">
@@ -39,9 +40,9 @@ const employeesDataByEmployeeId = () => new Promise((resolve, reject) => {
         <div class="d-flex flex-wrap flex-row">
         <h1>It looks like you don't have any employees. Consider hiring some!</h1>
         `;
+        employees = [];
         utilities.printToDom('printComponent', domString);
       } else {
-        const employees = [];
         Object.keys(demEmployees).forEach((emId) => {
           demEmployees[emId].id = emId;
           employees.push(demEmployees[emId]);

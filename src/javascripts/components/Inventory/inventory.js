@@ -4,6 +4,7 @@ import makeIngredientCard from '../MakeIngredientCard/makeIngredientCard';
 import utilities from '../../helpers/utilities';
 
 import './inventory.scss';
+import MenuIngredientData from '../../helpers/data/MenuIngredientData';
 
 const clearForm = () => {
   $('#ingredient-name').val('');
@@ -57,10 +58,18 @@ const createNewIngredient = (e) => {
 const deleteIngredient = (e) => {
   e.preventDefault();
   const ingredientId = e.target.id.split('delete-ingredient-')[1];
-  inventoryData.deleteIngredient(ingredientId)
-    .then(() => {
-      // eslint-disable-next-line no-use-before-define
-      printIngredients();
+  MenuIngredientData.checkRecipesForIngredients(ingredientId)
+    .then((recipes) => {
+      if (recipes.length > 0) {
+        $('.toast').toast('show');
+        $('.toast').css('z-index', 3000);
+      } else {
+        inventoryData.deleteIngredient(ingredientId)
+          .then(() => {
+          // eslint-disable-next-line no-use-before-define
+            printIngredients();
+          });
+      }
     })
     .catch((error) => console.error(error));
 };
