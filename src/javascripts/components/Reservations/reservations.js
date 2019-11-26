@@ -16,20 +16,28 @@ const updateReservationByClick = (event) => {
   const date = $('#edit-reserve-date').val().toString();
   const time = $('#edit-reserve-time').val().toString();
   const dateAndTime = [date, time].join(' ');
-  const updatedReservation = {
-    seatingId: seatingIdFormatted,
-    partySize: partySizeFormatted,
-    customerName: $('#edit-customer-name').val(),
-    timeStamp: dateAndTime,
-  };
-  reservationsData.updateReservation(reservationId, updatedReservation)
-    .then(() => {
-      document.forms['update-reservation-form'].reset();
-      $('#editReservationModal').modal('hide');
-      // eslint-disable-next-line no-use-before-define
-      printReservations();
-    })
-    .catch((error) => console.error(error));
+  seatingData.getSeating()
+    .then((seatings) => {
+      const seatingRecord = seatings.find((x) => x.id === seatingId);
+      if (partySizeFormatted <= seatingRecord.numOfSeats) {
+        const updatedReservation = {
+          seatingId: seatingIdFormatted,
+          partySize: partySizeFormatted,
+          customerName: $('#edit-customer-name').val(),
+          timeStamp: dateAndTime,
+        };
+        reservationsData.updateReservation(reservationId, updatedReservation)
+          .then(() => {
+            document.forms['update-reservation-form'].reset();
+            $('#editReservationModal').modal('hide');
+            // eslint-disable-next-line no-use-before-define
+            printReservations();
+          })
+          .catch((error) => console.error(error));
+      } else {
+        console.log('cannot update');
+      }
+    });
 };
 
 const tableOption = (selectId) => {
@@ -103,9 +111,7 @@ const addReservationByClick = (event) => {
   // const dateAndTimeFormatted = moment(dateAndTime).format('LLL');
   seatingData.getSeating()
     .then((seatings) => {
-      console.log('add reservations', seatings);
       const seatingRecord = seatings.find((x) => x.id === seatingId);
-      console.log('my one table', seatingRecord);
       if (partySizeFormatted <= seatingRecord.numOfSeats) {
         const newReservation = {
           seatingId: seatingIdFormatted,
