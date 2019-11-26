@@ -6,6 +6,32 @@ import menuData from '../../helpers/data/menuData';
 import menuIngredientsData from '../../helpers/data/MenuIngredientData';
 import inventoryData from '../../helpers/data/inventoryData';
 
+const addIngredientOptions = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  const menuId = e.target.id.split('addItem-')[1];
+  // eslint-disable-next-line no-use-before-define
+  printIngredientsForm(menuId);
+};
+
+const removeIngredientOptions = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  const menuId = e.target.id.split('removeItem-')[1];
+  console.log(menuId);
+};
+
+
+const printMenuIngredientOptions = (menuId) => {
+  $('#newMenuIngredientsModal').modal('show');
+  const domString = `
+    <button class="btn btn-dark addItem" id="addItem-${menuId}">Add an Ingredient</button>
+    <button class="btn btn-dark removeItem" id="removeItem-${menuId}">Remove an Ingredient</button>`;
+  utilities.printToDom('addMenuIngredientsForm', domString);
+  $('body').on('click', '.addItem', addIngredientOptions);
+  $('body').on('click', '.removeItem', removeIngredientOptions);
+};
+
 const findMenuIngredients = () => {
   const newMenuId = $('.selectIngredientList').attr('id').split('for-')[1];
   const checked = $('.ingredientCheckboxes input:checked');
@@ -23,20 +49,24 @@ const findMenuIngredients = () => {
 };
 
 const printIngredientsForm = (menuId) => {
-  $('#newMenuIngredientsModal').modal('show');
+  let domString = `
+  <form>
+  <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <label class="mr-sm-2" for="ingredientSelect-${menuId}">Add an Ingredient</label>
+      <select class="custom-select mr-sm-2" id="ingredientSelect-${menuId}">`;
   inventoryData.getInventory()
     .then((ingredients) => {
-      let ingredientString = `<div id="for-${menuId}" class="selectIngredientList row d-flex flex-wrap p-2">`;
       ingredients.forEach((ingredient) => {
-        ingredientString += `
-          <div class="ingredientCheckboxes custom-control custom-switch col-4">
-            <input type="checkbox" class="custom-control-input ingredientsListItem" id="checkbox-${ingredient.id}">
-            <label class="custom-control-label" for="checkbox-${ingredient.id}">${ingredient.name}</label>
-          </div>
+        domString += `
+          <option value="${ingredient.name}" id="ingredient-${ingredient.id}">${ingredient.name}</option>
         `;
       });
-      ingredientString += '</div>';
-      utilities.printToDom('addMenuIngredientsForm', ingredientString);
+      domString += `
+              </select>
+            </div>
+        </form>`;
+      utilities.printToDom('addMenuIngredientsForm', domString);
       $('#newMenuIngredientBtn').click(findMenuIngredients);
     }).catch((err) => console.error(err));
 };
@@ -51,7 +81,7 @@ const createMenuItem = () => {
   };
   menuData.addMenuItem(newMenuItem)
     .then((newMenuId) => {
-      printIngredientsForm(newMenuId);
+      printMenuIngredientOptions(newMenuId);
       $('#newMenuModal').modal('hide');
       $('#addMenuForm').trigger('reset');
       // eslint-disable-next-line no-use-before-define
@@ -174,7 +204,7 @@ const saveMenuIngredientChanges = () => {
 
 const changeMenuIngredients = (e) => {
   const selectedMenuIngredientId = $(e.target).attr('id').split('editIngredients-')[1];
-  printIngredientsForm(selectedMenuIngredientId);
+  printMenuIngredientOptions(selectedMenuIngredientId);
   $('#newMenuIngredientBtn').addClass('hide');
   $('#updateMenuIngredientBtn').removeClass('hide');
   menuIngredientsData.checkRecipesForMenuItems(selectedMenuIngredientId)
