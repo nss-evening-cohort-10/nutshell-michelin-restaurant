@@ -4,5 +4,7 @@
   "seatings":  "tables", 
   "reservations": "right now", 
   "ingredients": "chicken", 
-  "staffs": "Carl"
+  "staffs": "Carl",
+  "orders": "an order",
+  "sections": "a relationship between tables and staff"
 }
