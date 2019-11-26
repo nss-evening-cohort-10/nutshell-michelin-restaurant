@@ -3,6 +3,7 @@ import moment from 'moment';
 import './reservations.scss';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
+import seatingData from '../../helpers/data/seatingData';
 
 const updateReservationByClick = (event) => {
   event.preventDefault();
@@ -31,6 +32,18 @@ const updateReservationByClick = (event) => {
     .catch((error) => console.error(error));
 };
 
+const tableOption = (selectId) => {
+  let domString = '<option>Choose...</option>';
+  seatingData.getSeating()
+    .then((seatings) => {
+      seatings.forEach((seating) => {
+        domString += `<option value="${seating.tableName}">${seating.tableName}</option>`;
+      });
+      utilities.printToDom(selectId, domString);
+    })
+    .catch((error) => console.error(error));
+};
+
 const updateResModal = (event) => {
   $('#editReservationModal').modal('show');
   const reservationId = $(event.target).closest('.card')[0].id;
@@ -39,10 +52,15 @@ const updateResModal = (event) => {
     .then((reservation) => {
       let domString = '';
       domString += `
-    <div class="form-group">
-      <label for="edit-seating-id">Table Number</label>
-      <input type="text" class="form-control" id="edit-seating-id" placeholder="Table Number Here">
-    </div>
+    <form>
+      <div class="form-row align-items-center">
+        <div class="col-auto my-1">
+          <label class="mr-sm-2" for="edit-seating-id">Table Numbers</label>
+          <select class="custom-select mr-sm-2 newTableSelection" id="edit-seating-id">
+          </select>
+        </div>
+      </div>  
+    </form>
     <div class="form-group">
       <label for="edit-customer-name">Customer Name</label>
       <input type="text" class="form-control" id="edit-customer-name" placeholder="Enter Customer Name">
@@ -61,6 +79,7 @@ const updateResModal = (event) => {
     </div>
       `;
       utilities.printToDom('update-reservation-form', domString);
+      tableOption('edit-seating-id');
       $('#edit-seating-id').val(reservation.seatingId.split('table-').join(''));
       $('#edit-customer-name').val(reservation.customerName);
       $('#edit-party-size').val(reservation.partySize);
@@ -74,6 +93,7 @@ const updateResModal = (event) => {
 const addReservationByClick = (event) => {
   event.stopImmediatePropagation();
   const seatingId = $('#seating-id').val();
+  console.log('from add reserve', seatingId);
   let seatingIdFormatted = 'table-';
   seatingIdFormatted += seatingId.toString();
   const partySize = $('#party-size').val();
@@ -82,18 +102,25 @@ const addReservationByClick = (event) => {
   const time = $('#reserve-time').val().toString();
   const dateAndTime = [date, time].join(' ');
   // const dateAndTimeFormatted = moment(dateAndTime).format('LLL');
-  const newReservation = {
-    seatingId: seatingIdFormatted,
-    partySize: partySizeFormatted,
-    customerName: $('#customer-name').val(),
-    timeStamp: dateAndTime,
-  };
-  reservationsData.addReservation(newReservation)
-    .then(() => {
-      document.forms['reservation-form'].reset();
-      $('#addReservationModal').modal('hide');
-      // eslint-disable-next-line no-use-before-define
-      printReservations();
+  seatingData.getSeating()
+    .then((seatings) => {
+      if (partySize === seatings.numOfSeats && seatingId === seatings.tableName) {
+        const newReservation = {
+          seatingId: seatingIdFormatted,
+          partySize: partySizeFormatted,
+          customerName: $('#customer-name').val(),
+          timeStamp: dateAndTime,
+        };
+        reservationsData.addReservation(newReservation)
+          .then(() => {
+            document.forms['reservation-form'].reset();
+            $('#addReservationModal').modal('hide');
+            // eslint-disable-next-line no-use-before-define
+            printReservations();
+          });
+      } else {
+        console.log('cannot reserve');
+      }
     })
     .catch();
 };
@@ -145,6 +172,7 @@ const printReservations = () => {
       });
       domString += '</div>';
       utilities.printToDom('printComponent', domString);
+      tableOption('seating-id');
       $('#printComponent').on('click', '.delete-reservation', deleteReservationByClick);
       $('.edit-reservation').click(updateResModal);
       $('#add-new-reservation').click(addReservationByClick);
