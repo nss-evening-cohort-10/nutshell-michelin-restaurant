@@ -91,7 +91,8 @@ const updateResModal = (event) => {
       `;
       utilities.printToDom('update-reservation-form', domString);
       tableOption('edit-seating-id');
-      $('#edit-seating-id').append(($('<option />'))).val(reservation.seatingId.split('table-').join(''));
+      $('#edit-seating-id').val(reservation.seatingId.split('table-').join(''));
+      console.log('seating id', $('#edit-seating-id').val(reservation.seatingId));
       $('#edit-customer-name').val(reservation.customerName);
       $('#edit-party-size').val(reservation.partySize);
       $('#edit-reserve-date').val(reservation.timeStamp.split(' ')[0]);
