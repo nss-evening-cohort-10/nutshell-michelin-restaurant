@@ -35,7 +35,7 @@ const updateReservationByClick = (event) => {
           })
           .catch((error) => console.error(error));
       } else {
-        console.log('cannot update');
+        $('#edit-reservation-party-size').removeClass('hide');
       }
     });
 };
@@ -84,11 +84,14 @@ const updateResModal = (event) => {
     <div class="form-group">
       <label for="edit-reserve-time">Time</label>
       <input type="time" class="form-control" id="edit-reserve-time" placeholder="Choose Time">
+      <div>
+        <small id="edit-reservation-party-size" class="form-text hide text-danger">Reservation party size exceeds number of seats at the table. Please pick a different table.</small>
+      </div>
     </div>
       `;
       utilities.printToDom('update-reservation-form', domString);
       tableOption('edit-seating-id');
-      $('#edit-seating-id').val(reservation.seatingId.split('table-').join(''));
+      $('#edit-seating-id').append(($('<option />'))).val(reservation.seatingId.split('table-').join(''));
       $('#edit-customer-name').val(reservation.customerName);
       $('#edit-party-size').val(reservation.partySize);
       $('#edit-reserve-date').val(reservation.timeStamp.split(' ')[0]);
@@ -127,7 +130,7 @@ const addReservationByClick = (event) => {
             printReservations();
           });
       } else {
-        console.log('cannot reserve');
+        $('#reservation-party-size').removeClass('hide');
       }
     })
     .catch();
