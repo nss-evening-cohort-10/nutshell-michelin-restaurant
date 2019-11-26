@@ -17,6 +17,7 @@ const getInventory = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+
 const addIngredient = (newIngredient) => axios.post(`${baseUrl}/ingredients.json`, newIngredient);
 
 const deleteIngredient = (ingredientId) => axios.delete(`${baseUrl}/ingredients/${ingredientId}.json`);
