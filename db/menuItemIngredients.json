@@ -1,122 +1,182 @@
 {
   "menuItemIngredient1": {
     "menuItemId": "menuItem1",
-    "ingredientId": "ingredient3"
+    "ingredientId": "ingredient3",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "L"
   },
   "menuItemIngredient2": {
     "menuItemId": "menuItem1",
-    "ingredientId": "ingredient7"
+    "ingredientId": "ingredient7",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient3": {
     "menuItemId": "menuItem1",
-    "ingredientId": "ingredient14"
+    "ingredientId": "ingredient14",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient4": {
     "menuItemId": "menuItem1",
-    "ingredientId": "ingredient15"
+    "ingredientId": "ingredient15",
+    "amountUsedPerRecipe": 35,
+    "unitOfMeasurement": "g"
   },
   "menuItemIngredient5": {
     "menuItemId": "menuItem1",
-    "ingredientId": "ingredient17"
+    "ingredientId": "ingredient17",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient6": {
     "menuItemId": "menuItem2",
-    "ingredientId": "ingredient5"
+    "ingredientId": "ingredient5",
+    "amountUsedPerRecipe": 50,
+    "unitOfMeasurement": "g"
   },
   "menuItemIngredient7": {
     "menuItemId": "menuItem2",
-    "ingredientId": "ingredient10"
+    "ingredientId": "ingredient10",
+    "amountUsedPerRecipe": 3,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient8": {
     "menuItemId": "menuItem2",
-    "ingredientId": "ingredient11"
+    "ingredientId": "ingredient11",
+    "amountUsedPerRecipe": 2,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient9": {
     "menuItemId": "menuItem2",
-    "ingredientId": "ingredient12"
+    "ingredientId": "ingredient12",
+    "amountUsedPerRecipe": 3,
+    "unitOfMeasurement": "dz"
   },
   "menuItemIngredient10": {
     "menuItemId": "menuItem2",
-    "ingredientId": "ingredient17"
+    "ingredientId": "ingredient17",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient11": {
     "menuItemId": "menuItem2",
-    "ingredientId": "ingredient20"
+    "ingredientId": "ingredient20",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient12": {
     "menuItemId": "menuItem3",
-    "ingredientId": "ingredient9"
+    "ingredientId": "ingredient9",
+    "amountUsedPerRecipe": 3,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient13": {
     "menuItemId": "menuItem3",
-    "ingredientId": "ingredient11"
+    "ingredientId": "ingredient11",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient14": {
     "menuItemId": "menuItem3",
-    "ingredientId": "ingredient12"
+    "ingredientId": "ingredient12",
+    "amountUsedPerRecipe": 5,
+    "unitOfMeasurement": "dz"
   },
   "menuItemIngredient15": {
     "menuItemId": "menuItem3",
-    "ingredientId": "ingredient15"
+    "ingredientId": "ingredient15",
+    "amountUsedPerRecipe": 75,
+    "unitOfMeasurement": "g"
   },
   "menuItemIngredient16": {
     "menuItemId": "menuItem3",
-    "ingredientId": "ingredient16"
+    "ingredientId": "ingredient16",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient17": {
     "menuItemId": "menuItem3",
-    "ingredientId": "ingredient17"
+    "ingredientId": "ingredient17",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient18": {
     "menuItemId": "menuItem3",
-    "ingredientId": "ingredient19"
+    "ingredientId": "ingredient19",
+    "amountUsedPerRecipe": 3,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient19": {
     "menuItemId": "menuItem3",
-    "ingredientId": "ingredient8"
+    "ingredientId": "ingredient8",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient20": {
     "menuItemId": "menuItem4",
-    "ingredientId": "ingredient3"
+    "ingredientId": "ingredient3",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "L"
   },
   "menuItemIngredient21": {
     "menuItemId": "menuItem4",
-    "ingredientId": "ingredient11"
+    "ingredientId": "ingredient11",
+    "amountUsedPerRecipe": 4,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient22": {
     "menuItemId": "menuItem4",
-    "ingredientId": "ingredient12"
+    "ingredientId": "ingredient12",
+    "amountUsedPerRecipe": 3,
+    "unitOfMeasurement": "dz"
   },
   "menuItemIngredient23": {
     "menuItemId": "menuItem4",
-    "ingredientId": "ingredient13"
+    "ingredientId": "ingredient13",
+    "amountUsedPerRecipe": 45,
+    "unitOfMeasurement": "g"
   },
   "menuItemIngredient24": {
     "menuItemId": "menuItem4",
-    "ingredientId": "ingredient15"
+    "ingredientId": "ingredient15",
+    "amountUsedPerRecipe": 100,
+    "unitOfMeasurement": "g"
   },
   "menuItemIngredient25": {
     "menuItemId": "menuItem4",
-    "ingredientId": "ingredient19"
+    "ingredientId": "ingredient19",
+    "amountUsedPerRecipe": 2,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient26": {
     "menuItemId": "menuItem5",
-    "ingredientId": "ingredient1"
+    "ingredientId": "ingredient1",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "L"
   },
   "menuItemIngredient27": {
     "menuItemId": "menuItem5",
-    "ingredientId": "ingredient2"
+    "ingredientId": "ingredient2",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "L"
   },
   "menuItemIngredient28": {
     "menuItemId": "menuItem5",
-    "ingredientId": "ingredient6"
+    "ingredientId": "ingredient6",
+    "amountUsedPerRecipe": 5,
+    "unitOfMeasurement": "kg"
   },
   "menuItemIngredient29": {
     "menuItemId": "menuItem5",
-    "ingredientId": "ingredient12"
+    "ingredientId": "ingredient12",
+    "amountUsedPerRecipe": 1,
+    "unitOfMeasurement": "dz"
   },
   "menuItemIngredient30": {
     "menuItemId": "menuItem5",
-    "ingredientId": "ingredient17"
+    "ingredientId": "ingredient17",
+    "amountUsedPerRecipe": 4,
+    "unitOfMeasurement": "kg"
   }
 }

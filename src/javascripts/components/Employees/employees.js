@@ -37,7 +37,10 @@ const displayStaff = () => {
           <button class="dropdown-item filterStaffButton" type="button" id="BarDirector">Bar Director</button>
           <button class="dropdown-item filterStaffButton" type="button" id="RestaurantManager">Restaurant Manager</button>
           <button class="dropdown-item filterStaffButton" type="button" id="HeadofWaitStaff">Head of Wait Staff</button>
-        </div>
+          <button class="dropdown-item filterStaffButton" type="button" id="Server">Server</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="Porter">Porter</button>
+          <button class="dropdown-item filterStaffButton" type="button" id="Bartender">Bartender</button>
+          </div>
         </div>
           <button class="btn btn-secondary cudButton hide cudButton hide whiteh1 cursor" data-toggle="modal" data-target="#createStaffModal"><i class="fas fa-plus"></i> Add Staff Member</button>
       </div>
@@ -156,6 +159,9 @@ const filterStaffButtonClick = (e) => {
             <button class="dropdown-item filterStaffButton" type="button" id="BarDirector">Bar Director</button>
             <button class="dropdown-item filterStaffButton" type="button" id="RestaurantManager">Restaurant Manager</button>
             <button class="dropdown-item filterStaffButton" type="button" id="HeadofWaitStaff">Head of Wait Staff</button>
+            <button class="dropdown-item filterStaffButton" type="button" id="Server">Server</button>
+            <button class="dropdown-item filterStaffButton" type="button" id="Porter">Porter</button>
+            <button class="dropdown-item filterStaffButton" type="button" id="Bartender">Bartender</button>
           </div>
           </div>
             <button class="btn btn-secondary cudButton hide cudButton hide whiteh1 cursor" data-toggle="modal" data-target="#createStaffModal"><i class="fas fa-plus"></i> Add Staff Member</button>
