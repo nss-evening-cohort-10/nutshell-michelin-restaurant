@@ -1,8 +1,6 @@
 import utilities from '../../helpers/utilities';
 import './makeIngredientCard.scss';
 
-debugger
-
 const makeIngredientCard = (ingredient) => {
   const costFormatted = utilities.currencyFormatter.format(ingredient.cost / 100);
   const domString = `
