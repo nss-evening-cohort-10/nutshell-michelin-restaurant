@@ -93,7 +93,6 @@ const updateResModal = (event) => {
 const addReservationByClick = (event) => {
   event.stopImmediatePropagation();
   const seatingId = $('#seating-id').val();
-  console.log('from add reserve', seatingId);
   let seatingIdFormatted = 'table-';
   seatingIdFormatted += seatingId.toString();
   const partySize = $('#party-size').val();
@@ -104,7 +103,10 @@ const addReservationByClick = (event) => {
   // const dateAndTimeFormatted = moment(dateAndTime).format('LLL');
   seatingData.getSeating()
     .then((seatings) => {
-      if (partySize === seatings.numOfSeats && seatingId === seatings.tableName) {
+      console.log('add reservations', seatings);
+      const seatingRecord = seatings.find((x) => x.id === seatingId);
+      console.log('my one table', seatingRecord);
+      if (partySizeFormatted <= seatingRecord.numOfSeats) {
         const newReservation = {
           seatingId: seatingIdFormatted,
           partySize: partySizeFormatted,
