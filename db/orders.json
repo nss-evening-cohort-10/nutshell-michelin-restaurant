@@ -1,0 +1,42 @@
+{
+  "order1": {
+    "reservationId": "reservation1",
+    "menuItemId": "menuItem5"
+  },
+  "order2": {
+    "reservationId": "reservation2",
+    "menuItemId": "menuItem4"
+  },
+  "order3": {
+    "reservationId": "reservation3",
+    "menuItemId": "menuItem5"
+  },
+  "order4": {
+    "reservationId": "reservation4",
+    "menuItemId": "menuItem2"
+  },
+  "order5": {
+    "reservationId": "reservation5",
+    "menuItemId": "menuItem5"
+  },
+  "order6": {
+    "reservationId": "reservation1",
+    "menuItemId": "menuItem2"
+  },
+  "order7": {
+    "reservationId": "reservation2",
+    "menuItemId": "menuItem1"
+  },
+  "order8": {
+    "reservationId": "reservation3",
+    "menuItemId": "menuItem4"
+  },
+  "order9": {
+    "reservationId": "reservation4",
+    "menuItemId": "menuItem3"
+  },
+  "order10": {
+    "reservationId": "reservation5",
+    "menuItemId": "menuItem5"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "section1": {
+    "server": "employee11",
+    "porter": "employee10",
+    "bartender": "employee12"
+  },
+  "section2": {
+    "server": "employee11",
+    "porter": "employee10",
+    "bartender": "employee12"
+  },
+  "section3": {
+    "server": "employee11",
+    "porter": "employee10",
+    "bartender": "employee12"
+  },
+  "section4": {
+    "server": "employee11",
+    "porter": "employee10",
+    "bartender": "employee12"
+  }
+}
