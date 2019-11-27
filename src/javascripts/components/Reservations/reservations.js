@@ -134,21 +134,21 @@ const printReservationDetails = (reservationId) => {
           <p class="card-text">Table Number — TBD</p>
           <p class="card-text">${timeFormatted}</p>
         </div>
-        <div class="d-flex justify-content-center flex-column">`;
+        <div class="menu-items d-flex justify-content-center flex-column">`;
       smashData.getReservationsAndMenuItems(reservationId)
         .then((menuItems) => {
           menuItems.forEach((menuItem) => {
-            console.log('fromres', menuItem.name);
-            domString += '<div class="d-flex flex-column justify-content-center">';
-            domString += `<div>${menuItem.name}</div>`;
-            domString += `<div>${menuItem.price}</div>`;
+            domString += '<div class="d-flex menu-items border">';
+            domString += `<div class="d-flex flex-row flex-wrap justify-content-between border">
+            <div class="col-xs-6 justify-content-center border"><h4>${menuItem.name}</h4></div>
+            <div class="col-xs-6 justify-content-center border"><h6>$${menuItem.price / 100}</h6></div>
+            </div>`;
             domString += '</div>';
           });
           domString += '<button class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal"><i class="fas fa-utensils"></i> Menu Items</button>';
           domString += '</div></div></div>';
           utilities.printToDom('reservation-detail', domString);
           $('.card-body').on('click', '.go-back-button', (() => {
-            // $('.go-back-button').css('transform', 'rotate(45deg)');
             $('#reservation-detail').addClass('hide');
             $('.card-back').addClass('hide');
             $('#printComponent').removeClass('hide');
