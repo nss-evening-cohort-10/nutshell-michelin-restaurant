@@ -6,39 +6,119 @@ import menuData from '../../helpers/data/menuData';
 import menuIngredientsData from '../../helpers/data/MenuIngredientData';
 import inventoryData from '../../helpers/data/inventoryData';
 
+
+const addIngredientOptions = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  const menuId = e.target.id.split('addItem-')[1];
+  // eslint-disable-next-line no-use-before-define
+  printIngredientsForm(menuId);
+  menuIngredientsData.checkRecipesForMenuItems(menuId)
+    .then((menuItems) => {
+      menuItems.forEach((item) => {
+        $(`#ingredient-${item.ingredientId}`).addClass('hide');
+      });
+    })
+    .catch((error) => console.error(error));
+};
+
+const removeIngredientOptions = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  const menuId = e.target.id.split('removeItem-')[1];
+  // eslint-disable-next-line no-use-before-define
+  printDeleteIngredientsForm(menuId);
+};
+
+
+const printDeleteIngredientsForm = (menuId) => {
+  menuIngredientsData.checkRecipesForMenuItems(menuId)
+    .then((menuItems) => {
+      let domString = '<div class="row-wrap">';
+      menuItems.forEach((item) => {
+        inventoryData.getInventoryById(item.ingredientId).then((ingredients) => {
+          ingredients.forEach((ingredient) => {
+            domString += `<div class="col-1" id="delCont-${item.menuItemId}"}><div id="rem-${ingredient.id}">${ingredient.name}</div><button class="btn btn-dark removeIngred" id="del-${ingredient.id}">remove</button></div>`;
+          });
+          domString += '</div>';
+          utilities.printToDom('addMenuIngredientsForm', domString);
+        });
+      });
+    })
+    .catch((error) => console.error(error));
+  // eslint-disable-next-line no-use-before-define
+  $('body').on('click', '.removeIngred', deleteItemsFromRecipe);
+};
+
+
+const printMenuIngredientOptions = (menuId) => {
+  $('#newMenuIngredientsModal').modal('show');
+  const domString = `
+    <button class="btn btn-dark addItem" id="addItem-${menuId}">Add an Ingredient</button>
+    <button class="btn btn-dark removeItem" id="removeItem-${menuId}">Remove an Ingredient</button>`;
+  utilities.printToDom('addMenuIngredientsForm', domString);
+  $('#updateMenuIngredientBtn').addClass('hide');
+  $('body').on('click', '.addItem', addIngredientOptions);
+  $('body').on('click', '.removeItem', removeIngredientOptions);
+};
+
 const findMenuIngredients = () => {
-  const newMenuId = $('.selectIngredientList').attr('id').split('for-')[1];
-  const checked = $('.ingredientCheckboxes input:checked');
-  for (let i = 0; i < checked.length; i += 1) {
-    const selectedIngredients = {};
-    selectedIngredients.menuItemId = newMenuId;
-    selectedIngredients.ingredientId = $(checked[i]).attr('id');
-    menuIngredientsData.addMenuIngredient(selectedIngredients)
-      .then(() => {
-        // eslint-disable-next-line no-use-before-define
-        printMenuCards();
-        $('#newMenuIngredientsModal').modal('hide');
-      }).catch((err) => console.error(err));
-  }
+  const newMenuId = $('.ingredientDropdown').attr('id').split('ingredientSelect-')[1];
+  const ingredientToAdd = $('.ingredientDropdown').val();
+  const quantityToAdd = $('#usedPerRecipe').val() * 1;
+  let uom = '';
+
+  inventoryData.getInventory()
+    .then((ingredients) => {
+      ingredients.forEach((ingredient) => {
+        if (ingredient.id === ingredientToAdd) {
+          uom = ingredient.unitOfMeasurement;
+        }
+      });
+      const objectToAdd = {
+        menuItemId: newMenuId,
+        ingredientId: ingredientToAdd,
+        amountUsedPerRecipe: quantityToAdd,
+        unitOfMeasurement: uom,
+      };
+      menuIngredientsData.addMenuIngredient(objectToAdd)
+        .then(() => {
+          // eslint-disable-next-line no-use-before-define
+          printMenuCards();
+          $('#newMenuIngredientsModal').modal('hide');
+        });
+    }).catch((err) => console.error(err));
 };
 
 const printIngredientsForm = (menuId) => {
-  $('#newMenuIngredientsModal').modal('show');
+  let domString = `
+  <form>
+  <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <label class="mr-sm-2" for="ingredientSelect-${menuId}">Add an Ingredient</label>
+      <select class="custom-select mr-sm-2 ingredientDropdown" id="ingredientSelect-${menuId}">
+      <option selected>Choose...</option>`;
   inventoryData.getInventory()
     .then((ingredients) => {
-      let ingredientString = `<div id="for-${menuId}" class="selectIngredientList row d-flex flex-wrap p-2">`;
       ingredients.forEach((ingredient) => {
-        ingredientString += `
-          <div class="ingredientCheckboxes custom-control custom-switch col-4">
-            <input type="checkbox" class="custom-control-input ingredientsListItem" id="${ingredient.id}">
-            <label class="custom-control-label" for="${ingredient.id}">${ingredient.name}</label>
-          </div>
+        domString += `
+          <option value="${ingredient.id}" id="ingredient-${ingredient.id}">${ingredient.name}</option>
         `;
       });
-      ingredientString += '</div>';
-      utilities.printToDom('addMenuIngredientsForm', ingredientString);
-      $('#newMenuIngredientBtn').click(findMenuIngredients);
+      domString += `
+              </select>
+            </div>
+          </div>
+            <div class="form-group col-2">
+              <label for="usedPerRecipe">Used Per Recipe</label>
+              <input type="number" class="form-control" id="usedPerRecipe" min="1" value="1">
+              <div id="uom"></div>
+          </div>
+        </form>`;
+      utilities.printToDom('addMenuIngredientsForm', domString);
     }).catch((err) => console.error(err));
+  $('#updateMenuIngredientBtn').removeClass('hide');
+  $('#updateMenuIngredientBtn').click(findMenuIngredients);
 };
 
 const createMenuItem = () => {
@@ -51,7 +131,7 @@ const createMenuItem = () => {
   };
   menuData.addMenuItem(newMenuItem)
     .then((newMenuId) => {
-      printIngredientsForm(newMenuId);
+      printMenuIngredientOptions(newMenuId);
       $('#newMenuModal').modal('hide');
       $('#addMenuForm').trigger('reset');
       // eslint-disable-next-line no-use-before-define
@@ -64,13 +144,17 @@ const removeMenuIngredients = (menuId) => {
     .then((ingredients) => {
       const menuIngredientsToDelete = ingredients.filter((x) => x.menuItemId === menuId);
       menuIngredientsToDelete.forEach((menuIngredient) => {
-        menuIngredientsData.deleteMenuIngredients(menuIngredient.id);
+        menuIngredientsData.deleteMenuIngredients(menuIngredient.id)
+          // eslint-disable-next-line no-use-before-define
+          .then(() => printMenuCards());
       });
     })
     .catch((err) => console.error(err));
 };
 
 const removeFromMenu = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
   const menuToDelete = $(e.target).closest('.card').attr('id');
   menuData.deleteMenuItem(menuToDelete).then(() => {
     removeMenuIngredients(menuToDelete);
@@ -100,6 +184,8 @@ const saveMenuChange = () => {
 };
 
 const changeMenuItem = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
   const selectedMenuId = $(e.target).attr('id').split('edit-')[1];
   menuData.getMenuItemById(selectedMenuId)
     .then((menuObj) => {
@@ -116,76 +202,36 @@ const changeMenuItem = (e) => {
     }).catch((err) => console.error(err));
 };
 
-const updateIngredients = () => new Promise((resolve, reject) => {
-  const chosenIngredients = $('.ingredientCheckboxes input:checked');
-  const menuIngredientId = $('.selectIngredientList').attr('id').split('for-')[1];
-  menuIngredientsData.getAllMenuIngredients()
+const deleteItemsFromRecipe = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
+  const newIngredients = e.target.id.split('del-')[1];
+  const recipeToChange = e.target.closest('div').id.split('delCont-')[1];
+  menuIngredientsData.checkRecipesForMenuItems(recipeToChange)
     .then((allMenuIngredients) => {
-      const currentIngredients = [];
-      allMenuIngredients.forEach((ingredient) => {
-        if (ingredient.menuItemId === menuIngredientId) {
-          currentIngredients.push(ingredient);
+      allMenuIngredients.forEach((item) => {
+        if (item.ingredientId === newIngredients) {
+          menuIngredientsData.deleteMenuIngredients(item.id);
         }
       });
-      const newIngredients = [];
-      for (let i = 0; i < chosenIngredients.length; i += 1) {
-        newIngredients.push($(chosenIngredients[i]).attr('id'));
-      }
-      const ingredientsToDelete = currentIngredients.filter((x) => !newIngredients.includes(x.ingredientId));
-      ingredientsToDelete.forEach((removal) => {
-        menuIngredientsData.deleteMenuIngredients(removal.id);
-      });
-      const oldIngredients = [];
-      currentIngredients.forEach((menuIngredient) => {
-        oldIngredients.push(menuIngredient.ingredientId);
-      });
-      const toAdd = newIngredients.filter((x) => !oldIngredients.includes(x));
-      menuIngredientsData.getAllMenuIngredients()
-        .then((response) => {
-          toAdd.forEach((addition) => {
-            const menuIngredientIdsToAdd = response.find((y) => y.ingredientId === addition);
-            // const ingredientToPrint = response.find((z) => z.id === menuIngredientIdsToAdd.id);
-            // console.log(ingredientToPrint);
-            if (menuIngredientIdsToAdd) {
-              const addedIngredient = {};
-              addedIngredient.menuItemId = menuIngredientId;
-              addedIngredient.ingredientId = menuIngredientIdsToAdd.ingredientId;
-              menuIngredientsData.addMenuIngredient(addedIngredient);
-            }
-          });
-        });
-      resolve();
-    }).catch((err) => reject(err));
-});
-
-const saveMenuIngredientChanges = () => {
-  updateIngredients()
-    .then(() => {
       $('#newMenuIngredientBtn').removeClass('hide');
       $('#updateMenuIngredientBtn').addClass('hide');
       $('#newMenuIngredientsModal').modal('hide');
       // eslint-disable-next-line no-use-before-define
       printMenuCards();
-    }).catch((err) => console.error(err));
+    }).catch((error) => console.error(error));
 };
+
 
 const changeMenuIngredients = (e) => {
   const selectedMenuIngredientId = $(e.target).attr('id').split('editIngredients-')[1];
-  printIngredientsForm(selectedMenuIngredientId);
+  printMenuIngredientOptions(selectedMenuIngredientId);
   $('#newMenuIngredientBtn').addClass('hide');
-  $('#updateMenuIngredientBtn').removeClass('hide');
-  menuIngredientsData.checkRecipesForMenuItems(selectedMenuIngredientId)
-    .then((recipeIngredients) => {
-      recipeIngredients.forEach((ingredient) => {
-        $(`#${ingredient.ingredientId}`).attr('checked', true);
-      });
-      $('#updateMenuIngredientBtn').click((event) => {
-        saveMenuIngredientChanges(event, selectedMenuIngredientId, recipeIngredients);
-      });
-    }).catch((err) => console.error(err));
 };
 
 const searchMenuByIngredients = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
   const userSearchInput = e.target.value.toLowerCase();
   smash.getMenuWithIngredients()
     .then((menuDetails) => {
