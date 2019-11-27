@@ -22,7 +22,9 @@ const getReservations = () => new Promise((resolve, reject) => {
 const getReservationById = (reservationId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/reservations/${reservationId}.json`)
     .then((response) => {
-      resolve(response.data);
+      const reservation = response.data;
+      reservation.id = reservationId;
+      resolve(reservation);
     })
     .catch((error) => reject(error));
 });

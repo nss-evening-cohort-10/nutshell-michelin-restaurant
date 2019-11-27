@@ -114,20 +114,21 @@ const deleteReservationByClick = (event) => {
 };
 
 const printReservationDetails = (reservationId) => {
+  console.log('back', reservationId);
   $('#printComponent').addClass('hide');
   $('#reservation-detail').removeClass('hide');
   $('.card-back').removeClass('hide');
+  $('.reservation-card-front').addClass('hide');
   reservationsData.getReservationById(reservationId)
     .then((reservation) => {
+      console.log('inside promise', reservation.id);
       const time = `${reservation.timeStamp}`;
       const timeFormatted = moment(time).format('LLL');
-      const domString = `<div class="card reservation-single-card" id="${reservation.id}">
-      <div class="reservation-card-front">
+      const domString = `<div class="card reservation-single-card">
+      <div class="card-body reservation card-back" id="reservationback-${reservation.id}">
         <div class="card-header">
           <h3 id="customer-${reservation.id}">${reservation.customerName}</h3>
         </div>
-      </div>
-      <div class="card-body reservation card-back">
         <div class="d-flex flex-column align-items-end align-bottom reservationFont">
           <p class="card-title">Party Size — ${reservation.partySize}</p>
           <p class="card-text">Table Number — TBD</p>
