@@ -17,6 +17,18 @@ const getInventory = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getInventoryById = (ingredId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/ingredients/${ingredId}.json`)
+    .then((response) => {
+      const demIngredients = response.data;
+      const ingredients = [];
+      demIngredients.id = ingredId;
+      ingredients.push(demIngredients);
+      resolve(ingredients);
+    }).catch((err) => reject(err));
+});
+
+
 const addIngredient = (newIngredient) => axios.post(`${baseUrl}/ingredients.json`, newIngredient);
 
 const deleteIngredient = (ingredientId) => axios.delete(`${baseUrl}/ingredients/${ingredientId}.json`);
@@ -28,4 +40,5 @@ export default {
   addIngredient,
   deleteIngredient,
   updateIngredient,
+  getInventoryById,
 };
