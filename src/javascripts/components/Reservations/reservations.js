@@ -3,6 +3,7 @@ import moment from 'moment';
 import './reservations.scss';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
+import seatingData from '../../helpers/data/seatingData';
 
 import bgimage from './assets/reservation.jpg';
 
@@ -17,18 +18,38 @@ const updateReservationByClick = (event) => {
   const date = $('#edit-reserve-date').val().toString();
   const time = $('#edit-reserve-time').val().toString();
   const dateAndTime = [date, time].join(' ');
-  const updatedReservation = {
-    seatingId: seatingIdFormatted,
-    partySize: partySizeFormatted,
-    customerName: $('#edit-customer-name').val(),
-    timeStamp: dateAndTime,
-  };
-  reservationsData.updateReservation(reservationId, updatedReservation)
-    .then(() => {
-      document.forms['update-reservation-form'].reset();
-      $('#editReservationModal').modal('hide');
-      // eslint-disable-next-line no-use-before-define
-      printReservations();
+  seatingData.getSeating()
+    .then((seatings) => {
+      const seatingRecord = seatings.find((x) => x.id === seatingId);
+      if (partySizeFormatted <= seatingRecord.numOfSeats) {
+        const updatedReservation = {
+          seatingId: seatingIdFormatted,
+          partySize: partySizeFormatted,
+          customerName: $('#edit-customer-name').val(),
+          timeStamp: dateAndTime,
+        };
+        reservationsData.updateReservation(reservationId, updatedReservation)
+          .then(() => {
+            document.forms['update-reservation-form'].reset();
+            $('#editReservationModal').modal('hide');
+            // eslint-disable-next-line no-use-before-define
+            printReservationDetails(reservationId);
+          })
+          .catch((error) => console.error(error));
+      } else {
+        $('#edit-reservation-party-size').removeClass('hide');
+      }
+    });
+};
+
+const tableOption = (selectId) => {
+  let domString = '<option>Choose...</option>';
+  seatingData.getSeating()
+    .then((seatings) => {
+      seatings.forEach((seating) => {
+        domString += `<option value="${seating.tableName}">${seating.tableName}</option>`;
+      });
+      utilities.printToDom(selectId, domString);
     })
     .catch((error) => console.error(error));
 };
@@ -41,10 +62,15 @@ const updateResModal = (event) => {
     .then((reservation) => {
       let domString = '';
       domString += `
-    <div class="form-group">
-      <label for="edit-seating-id">Table Number</label>
-      <input type="text" class="form-control" id="edit-seating-id" placeholder="Table Number Here">
-    </div>
+    <form>
+      <div class="form-row align-items-center">
+        <div class="col-auto my-1">
+          <label class="mr-sm-2" for="edit-seating-id">Table Numbers</label>
+          <select class="custom-select mr-sm-2 newTableSelection" id="edit-seating-id">
+          </select>
+        </div>
+      </div>  
+    </form>
     <div class="form-group">
       <label for="edit-customer-name">Customer Name</label>
       <input type="text" class="form-control" id="edit-customer-name" placeholder="Enter Customer Name">
@@ -60,9 +86,13 @@ const updateResModal = (event) => {
     <div class="form-group">
       <label for="edit-reserve-time">Time</label>
       <input type="time" class="form-control" id="edit-reserve-time" placeholder="Choose Time">
+      <div>
+        <small id="edit-reservation-party-size" class="form-text hide text-danger">Reservation party size exceeds number of seats at the table. Please pick a different table.</small>
+      </div>
     </div>
       `;
       utilities.printToDom('update-reservation-form', domString);
+      tableOption('edit-seating-id');
       $('#edit-seating-id').val(reservation.seatingId.split('table-').join(''));
       $('#edit-customer-name').val(reservation.customerName);
       $('#edit-party-size').val(reservation.partySize);
@@ -84,18 +114,26 @@ const addReservationByClick = (event) => {
   const time = $('#reserve-time').val().toString();
   const dateAndTime = [date, time].join(' ');
   // const dateAndTimeFormatted = moment(dateAndTime).format('LLL');
-  const newReservation = {
-    seatingId: seatingIdFormatted,
-    partySize: partySizeFormatted,
-    customerName: $('#customer-name').val(),
-    timeStamp: dateAndTime,
-  };
-  reservationsData.addReservation(newReservation)
-    .then(() => {
-      document.forms['reservation-form'].reset();
-      $('#addReservationModal').modal('hide');
-      // eslint-disable-next-line no-use-before-define
-      printReservations();
+  seatingData.getSeating()
+    .then((seatings) => {
+      const seatingRecord = seatings.find((x) => x.id === seatingId);
+      if (partySizeFormatted <= seatingRecord.numOfSeats) {
+        const newReservation = {
+          seatingId: seatingIdFormatted,
+          partySize: partySizeFormatted,
+          customerName: $('#customer-name').val(),
+          timeStamp: dateAndTime,
+        };
+        reservationsData.addReservation(newReservation)
+          .then(() => {
+            document.forms['reservation-form'].reset();
+            $('#addReservationModal').modal('hide');
+            // eslint-disable-next-line no-use-before-define
+            printReservations();
+          });
+      } else {
+        $('#reservation-party-size').removeClass('hide');
+      }
     })
     .catch();
 };
@@ -194,6 +232,7 @@ const printReservations = () => {
       });
       domString += '</div>';
       utilities.printToDom('printComponent', domString);
+      tableOption('seating-id');
       $('#printComponent').on('click', '.delete-reservation', deleteReservationByClick);
       $('.edit-reservation').click(updateResModal);
       $('#add-new-reservation').click(addReservationByClick);
