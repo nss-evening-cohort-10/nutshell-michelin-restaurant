@@ -6,6 +6,7 @@ import utilities from '../../helpers/utilities';
 import seatingData from '../../helpers/data/seatingData';
 
 import bgimage from './assets/reservation.jpg';
+import sectionsData from '../../helpers/data/sectionsData';
 
 const updateReservationByClick = (event) => {
   event.preventDefault();
@@ -54,6 +55,18 @@ const tableOption = (selectId) => {
     .catch((error) => console.error(error));
 };
 
+const sectionsOption = (selectId) => {
+  let domString = '<option>Choose...</option>';
+  sectionsData.getSections()
+    .then((sections) => {
+      sections.forEach((section) => {
+        domString += `<option value="${section.id}">${section.id}</option>`;
+      });
+      utilities.printToDom(selectId, domString);
+    })
+    .catch((error) => console.error(error));
+};
+
 const updateResModal = (event) => {
   $('#editReservationModal').modal('show');
   const reservationId = $(event.target).closest('.card')[0].id;
@@ -67,6 +80,15 @@ const updateResModal = (event) => {
         <div class="col-auto my-1">
           <label class="mr-sm-2" for="edit-seating-id">Table Numbers</label>
           <select class="custom-select mr-sm-2 newTableSelection" id="edit-seating-id">
+          </select>
+        </div>
+      </div>  
+    </form>
+    <form>
+      <div class="form-row align-items-center">
+        <div class="col-auto my-1">
+          <label class="mr-sm-2" for="edit-sections-id">Section Number</label>
+          <select class="custom-select mr-sm-2 newSectionsSelection" id="edit-sections-id">
           </select>
         </div>
       </div>  
@@ -93,6 +115,7 @@ const updateResModal = (event) => {
       `;
       utilities.printToDom('update-reservation-form', domString);
       tableOption('edit-seating-id');
+      sectionsOption('edit-sections-id');
       $('#edit-seating-id').val(reservation.seatingId.split('table-').join(''));
       $('#edit-customer-name').val(reservation.customerName);
       $('#edit-party-size').val(reservation.partySize);
@@ -233,6 +256,7 @@ const printReservations = () => {
       domString += '</div>';
       utilities.printToDom('printComponent', domString);
       tableOption('seating-id');
+      sectionsOption('section-id');
       $('#printComponent').on('click', '.delete-reservation', deleteReservationByClick);
       $('.edit-reservation').click(updateResModal);
       $('#add-new-reservation').click(addReservationByClick);
