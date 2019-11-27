@@ -134,7 +134,7 @@ const printReservationDetails = (reservationId) => {
           <p class="card-text">${timeFormatted}</p>
         </div>
         <div class="d-flex justify-content-center">
-          <button class="btn btn-outline-dark assign-menu"><i class="fas fa-utensils"></i> Menu Items</button>
+          <button class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal"><i class="fas fa-utensils"></i> Menu Items</button>
         </div>
       </div>
     </div>`;
