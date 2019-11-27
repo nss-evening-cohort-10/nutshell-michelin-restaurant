@@ -34,13 +34,13 @@ const removeIngredientOptions = (e) => {
 const printDeleteIngredientsForm = (menuId) => {
   menuIngredientsData.checkRecipesForMenuItems(menuId)
     .then((menuItems) => {
-      let domString = '<div class="container"><div class="d-flex row">';
+      let domString = '<div class="row-wrap">';
       menuItems.forEach((item) => {
         inventoryData.getInventoryById(item.ingredientId).then((ingredients) => {
           ingredients.forEach((ingredient) => {
-            domString += `<div class="col-2" m-2 id="delCont-${item.menuItemId}"}><div id="rem-${ingredient.id}">${ingredient.name}</div><button class="btn btn-dark removeIngred" id="del-${ingredient.id}">remove</button></div>`;
+            domString += `<div class="col-1" id="delCont-${item.menuItemId}"}><div id="rem-${ingredient.id}">${ingredient.name}</div><button class="btn btn-dark removeIngred" id="del-${ingredient.id}">remove</button></div>`;
           });
-          domString += '</div></div>';
+          domString += '</div>';
           utilities.printToDom('addMenuIngredientsForm', domString);
         });
       });
@@ -75,17 +75,18 @@ const findMenuIngredients = () => {
           uom = ingredient.unitOfMeasurement;
         }
       });
-
       const objectToAdd = {
         menuItemId: newMenuId,
         ingredientId: ingredientToAdd,
         amountUsedPerRecipe: quantityToAdd,
         unitOfMeasurement: uom,
       };
-      menuIngredientsData.addMenuIngredient(objectToAdd);
-      // eslint-disable-next-line no-use-before-define
-      printMenuCards();
-      $('#newMenuIngredientsModal').modal('hide');
+      menuIngredientsData.addMenuIngredient(objectToAdd)
+        .then(() => {
+          // eslint-disable-next-line no-use-before-define
+          printMenuCards();
+          $('#newMenuIngredientsModal').modal('hide');
+        });
     }).catch((err) => console.error(err));
 };
 
@@ -95,7 +96,8 @@ const printIngredientsForm = (menuId) => {
   <div class="form-row align-items-center">
     <div class="col-auto my-1">
       <label class="mr-sm-2" for="ingredientSelect-${menuId}">Add an Ingredient</label>
-      <select class="custom-select mr-sm-2 ingredientDropdown" id="ingredientSelect-${menuId}">`;
+      <select class="custom-select mr-sm-2 ingredientDropdown" id="ingredientSelect-${menuId}">
+      <option selected>Choose...</option>`;
   inventoryData.getInventory()
     .then((ingredients) => {
       ingredients.forEach((ingredient) => {
@@ -142,13 +144,17 @@ const removeMenuIngredients = (menuId) => {
     .then((ingredients) => {
       const menuIngredientsToDelete = ingredients.filter((x) => x.menuItemId === menuId);
       menuIngredientsToDelete.forEach((menuIngredient) => {
-        menuIngredientsData.deleteMenuIngredients(menuIngredient.id);
+        menuIngredientsData.deleteMenuIngredients(menuIngredient.id)
+          // eslint-disable-next-line no-use-before-define
+          .then(() => printMenuCards());
       });
     })
     .catch((err) => console.error(err));
 };
 
 const removeFromMenu = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
   const menuToDelete = $(e.target).closest('.card').attr('id');
   menuData.deleteMenuItem(menuToDelete).then(() => {
     removeMenuIngredients(menuToDelete);
@@ -178,6 +184,8 @@ const saveMenuChange = () => {
 };
 
 const changeMenuItem = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
   const selectedMenuId = $(e.target).attr('id').split('edit-')[1];
   menuData.getMenuItemById(selectedMenuId)
     .then((menuObj) => {
@@ -195,6 +203,8 @@ const changeMenuItem = (e) => {
 };
 
 const deleteItemsFromRecipe = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
   const newIngredients = e.target.id.split('del-')[1];
   const recipeToChange = e.target.closest('div').id.split('delCont-')[1];
   menuIngredientsData.checkRecipesForMenuItems(recipeToChange)
@@ -217,16 +227,11 @@ const changeMenuIngredients = (e) => {
   const selectedMenuIngredientId = $(e.target).attr('id').split('editIngredients-')[1];
   printMenuIngredientOptions(selectedMenuIngredientId);
   $('#newMenuIngredientBtn').addClass('hide');
-  // $('#updateMenuIngredientBtn').removeClass('hide');
-  menuIngredientsData.checkRecipesForMenuItems(selectedMenuIngredientId)
-    .then((recipeIngredients) => {
-      recipeIngredients.forEach((ingredient) => {
-        $(`#checkbox-${ingredient.ingredientId}`).attr('checked', true);
-      });
-    }).catch((err) => console.error(err));
 };
 
 const searchMenuByIngredients = (e) => {
+  e.stopImmediatePropagation();
+  e.preventDefault();
   const userSearchInput = e.target.value.toLowerCase();
   smash.getMenuWithIngredients()
     .then((menuDetails) => {
