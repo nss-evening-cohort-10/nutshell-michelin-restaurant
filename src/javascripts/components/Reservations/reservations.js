@@ -33,7 +33,7 @@ const updateReservationByClick = (event) => {
             document.forms['update-reservation-form'].reset();
             $('#editReservationModal').modal('hide');
             // eslint-disable-next-line no-use-before-define
-            printReservations();
+            printReservationDetails(reservationId);
           })
           .catch((error) => console.error(error));
       } else {
