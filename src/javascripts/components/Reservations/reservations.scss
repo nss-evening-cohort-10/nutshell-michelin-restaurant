@@ -51,7 +51,7 @@
 
   #reservation-detail {
     width: 60%;
-    height: 300px;
+    height: auto;
     display: flex;
     justify-content: center;
     margin: auto;
@@ -67,6 +67,7 @@
     .assign-menu {
       font-size: 1.3em;
       margin: 1%;
+      text-align: center;
       i {
         font-size: 1.1em;
       }

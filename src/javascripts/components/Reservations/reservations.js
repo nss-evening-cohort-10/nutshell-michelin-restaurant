@@ -134,14 +134,15 @@ const printReservationDetails = (reservationId) => {
           <p class="card-text">Table Number — TBD</p>
           <p class="card-text">${timeFormatted}</p>
         </div>
-        <div class="d-flex justify-content-center">`;
+        <div class="d-flex justify-content-center flex-column">`;
       smashData.getReservationsAndMenuItems(reservationId)
         .then((menuItems) => {
-          console.log('fromres', menuItems);
           menuItems.forEach((menuItem) => {
             console.log('fromres', menuItem.name);
-            domString += `<p>${menuItem.name}</p>`;
-            domString += `<p>${menuItem.price}</p>`;
+            domString += '<div class="d-flex flex-column justify-content-center">';
+            domString += `<div>${menuItem.name}</div>`;
+            domString += `<div>${menuItem.price}</div>`;
+            domString += '</div>';
           });
           domString += '<button class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal"><i class="fas fa-utensils"></i> Menu Items</button>';
           domString += '</div></div></div>';
