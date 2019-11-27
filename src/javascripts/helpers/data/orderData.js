@@ -17,4 +17,19 @@ const getOrders = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export default { getOrders };
+const getOrdersByReservation = (reservationId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/orders.json?orderBy="reservationId"&equalTo="${reservationId}"`)
+    .then((response) => {
+      const allOrders = response.data;
+      const orders = [];
+      Object.keys(allOrders).forEach((fbId) => {
+        allOrders[fbId].id = fbId;
+        orders.push(allOrders[fbId]);
+      });
+      console.log('order', orders);
+      resolve(orders);
+    })
+    .catch((err) => reject(err));
+});
+
+export default { getOrders, getOrdersByReservation };

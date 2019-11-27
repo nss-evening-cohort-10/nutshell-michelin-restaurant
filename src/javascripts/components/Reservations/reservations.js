@@ -3,6 +3,7 @@ import moment from 'moment';
 import './reservations.scss';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
+import smashData from '../../helpers/data/smash';
 
 import bgimage from './assets/reservation.jpg';
 
@@ -122,7 +123,7 @@ const printReservationDetails = (reservationId) => {
     .then((reservation) => {
       const time = `${reservation.timeStamp}`;
       const timeFormatted = moment(time).format('LLL');
-      const domString = `<div class="card reservation-single-card">
+      let domString = `<div class="card reservation-single-card">
       <div class="card-body reservation card-back" id="reservationback-${reservation.id}">
         <div class="card-header d-flex justify-content-between">
           <h3 id="customer-${reservation.id}">${reservation.customerName}</h3>
@@ -133,21 +134,29 @@ const printReservationDetails = (reservationId) => {
           <p class="card-text">Table Number — TBD</p>
           <p class="card-text">${timeFormatted}</p>
         </div>
-        <div class="d-flex justify-content-center">
-          <button class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal"><i class="fas fa-utensils"></i> Menu Items</button>
-        </div>
-      </div>
-    </div>`;
-      utilities.printToDom('reservation-detail', domString);
-      $('.card-body').on('click', '.go-back-button', (() => {
-        // $('.go-back-button').css('transform', 'rotate(45deg)');
-        $('#reservation-detail').addClass('hide');
-        $('.card-back').addClass('hide');
-        $('#printComponent').removeClass('hide');
-        // eslint-disable-next-line no-use-before-define
-        printReservations();
-      }));
-    });
+        <div class="d-flex justify-content-center">`;
+      smashData.getReservationsAndMenuItems(reservationId)
+        .then((menuItems) => {
+          console.log('fromres', menuItems);
+          menuItems.forEach((menuItem) => {
+            console.log('fromres', menuItem.name);
+            domString += `<p>${menuItem.name}</p>`;
+            domString += `<p>${menuItem.price}</p>`;
+          });
+          domString += '<button class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal"><i class="fas fa-utensils"></i> Menu Items</button>';
+          domString += '</div></div></div>';
+          utilities.printToDom('reservation-detail', domString);
+          $('.card-body').on('click', '.go-back-button', (() => {
+            // $('.go-back-button').css('transform', 'rotate(45deg)');
+            $('#reservation-detail').addClass('hide');
+            $('.card-back').addClass('hide');
+            $('#printComponent').removeClass('hide');
+            // eslint-disable-next-line no-use-before-define
+            printReservations();
+          }));
+        });
+    })
+    .catch((error) => console.error(error));
 };
 
 const printReservationDetailsClick = (e) => {

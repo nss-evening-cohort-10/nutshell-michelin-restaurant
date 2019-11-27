@@ -39,33 +39,39 @@ const getMenuWithIngredients = () => new Promise((resolve, reject) => {
     }).catch((err) => reject(err));
 });
 
-const getReservationsAndMenuItems = () => new Promise((resolve, reject) => {
-  reservationsData.getReservations()
-    .then((reservations) => {
-      orderData.getOrders()
+const getReservationsAndMenuItems = (reservationId) => new Promise((resolve, reject) => {
+  reservationsData.getReservationById(reservationId)
+    .then((reservation) => {
+      orderData.getOrdersByReservation(reservationId)
         .then((orders) => {
-          menuData.getAllMenuItems()
-            .then((menuItems) => {
-              console.log('men', menuItems);
-              reservations.forEach((reservation) => {
-                orders.forEach((order) => {
-                  menuItems.forEach((menuItem) => {
-                    if (reservation.id === order.reservationId) {
-                      if (order.menuItemId === menuItem.id) {
-                        const newReservation = { ...reservation };
-                        newReservation.menu = menuItem;
-                        console.log(newReservation);
-                      }
-                    }
+          if (orders.length <= 0) {
+            resolve([]);
+          } else {
+            menuData.getAllMenuItems()
+              .then((menuItems) => {
+                const finalMenu = [];
+                let getOrderWithReservation = [];
+                getOrderWithReservation = orders.filter((x) => x.reservationId === reservationId);
+                if (getOrderWithReservation) {
+                  const getMenuId = getOrderWithReservation.map((menuItem) => menuItem.menuItemId);
+                  const matchingMenuItems = menuItems.filter((x) => getMenuId.includes(x.id));
+                  matchingMenuItems.forEach((mmi) => {
+                    const nmmi = { ...mmi };
+                    nmmi.reservationId = reservation.id;
+                    nmmi.seatingId = reservation.seatingId;
+                    nmmi.partySize = reservation.partySize;
+                    nmmi.customerName = reservation.customerName;
+                    nmmi.timeStamp = reservation.timeStamp;
+                    nmmi.sectionId = reservation.sectionId;
+                    finalMenu.push(nmmi);
                   });
-                });
+                  resolve(finalMenu);
+                }
               });
-            });
+          }
         });
     })
     .catch((error) => reject(error));
 });
-
-getReservationsAndMenuItems();
 
 export default { getMenuWithIngredients, getReservationsAndMenuItems };
