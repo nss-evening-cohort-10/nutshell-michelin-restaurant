@@ -5,6 +5,8 @@ import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 import seatingData from '../../helpers/data/seatingData';
 
+import bgimage from './assets/reservation.jpg';
+
 const updateReservationByClick = (event) => {
   event.preventDefault();
   const reservationId = $(event.target).attr('store-reservationId');
@@ -149,34 +151,81 @@ const deleteReservationByClick = (event) => {
   }
 };
 
+const printReservationDetails = (reservationId) => {
+  $('#printComponent').addClass('hide');
+  $('#reservation-detail').removeClass('hide');
+  $('.card-back').removeClass('hide');
+  reservationsData.getReservationById(reservationId)
+    .then((reservation) => {
+      const time = `${reservation.timeStamp}`;
+      const timeFormatted = moment(time).format('LLL');
+      const domString = `<div class="card reservation-single-card" id="${reservation.id}">
+      <div class="reservation-card-front">
+        <div class="card-header">
+          <h3 id="customer-${reservation.id}">${reservation.customerName}</h3>
+        </div>
+      </div>
+      <div class="card-body reservation card-back">
+        <div class="d-flex flex-column align-items-end align-bottom reservationFont">
+          <p class="card-title">Party Size — ${reservation.partySize}</p>
+          <p class="card-text">Table Number — TBD</p>
+          <p class="card-text">${timeFormatted}</p>
+          <p><button class="go-back-button btn btn-outline-secondary">Go Back</button></p>
+        </div>
+      </div>
+    </div>`;
+      utilities.printToDom('reservation-detail', domString);
+      $('.card-body').on('click', '.go-back-button', (() => {
+        $('#reservation-detail').addClass('hide');
+        $('.card-back').addClass('hide');
+        $('#printComponent').removeClass('hide');
+        // eslint-disable-next-line no-use-before-define
+        printReservations();
+      }));
+    });
+};
+
+const printReservationDetailsClick = (e) => {
+  const incoming = e.target.id;
+  if (incoming.includes('customer')) {
+    const reservationId = e.target.id.split('customer-')[1];
+    printReservationDetails(reservationId);
+  } else {
+    const reservationId = e.target.id;
+    printReservationDetails(reservationId);
+  }
+};
+
 const printReservations = () => {
   reservationsData.getReservations()
     .then((reservations) => {
       let domString = '';
       domString += `
-      <div class="d-flex flex-wrap justify-content-between m-2 whiteh1">
-        <h1>Reservations</h1>
+      <div id="reservations-title class="d-flex justify-content-between" style="background-image: url(${bgimage})">
+        <h1 id="reservations-h1">Reservations</h1>
         <button class="btn btn-secondary cudButton" id="addReservation" data-toggle="modal" data-target="#addReservationModal">Add Reservation</button>
       </div>
       `;
-      domString += '<div id="reservations-section" class="d-flex flex-wrap">';
+      domString += '<div id="reservations-section" class="d-flex flex-row flex-wrap justify-content-center">';
       reservations.forEach((reservation) => {
         const time = `${reservation.timeStamp}`;
         const timeFormatted = moment(time).format('LLL');
         domString += `
-        <div class="card bg-secondary col-10 offset-1 px-0 my-2" id="${reservation.id}">
-          <div class="card-header bg-dark whiteh1">
-            <h2>${reservation.customerName}</h2>
+        <div class="card reservation-single-card" id="${reservation.id}">
+          <div class="reservation-card-front">
+            <div class="card-header">
+              <h3 id="customer-${reservation.id}">${reservation.customerName}</h3>
+            </div>
+            <div class="d-flex justify-content-end">
+              <button class="btn cudButton delete-reservation"><i class="fas fa-trash-alt"></i></button>
+              <a href="#" class="cudButton btn edit-reservation"><i class="fas fa-pencil-alt"></i></a>
+            </div>
           </div>
-          <div class="card-body">
-            <div class="d-flex flex-wrap justify-content-between reservationFont">
+          <div class="card-body reservation card-back">
+            <div class="d-flex flex-wrap flex-col align-items-end reservationFont">
               <p class="card-title">Party Size — ${reservation.partySize}</p>
               <p class="card-text">Table Number — ${reservation.seatingId.split('table-').join('')}</p>
               <p class="card-text">${timeFormatted}</p>
-            </div>
-            <div class="d-flex justify-content-end">
-            <button class="btn btn-secondary cudButton delete-reservation"><i class="fas fa-trash-alt"></i></button>
-            <a href="#" class="cudButton btn btn-secondary edit-reservation"><i class="fas fa-pencil-alt"></i></a>
             </div>
           </div>
         </div>`;
@@ -188,6 +237,10 @@ const printReservations = () => {
       $('.edit-reservation').click(updateResModal);
       $('#add-new-reservation').click(addReservationByClick);
       $('#update-reservation').click(updateReservationByClick);
+      $('#reservations-section').on('click', '.reservation-single-card', printReservationDetailsClick);
+      $('#printComponent').removeClass('hide');
+      $('#reservation-detail').addClass('hide');
+      $('.card-back').addClass('hide');
     })
     .catch((error) => console.error(error));
 };
