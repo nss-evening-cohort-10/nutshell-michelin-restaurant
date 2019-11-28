@@ -6,6 +6,7 @@ import utilities from '../../helpers/utilities';
 import smashData from '../../helpers/data/smash';
 
 import bgimage from './assets/reservation.jpg';
+import menuData from '../../helpers/data/menuData';
 
 const updateReservationByClick = (event) => {
   event.preventDefault();
@@ -114,6 +115,25 @@ const deleteReservationByClick = (event) => {
   }
 };
 
+const printReservationMenuModal = () => {
+  menuData.getAllMenuItems()
+    .then((menuItems) => {
+      let domString = '';
+      menuItems.forEach((menuItem) => {
+        domString += `<div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="checkbox" id="quantity-${menuItem}" aria-label="${menuItem}-quantity">
+            <div class="input-group-text">${menuItem.name}</div>
+          </div>
+        </div>
+        <input type="number" class="form-control" aria-label="${menuItem}-quantity" placeholder="1"></div>`;
+      });
+      utilities.printToDom('assign-menu-items-area', domString);
+    })
+    .catch((error) => console.error(error));
+};
+
 const printReservationDetails = (reservationId) => {
   $('#printComponent').addClass('hide');
   $('#reservation-detail').removeClass('hide');
@@ -155,6 +175,7 @@ const printReservationDetails = (reservationId) => {
             // eslint-disable-next-line no-use-before-define
             printReservations();
           }));
+          $('.card-body').on('click', '.assign-menu', printReservationMenuModal);
         });
     })
     .catch((error) => console.error(error));
