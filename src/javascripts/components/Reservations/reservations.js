@@ -4,6 +4,7 @@ import './reservations.scss';
 import reservationsData from '../../helpers/data/reservationsData';
 import utilities from '../../helpers/utilities';
 import smashData from '../../helpers/data/smash';
+import orders from '../orders/orders';
 
 import bgimage from './assets/reservation.jpg';
 import menuData from '../../helpers/data/menuData';
@@ -123,15 +124,20 @@ const printReservationMenuModal = () => {
         domString += `<div class="input-group mb-3">
         <div class="input-group-prepend">
           <div class="input-group-text">
-            <input type="checkbox" id="quantity-${menuItem}" aria-label="${menuItem}-quantity">
-            <div class="input-group-text">${menuItem.name}</div>
+            <input type="checkbox" value="${menuItem.id}" class="checkbox checkbox-menu" aria-label="${menuItem.name}">
+            <div id="assmen-${menuItem.name}" class="input-group-text">${menuItem.name}</div>
           </div>
         </div>
-        <input type="number" class="form-control" aria-label="${menuItem}-quantity" placeholder="1"></div>`;
+        <input type="number" id="quantity-${menuItem.name}" class="form-control quantity" aria-label="${menuItem.name}-quantity" placeholder="Quantity"></div>`;
       });
       utilities.printToDom('assign-menu-items-area', domString);
     })
     .catch((error) => console.error(error));
+};
+
+const saveNewMiddle = (e) => {
+  const reservationId = e.target.id.split('assignmenu-')[1];
+  orders.saveNewOrders(reservationId);
 };
 
 const printReservationDetails = (reservationId) => {
@@ -165,7 +171,8 @@ const printReservationDetails = (reservationId) => {
             </div>`;
             domString += '</div>';
           });
-          domString += '<button class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal"><i class="fas fa-utensils"></i> Menu Items</button>';
+          domString += `<button id="assignmenu-${reservationId}" class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal">
+          <i class="fas fa-utensils"></i> Menu Items</button>`;
           domString += '</div></div></div>';
           utilities.printToDom('reservation-detail', domString);
           $('.card-body').on('click', '.go-back-button', (() => {
@@ -176,6 +183,7 @@ const printReservationDetails = (reservationId) => {
             printReservations();
           }));
           $('.card-body').on('click', '.assign-menu', printReservationMenuModal);
+          $('.card-body').on('click', '.assign-menu', saveNewMiddle);
         });
     })
     .catch((error) => console.error(error));

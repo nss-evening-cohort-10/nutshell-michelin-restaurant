@@ -26,10 +26,17 @@ const getOrdersByReservation = (reservationId) => new Promise((resolve, reject) 
         allOrders[fbId].id = fbId;
         orders.push(allOrders[fbId]);
       });
-      console.log('order', orders);
       resolve(orders);
     })
     .catch((err) => reject(err));
 });
 
-export default { getOrders, getOrdersByReservation };
+const addOrder = (newOrderObj) => new Promise((resolve, reject) => {
+  axios.post(`${baseUrl}/orders.json`, newOrderObj)
+    .then((response) => {
+      const newOrder = response.data;
+      resolve(newOrder);
+    }).catch((err) => reject(err));
+});
+
+export default { getOrders, getOrdersByReservation, addOrder };
