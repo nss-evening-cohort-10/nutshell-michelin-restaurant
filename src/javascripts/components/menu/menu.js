@@ -62,32 +62,30 @@ const printMenuIngredientOptions = (menuId) => {
   $('body').on('click', '.removeItem', removeIngredientOptions);
 };
 
-const findMenuIngredients = () => {
+const findMenuIngredients = (e) => {
+  e.stopImmediatePropagation();
   const newMenuId = $('.ingredientDropdown').attr('id').split('ingredientSelect-')[1];
   const ingredientToAdd = $('.ingredientDropdown').val();
   const quantityToAdd = $('#usedPerRecipe').val() * 1;
   let uom = '';
+  let objectToAdd;
 
-  inventoryData.getInventory()
-    .then((ingredients) => {
-      ingredients.forEach((ingredient) => {
-        if (ingredient.id === ingredientToAdd) {
-          uom = ingredient.unitOfMeasurement;
-        }
-      });
-      const objectToAdd = {
+  inventoryData.getInventoryById(ingredientToAdd)
+    .then((ingredient) => {
+      uom = ingredient[0].unitOfMeasurement;
+
+      objectToAdd = {
         menuItemId: newMenuId,
         ingredientId: ingredientToAdd,
         amountUsedPerRecipe: quantityToAdd,
         unitOfMeasurement: uom,
       };
-      menuIngredientsData.addMenuIngredient(objectToAdd)
-        .then(() => {
-          // eslint-disable-next-line no-use-before-define
-          printMenuCards();
-          $('#newMenuIngredientsModal').modal('hide');
-        });
-    }).catch((err) => console.error(err));
+      menuIngredientsData.addMenuIngredient(objectToAdd);
+      // eslint-disable-next-line no-use-before-define
+      printMenuCards();
+      $('#newMenuIngredientsModal').modal('hide');
+    })
+    .catch((err) => console.error(err));
 };
 
 const printIngredientsForm = (menuId) => {
@@ -118,7 +116,7 @@ const printIngredientsForm = (menuId) => {
       utilities.printToDom('addMenuIngredientsForm', domString);
     }).catch((err) => console.error(err));
   $('#updateMenuIngredientBtn').removeClass('hide');
-  $('#updateMenuIngredientBtn').click(findMenuIngredients);
+  $('body').on('click', '#updateMenuIngredientBtn', findMenuIngredients);
 };
 
 const createMenuItem = () => {
@@ -211,14 +209,16 @@ const deleteItemsFromRecipe = (e) => {
     .then((allMenuIngredients) => {
       allMenuIngredients.forEach((item) => {
         if (item.ingredientId === newIngredients) {
-          menuIngredientsData.deleteMenuIngredients(item.id);
+          menuIngredientsData.deleteMenuIngredients(item.id)
+            .then(() => {
+              $('#newMenuIngredientBtn').removeClass('hide');
+              $('#updateMenuIngredientBtn').addClass('hide');
+              $('#newMenuIngredientsModal').modal('hide');
+              // eslint-disable-next-line no-use-before-define
+              printMenuCards();
+            });
         }
       });
-      $('#newMenuIngredientBtn').removeClass('hide');
-      $('#updateMenuIngredientBtn').addClass('hide');
-      $('#newMenuIngredientsModal').modal('hide');
-      // eslint-disable-next-line no-use-before-define
-      printMenuCards();
     }).catch((error) => console.error(error));
 };
 
