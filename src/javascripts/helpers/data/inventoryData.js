@@ -20,10 +20,10 @@ const getInventory = () => new Promise((resolve, reject) => {
 const getInventoryById = (ingredId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/ingredients/${ingredId}.json`)
     .then((response) => {
-      const demIngredients = response.data;
+      const ingredientObject = { ...response.data };
       const ingredients = [];
-      demIngredients.id = ingredId;
-      ingredients.push(demIngredients);
+      ingredientObject.id = ingredId;
+      ingredients.push(ingredientObject);
       resolve(ingredients);
     }).catch((err) => reject(err));
 });
