@@ -19,6 +19,7 @@ const updateReservationByClick = (event) => {
   const date = $('#edit-reserve-date').val().toString();
   const time = $('#edit-reserve-time').val().toString();
   const dateAndTime = [date, time].join(' ');
+  const sectionsId = $('#edit-sections-id').val();
   seatingData.getSeating()
     .then((seatings) => {
       const seatingRecord = seatings.find((x) => x.id === seatingId);
@@ -28,6 +29,7 @@ const updateReservationByClick = (event) => {
           partySize: partySizeFormatted,
           customerName: $('#edit-customer-name').val(),
           timeStamp: dateAndTime,
+          sectionsId,
         };
         reservationsData.updateReservation(reservationId, updatedReservation)
           .then(() => {
@@ -136,6 +138,7 @@ const addReservationByClick = (event) => {
   const date = $('#reserve-date').val().toString();
   const time = $('#reserve-time').val().toString();
   const dateAndTime = [date, time].join(' ');
+  const sectionsId = $('#edit-sections-id').val();
   // const dateAndTimeFormatted = moment(dateAndTime).format('LLL');
   seatingData.getSeating()
     .then((seatings) => {
@@ -146,6 +149,7 @@ const addReservationByClick = (event) => {
           partySize: partySizeFormatted,
           customerName: $('#customer-name').val(),
           timeStamp: dateAndTime,
+          sectionsId,
         };
         reservationsData.addReservation(newReservation)
           .then(() => {

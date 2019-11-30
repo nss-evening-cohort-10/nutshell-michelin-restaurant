@@ -67,22 +67,22 @@ const createNewEmployee = (newEmployee) => axios.post(`${baseUrl}/staffs.json`, 
 
 const updateEmployee = (employeeId, updatedEmployee) => axios.put(`${baseUrl}/staffs/${employeeId}.json`, updatedEmployee);
 
-// const updateEmployeeSections = (employeeId, updatedSections) => new Promise((resolve, reject) => {
-//   axios.get(`${baseUrl}/staffs/${employeeId}.json`)
-//     .then((result) => {
-//       const employeeObject = result.data;
-//       employeeObject.employeeImg = updatedSections.employeeImg;
-//       employeeObject.name = updatedSections.name;
-//       employeeObject.position = updatedSections.position;
-//       employeeObject.sectionId = updatedSections.sectionId;
-//       employeeObject.uid = updatedSections.uid;
-//       updateEmployee(employeeId, employeeObject)
-//         .then(() => {
-//           resolve();
-//         });
-//     })
-//     .catch((error) => reject(error));
-// });
+const updateEmployeeSections = (employeeId, updatedSections) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/staffs/${employeeId}.json`)
+    .then((result) => {
+      const employeeObject = result.data;
+      employeeObject.employeeImg = updatedSections.employeeImg;
+      employeeObject.name = updatedSections.name;
+      employeeObject.position = updatedSections.position;
+      employeeObject.sectionId = updatedSections.sectionId;
+      employeeObject.uid = updatedSections.uid;
+      updateEmployee(employeeId, employeeObject)
+        .then(() => {
+          resolve();
+        });
+    })
+    .catch((error) => reject(error));
+});
 
 export default {
   employeesDataByEmployeeId,
@@ -90,7 +90,7 @@ export default {
   deleteEmployeeData,
   createNewEmployee,
   updateEmployee,
-  // updateEmployeeSections,
+  updateEmployeeSections,
 };
 
 // ?orderBy="employeeId"&equalTo="${employeeId}";

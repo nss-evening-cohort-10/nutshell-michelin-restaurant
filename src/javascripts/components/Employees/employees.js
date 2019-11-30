@@ -126,16 +126,16 @@ const updateEmployeeOnClick = (e) => {
     name: $('#update-employee-name').val(),
     position: $('#update-employee-position').val(),
     employeeImg: $('#update-employee-Img').val(),
-    sectionId: $('#sections-id').val(),
+    sectionId: $('#staff-sections-id').val(),
     uid: '',
   };
-  employeeData.updateEmployee(employeeId, updatedEmployee)
+  employeeData.updateEmployeeSections(employeeId, updatedEmployee)
     .then(() => {
       $('#updateStaffModal').modal('hide');
       $('#update-employee-name').val('');
       $('#update-employee-position').val('');
       $('#update-employee-Img').val('');
-      $('#sections-id').val('');
+      $('#staff-sections-id').val('');
       displayStaff();
       sectionsOption('sections-id');
     })
