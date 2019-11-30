@@ -1,13 +1,14 @@
 import $ from 'jquery';
 import moment from 'moment';
-import './reservations.scss';
-import reservationsData from '../../helpers/data/reservationsData';
+import orderData from '../../helpers/data/orderData';
+import menuData from '../../helpers/data/menuData';
 import utilities from '../../helpers/utilities';
+
+import reservationsData from '../../helpers/data/reservationsData';
 import smashData from '../../helpers/data/smash';
-import orders from '../orders/orders';
+import './reservations.scss';
 
 import bgimage from './assets/reservation.jpg';
-import menuData from '../../helpers/data/menuData';
 
 const updateReservationByClick = (event) => {
   event.preventDefault();
@@ -121,23 +122,77 @@ const printReservationMenuModal = () => {
     .then((menuItems) => {
       let domString = '';
       menuItems.forEach((menuItem) => {
-        domString += `<div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <div class="input-group-text">
-            <input type="checkbox" value="${menuItem.id}" class="checkbox checkbox-menu" aria-label="${menuItem.name}">
-            <div id="assmen-${menuItem.name}" class="input-group-text">${menuItem.name}</div>
+        domString += `
+        <div class="row">
+        <div value="${menuItem.id}" class="checkbox-menu col-sm">
+          <input class="form-check-input" type="checkbox" value="${menuItem.id}" data-name="${menuItem.name}" id="assmenu-${menuItem.name}">
+          <label class="form-check-label" for="assmenu-${menuItem.name}">
+            <h4>${menuItem.name}</h4>
+          </label>
+          </div>
+        <div class="col-sm">
+          <div class="form-group">
+          <label for="quantity-${menuItem.name}"><sup>Quantity</sup></label>
+          <input type="number" class="form-control" id="quantity-${menuItem.name}" placeholder="0">
           </div>
         </div>
-        <input type="number" id="quantity-${menuItem.name}" class="form-control quantity" aria-label="${menuItem.name}-quantity" placeholder="Quantity"></div>`;
+        </div>`;
       });
       utilities.printToDom('assign-menu-items-area', domString);
     })
     .catch((error) => console.error(error));
 };
 
+const saveNewOrders = (reservationId) => {
+  const name = $('.form-check-input').attr('data-name');
+  console.log(name);
+  console.log($(`#quantity-${name}`).val());
+  const checks = Array
+    .from(document.querySelectorAll('input[type="checkbox"]'))
+    .filter((checkbox) => checkbox.checked)
+    .map((checkbox) => checkbox.value);
+  if ($(`#quantity-${name}`).val() > 1) {
+    console.log('more than one');
+  } else {
+    checks.forEach((check) => {
+      const menuId = check;
+      const newOrderObj = {};
+      newOrderObj.menuItemId = menuId;
+      newOrderObj.reservationId = reservationId;
+      console.log(newOrderObj);
+      orderData.addOrder(newOrderObj)
+        .then(() => {
+          $('#assign-menu-modal').modal('hide');
+          // eslint-disable-next-line no-use-before-define
+          printReservationDetails(reservationId);
+        })
+        .catch((error) => console.error(error));
+    });
+  }
+};
+
+const openNewOrders = (reservationId) => {
+  $('.modal-footer').on('click', '#save-assign-menu', () => {
+    saveNewOrders(reservationId);
+  });
+};
+
 const saveNewMiddle = (e) => {
   const reservationId = e.target.id.split('assignmenu-')[1];
-  orders.saveNewOrders(reservationId);
+  openNewOrders(reservationId);
+};
+
+const printReservationDetailsClick = (e) => {
+  const incoming = e.target.id;
+  if (incoming.includes('customer')) {
+    const reservationId = e.target.id.split('customer-')[1];
+    // eslint-disable-next-line no-use-before-define
+    printReservationDetails(reservationId);
+  } else {
+    const reservationId = e.target.id;
+    // eslint-disable-next-line no-use-before-define
+    printReservationDetails(reservationId);
+  }
 };
 
 const printReservationDetails = (reservationId) => {
@@ -164,10 +219,10 @@ const printReservationDetails = (reservationId) => {
       smashData.getReservationsAndMenuItems(reservationId)
         .then((menuItems) => {
           menuItems.forEach((menuItem) => {
-            domString += '<div class="d-flex menu-items border">';
-            domString += `<div class="d-flex flex-row flex-wrap justify-content-between border">
-            <div class="col-xs-6 justify-content-center border"><h4>${menuItem.name}</h4></div>
-            <div class="col-xs-6 justify-content-center border"><h6>$${menuItem.price / 100}</h6></div>
+            domString += '<div class="d-flex menu-items">';
+            domString += `<div class="d-flex flex-row flex-wrap justify-content-between">
+            <div class="col-xs-6 justify-content-center"><h4>${menuItem.name}</h4></div>
+            <div class="col-xs-6 justify-content-center"><h6>$${menuItem.price / 100}</h6></div>
             </div>`;
             domString += '</div>';
           });
@@ -187,17 +242,6 @@ const printReservationDetails = (reservationId) => {
         });
     })
     .catch((error) => console.error(error));
-};
-
-const printReservationDetailsClick = (e) => {
-  const incoming = e.target.id;
-  if (incoming.includes('customer')) {
-    const reservationId = e.target.id.split('customer-')[1];
-    printReservationDetails(reservationId);
-  } else {
-    const reservationId = e.target.id;
-    printReservationDetails(reservationId);
-  }
 };
 
 const printReservations = () => {
@@ -242,6 +286,7 @@ const printReservations = () => {
       $('#update-reservation').click(updateReservationByClick);
       $('#reservations-section').on('click', '.reservation-single-card', printReservationDetailsClick);
       $('#printComponent').removeClass('hide');
+      $('.cudButton').removeClass('hide');
       $('#reservation-detail').addClass('hide');
       $('.card-back').addClass('hide');
     })
