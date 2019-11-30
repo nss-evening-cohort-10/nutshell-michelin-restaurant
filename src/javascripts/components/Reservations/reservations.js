@@ -133,8 +133,7 @@ const printReservationMenuModal = () => {
         <div class="col-sm">
           <div class="form-group">
           <label for="quantity-${menuItem.name}"><sup>Quantity</sup></label>
-          <input type="number" class="form-control" id="quantity-${menuItem.name}" placeholder="0">
-          </div>
+          <input type="number" class="form-control" id="quantity-${menuItem.name}" placeholder="0">1</div>
         </div>
         </div>`;
       });
@@ -145,7 +144,6 @@ const printReservationMenuModal = () => {
 
 const saveNewOrders = (reservationId) => {
   const name = $('.form-check-input').attr('data-name');
-  console.log(name);
   console.log($(`#quantity-${name}`).val());
   const checks = Array
     .from(document.querySelectorAll('input[type="checkbox"]'))
