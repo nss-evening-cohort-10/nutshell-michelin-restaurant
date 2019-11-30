@@ -2,6 +2,19 @@ import './employees.scss';
 import $ from 'jquery';
 import employeeData from '../../helpers/data/employeesData';
 import util from '../../helpers/utilities';
+import sectionsData from '../../helpers/data/sectionsData';
+
+const sectionsOption = (selectId) => {
+  let domString = '<option>Choose...</option>';
+  sectionsData.getSections()
+    .then((sections) => {
+      sections.forEach((section) => {
+        domString += `<option value="${section.id}">${section.id}</option>`;
+      });
+      util.printToDom(selectId, domString);
+    })
+    .catch((error) => console.error(error));
+};
 
 const deleteEmployeeOnClick = (e) => {
   e.preventDefault();
@@ -84,6 +97,7 @@ $('body').on('click', '.editEmployee', (e) => {
     });
   $('#updateStaffModal').modal('show');
   $('#updateStaffModal').find('.modal-footer').attr('id', e.target.id);
+  sectionsOption('sections-id');
 });
 
 const createEmployeeOnClick = (e) => {
@@ -112,6 +126,7 @@ const updateEmployeeOnClick = (e) => {
     name: $('#update-employee-name').val(),
     position: $('#update-employee-position').val(),
     employeeImg: $('#update-employee-Img').val(),
+    sectionId: $('#sections-id').val(),
     uid: '',
   };
   employeeData.updateEmployee(employeeId, updatedEmployee)
@@ -120,7 +135,9 @@ const updateEmployeeOnClick = (e) => {
       $('#update-employee-name').val('');
       $('#update-employee-position').val('');
       $('#update-employee-Img').val('');
+      $('#sections-id').val('');
       displayStaff();
+      sectionsOption('sections-id');
     })
     .catch((error) => console.error(error));
 };
