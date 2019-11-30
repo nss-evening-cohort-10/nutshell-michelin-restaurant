@@ -31,7 +31,8 @@ const getAllMenuItems = () => new Promise((resolve, reject) => {
       if (menuItems === null) {
         const menuString = `
           <h2 class="whiteh1">Menu</h2>
-          <button id="createMenuItemBtn" class="cudButton hide btn btn-secondary m-1 editHeight" data-toggle="modal" data-target="#newMenuModal"><i class="fas fa-plus cudButton hide whiteh1 cursor">Add Menu Item</i></button>
+          <button id="createMenuItemBtn" class="cudButton hide btn btn-secondary m-1 editHeight" data-toggle="modal" data-target="#newMenuModal">
+          <i class="fas fa-plus cudButton hide whiteh1 cursor">Add Menu Item</i></button>
           <div class="container mx-auto">
           <div class="d-flex flex-wrap flex-row">
           <h1>It looks like you don't have anything on the menu. Consider adding something!</h1>
