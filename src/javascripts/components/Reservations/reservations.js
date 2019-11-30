@@ -125,15 +125,15 @@ const printReservationMenuModal = () => {
         domString += `
         <div class="row">
         <div value="${menuItem.id}" class="checkbox-menu col-sm">
-          <input class="form-check-input" type="checkbox" value="${menuItem.id}" data-name="${menuItem.name}" id="assmenu-${menuItem.name}">
-          <label class="form-check-label" for="assmenu-${menuItem.name}">
+          <input class="form-check-input" type="checkbox" value="${menuItem.id}" data-name="${menuItem.id}" id="assmenu-${menuItem.id}">
+          <label class="form-check-label" for="assmenu-${menuItem.id}">
             <h4>${menuItem.name}</h4>
           </label>
           </div>
         <div class="col-sm">
           <div class="form-group">
-          <label for="quantity-${menuItem.name}"><sup>Quantity</sup></label>
-          <input type="number" class="form-control" id="quantity-${menuItem.name}" placeholder="0">1</div>
+          <label for="quantity-${menuItem.id}"><sup>Quantity</sup></label>
+          <input type="number" class="form-control" id="quantity-${menuItem.id}" value="0"></div>
         </div>
         </div>`;
       });
@@ -144,11 +144,13 @@ const printReservationMenuModal = () => {
 
 const saveNewOrders = (reservationId) => {
   const name = $('.form-check-input').attr('data-name');
+  console.log(name);
   console.log($(`#quantity-${name}`).val());
   const checks = Array
     .from(document.querySelectorAll('input[type="checkbox"]'))
     .filter((checkbox) => checkbox.checked)
     .map((checkbox) => checkbox.value);
+  console.log(checks);
   if ($(`#quantity-${name}`).val() > 1) {
     console.log('more than one');
   } else {
@@ -170,7 +172,8 @@ const saveNewOrders = (reservationId) => {
 };
 
 const openNewOrders = (reservationId) => {
-  $('.modal-footer').on('click', '#save-assign-menu', () => {
+  $('.modal-footer').on('click', '#save-assign-menu', (e) => {
+    e.stopImmediatePropagation();
     saveNewOrders(reservationId);
   });
 };
