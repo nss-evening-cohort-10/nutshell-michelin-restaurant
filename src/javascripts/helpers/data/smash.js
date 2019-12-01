@@ -48,24 +48,29 @@ const getReservationsAndMenuItems = (reservationId) => new Promise((resolve, rej
             resolve([]);
           } else {
             menuData.getAllMenuItems()
-              .then((menuItems) => {
+              .then(() => {
                 const finalMenu = [];
                 let getOrderWithReservation = [];
                 getOrderWithReservation = orders.filter((x) => x.reservationId === reservationId);
                 if (getOrderWithReservation) {
                   const getMenuId = getOrderWithReservation.map((menuItem) => menuItem.menuItemId);
-                  const matchingMenuItems = menuItems.filter((x) => getMenuId.includes(x.id));
-                  matchingMenuItems.forEach((mmi) => {
-                    const nmmi = { ...mmi };
-                    nmmi.reservationId = reservation.id;
-                    nmmi.seatingId = reservation.seatingId;
-                    nmmi.partySize = reservation.partySize;
-                    nmmi.customerName = reservation.customerName;
-                    nmmi.timeStamp = reservation.timeStamp;
-                    nmmi.sectionId = reservation.sectionId;
-                    finalMenu.push(nmmi);
-                  });
+                  const itemList = [];
+                  for (let i = 0; i < getMenuId.length; i += 1) {
+                    menuData.getMenuItemById(getMenuId[i]).then((currentItem) => {
+                      itemList.push(currentItem[0]);
+                      const nmmi = { ...currentItem[0] };
+                      nmmi.reservationId = reservation.id;
+                      nmmi.seatingId = reservation.seatingId;
+                      nmmi.partySize = reservation.partySize;
+                      nmmi.customerName = reservation.customerName;
+                      nmmi.timeStamp = reservation.timeStamp;
+                      nmmi.sectionId = reservation.sectionId;
+                      finalMenu.push(nmmi);
+                      console.log(itemList);
+                    });
+                  }
                   resolve(finalMenu);
+                  console.log(finalMenu.length);
                 }
               });
           }

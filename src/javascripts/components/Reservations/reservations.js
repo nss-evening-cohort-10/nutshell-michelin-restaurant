@@ -143,23 +143,18 @@ const printReservationMenuModal = () => {
 };
 
 const saveNewOrders = (reservationId) => {
-  const name = $('.form-check-input').attr('data-name');
-  console.log(name);
-  console.log($(`#quantity-${name}`).val());
+  // const name = $('.form-check-input').attr('data-name');
   const checks = Array
     .from(document.querySelectorAll('input[type="checkbox"]'))
     .filter((checkbox) => checkbox.checked)
     .map((checkbox) => checkbox.value);
-  console.log(checks);
-  if ($(`#quantity-${name}`).val() > 1) {
-    console.log('more than one');
-  } else {
-    checks.forEach((check) => {
-      const menuId = check;
-      const newOrderObj = {};
-      newOrderObj.menuItemId = menuId;
-      newOrderObj.reservationId = reservationId;
-      console.log(newOrderObj);
+  checks.forEach((check) => {
+    const menuId = check;
+    const quantity = $(`#quantity-${menuId}`).val();
+    const newOrderObj = {};
+    newOrderObj.menuItemId = menuId;
+    newOrderObj.reservationId = reservationId;
+    for (let i = 0; i < quantity; i += 1) {
       orderData.addOrder(newOrderObj)
         .then(() => {
           $('#assign-menu-modal').modal('hide');
@@ -167,8 +162,8 @@ const saveNewOrders = (reservationId) => {
           printReservationDetails(reservationId);
         })
         .catch((error) => console.error(error));
-    });
-  }
+    }
+  });
 };
 
 const openNewOrders = (reservationId) => {
@@ -219,6 +214,9 @@ const printReservationDetails = (reservationId) => {
         <div class="menu-items d-flex justify-content-center flex-column">`;
       smashData.getReservationsAndMenuItems(reservationId)
         .then((menuItems) => {
+          const newMenuItems = [];
+          newMenuItems.push(menuItems);
+          console.log(newMenuItems);
           menuItems.forEach((menuItem) => {
             domString += '<div class="d-flex menu-items">';
             domString += `<div class="d-flex flex-row flex-wrap justify-content-between">

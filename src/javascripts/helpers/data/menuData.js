@@ -19,7 +19,11 @@ const updateMenuItem = (menuId, updatedMenuItem) => axios.put(`${baseUrl}/menuIt
 const getMenuItemById = (menuItemId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/menuItems/${menuItemId}.json`)
     .then((response) => {
-      resolve(response.data);
+      const menuObject = { ...response.data };
+      const menuItems = [];
+      menuObject.id = menuItemId;
+      menuItems.push(menuObject);
+      resolve(menuItems);
     }).catch((err) => reject(err));
 });
 
