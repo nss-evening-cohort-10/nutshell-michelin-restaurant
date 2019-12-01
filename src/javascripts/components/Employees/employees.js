@@ -3,6 +3,7 @@ import $ from 'jquery';
 import employeeData from '../../helpers/data/employeesData';
 import util from '../../helpers/utilities';
 import sectionsData from '../../helpers/data/sectionsData';
+import staffSmash from '../../helpers/data/staffSmash';
 
 const sectionsOption = (selectId) => {
   let domString = '<option>Choose...</option>';
@@ -83,6 +84,7 @@ const displayStaff = () => {
       });
       domString += '</div>';
       util.printToDom('printComponent', domString);
+      sectionsOption('add-staff-section-id');
     })
     .catch((error) => console.error(error));
 };
@@ -97,24 +99,30 @@ $('body').on('click', '.editEmployee', (e) => {
     });
   $('#updateStaffModal').modal('show');
   $('#updateStaffModal').find('.modal-footer').attr('id', e.target.id);
-  sectionsOption('sections-id');
+  sectionsOption('staff-sections-id');
 });
 
 const createEmployeeOnClick = (e) => {
   e.stopImmediatePropagation();
-  const newEmployee = {
-    name: $('#staff-name').val(),
-    position: $('#addStaffDropdown').val(),
-    employeeImg: $('#staff-photo-url').val(),
-    uid: '',
-  };
-  employeeData.createNewEmployee(newEmployee)
-    .then(() => {
-      displayStaff();
-      $('#createStaffModal').modal('hide');
-      $('#staff-name').val('');
-      $('#staff-position').val('');
-      $('#staff-photo-url').val('');
+  staffSmash.getEmployeesFromSections()
+    .then((employees) => {
+      console.log('from add employees', employees);
+      const newEmployee = {
+        name: $('#staff-name').val(),
+        position: $('#addStaffDropdown').val(),
+        employeeImg: $('#staff-photo-url').val(),
+        sectionId: $('#add-staff-section-id').val(),
+        uid: '',
+      };
+      employeeData.createNewEmployee(newEmployee)
+        .then(() => {
+          displayStaff();
+          $('#createStaffModal').modal('hide');
+          $('#staff-name').val('');
+          $('#staff-position').val('');
+          $('#staff-photo-url').val('');
+          sectionsOption('add-staff-section-id');
+        });
     })
     .catch((error) => console.error(error));
 };
@@ -122,22 +130,26 @@ const createEmployeeOnClick = (e) => {
 const updateEmployeeOnClick = (e) => {
   e.stopImmediatePropagation();
   const employeeId = e.target.parentNode.id;
-  const updatedEmployee = {
-    name: $('#update-employee-name').val(),
-    position: $('#update-employee-position').val(),
-    employeeImg: $('#update-employee-Img').val(),
-    sectionId: $('#staff-sections-id').val(),
-    uid: '',
-  };
-  employeeData.updateEmployeeSections(employeeId, updatedEmployee)
-    .then(() => {
-      $('#updateStaffModal').modal('hide');
-      $('#update-employee-name').val('');
-      $('#update-employee-position').val('');
-      $('#update-employee-Img').val('');
-      $('#staff-sections-id').val('');
-      displayStaff();
-      sectionsOption('sections-id');
+  staffSmash.getEmployeesFromSections()
+    .then((employees) => {
+      console.log('from update employees on click', employees);
+      const updatedEmployee = {
+        name: $('#update-employee-name').val(),
+        position: $('#update-employee-position').val(),
+        employeeImg: $('#update-employee-Img').val(),
+        sectionId: $('#staff-sections-id').val(),
+        uid: '',
+      };
+      employeeData.updateEmployeeSections(employeeId, updatedEmployee)
+        .then(() => {
+          $('#updateStaffModal').modal('hide');
+          $('#update-employee-name').val('');
+          $('#update-employee-position').val('');
+          $('#update-employee-Img').val('');
+          $('#staff-sections-id').val('');
+          displayStaff();
+          sectionsOption('staff-sections-id');
+        });
     })
     .catch((error) => console.error(error));
 };
