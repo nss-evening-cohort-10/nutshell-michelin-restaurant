@@ -60,24 +60,10 @@ const getReservationsAndMenuItems = (reservationId) => new Promise((resolve, rej
                   nmmi.timeStamp = reservation.timeStamp;
                   nmmi.sectionId = reservation.sectionId;
                   finalMenu.push(nmmi);
-                  console.log('from get menu', finalMenu);
                   return finalMenu;
                 });
             });
             resolve(finalMenu);
-            // });
-            // const matchingMenuItems = menuItems.filter((x) => getMenuId.includes(x.id));
-            // matchingMenuItems.forEach((mmi) => {
-            //   const nmmi = { ...mmi };
-            //   nmmi.reservationId = reservation.id;
-            //   nmmi.seatingId = reservation.seatingId;
-            //   nmmi.partySize = reservation.partySize;
-            //   nmmi.customerName = reservation.customerName;
-            //   nmmi.timeStamp = reservation.timeStamp;
-            //   nmmi.sectionId = reservation.sectionId;
-            //   finalMenu.push(nmmi);
-            // });
-            // resolve(finalMenu);
           }
         });
     })

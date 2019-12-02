@@ -3,12 +3,39 @@ import moment from 'moment';
 import orderData from '../../helpers/data/orderData';
 import menuData from '../../helpers/data/menuData';
 import utilities from '../../helpers/utilities';
+import menuIngredientData from '../../helpers/data/MenuIngredientData';
+import inventory from '../../helpers/data/inventoryData';
 
 import reservationsData from '../../helpers/data/reservationsData';
-// import smashData from '../../helpers/data/smash';
 import './reservations.scss';
 
 import bgimage from './assets/reservation.jpg';
+
+const checkAvailability = () => {
+  menuData.getAllMenuItems()
+    .then((menuItems) => {
+      menuItems.forEach((menuItem) => {
+        menuIngredientData.checkRecipesForMenuItems(menuItem.id)
+          .then((recipes) => {
+            recipes.forEach((recipe) => {
+              inventory.getInventoryById(recipe.ingredientId)
+                .then((ingredients) => {
+                  ingredients.forEach((ingredient) => {
+                    if (ingredient.amountStocked === 0) {
+                      $(`#assmenu-${menuItem.id}`).prop('disabled', true);
+                      $(`#quantity-${menuItem.id}`).attr('disabled', true);
+                    } else {
+                      $(`#assmenu-${menuItem.id}`).prop('disabled', false);
+                      $(`#quantity-${menuItem.id}`).attr('disabled', false);
+                    }
+                  });
+                });
+            });
+          });
+      });
+    })
+    .catch((error) => console.error(error));
+};
 
 const updateReservationByClick = (event) => {
   event.preventDefault();
@@ -138,6 +165,7 @@ const printReservationMenuModal = () => {
         </div>`;
       });
       utilities.printToDom('assign-menu-items-area', domString);
+      checkAvailability();
     })
     .catch((error) => console.error(error));
 };
@@ -170,6 +198,7 @@ const openNewOrders = (reservationId) => {
   $('.modal-footer').on('click', '#save-assign-menu', (e) => {
     e.stopImmediatePropagation();
     saveNewOrders(reservationId);
+    console.log(reservationId);
   });
 };
 
@@ -193,7 +222,6 @@ const printReservationDetailsClick = (e) => {
 
 const getOrderInfo = (reservationId) => {
   let domString = '';
-  console.log(reservationId);
   orderData.getOrdersByReservation(reservationId)
     .then((orders) => {
       orders.forEach((order) => {
@@ -206,7 +234,6 @@ const getOrderInfo = (reservationId) => {
           </div>`;
             domString += '</div>';
             utilities.printToDom('menuSelectionContainer', domString);
-            console.log(domString);
           });
       });
     }).catch((error) => console.error(error));
