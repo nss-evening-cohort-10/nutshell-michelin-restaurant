@@ -3,12 +3,36 @@ import moment from 'moment';
 import orderData from '../../helpers/data/orderData';
 import menuData from '../../helpers/data/menuData';
 import utilities from '../../helpers/utilities';
+import menuIngredientData from '../../helpers/data/MenuIngredientData';
+import inventory from '../../helpers/data/inventoryData';
 
 import reservationsData from '../../helpers/data/reservationsData';
-import smashData from '../../helpers/data/smash';
 import './reservations.scss';
 
 import bgimage from './assets/reservation.jpg';
+
+const checkAvailability = () => {
+  menuData.getAllMenuItems()
+    .then((menuItems) => {
+      menuItems.forEach((menuItem) => {
+        menuIngredientData.checkRecipesForMenuItems(menuItem.id)
+          .then((recipes) => {
+            recipes.forEach((recipe) => {
+              inventory.getInventoryById(recipe.ingredientId)
+                .then((ingredients) => {
+                  ingredients.forEach((ingredient) => {
+                    if (ingredient.amountStocked === 0) {
+                      $(`#assmenu-${menuItem.id}`).prop('disabled', true);
+                      $(`#quantity-${menuItem.id}`).attr('disabled', true);
+                    }
+                  });
+                });
+            });
+          });
+      });
+    })
+    .catch((error) => console.error(error));
+};
 
 const updateReservationByClick = (event) => {
   event.preventDefault();
@@ -125,39 +149,38 @@ const printReservationMenuModal = () => {
         domString += `
         <div class="row">
         <div value="${menuItem.id}" class="checkbox-menu col-sm">
-          <input class="form-check-input" type="checkbox" value="${menuItem.id}" data-name="${menuItem.name}" id="assmenu-${menuItem.name}">
-          <label class="form-check-label" for="assmenu-${menuItem.name}">
+          <input class="form-check-input" type="checkbox" value="${menuItem.id}" data-name="${menuItem.id}" id="assmenu-${menuItem.id}">
+          <label class="form-check-label" for="assmenu-${menuItem.id}">
             <h4>${menuItem.name}</h4>
           </label>
           </div>
         <div class="col-sm">
           <div class="form-group">
-          <label for="quantity-${menuItem.name}"><sup>Quantity</sup></label>
-          <input type="number" class="form-control" id="quantity-${menuItem.name}" placeholder="0">1</div>
+          <label for="quantity-${menuItem.id}"><sup>Quantity</sup></label>
+          <input type="number" class="form-control" id="quantity-${menuItem.id}" value="0"></div>
         </div>
         </div>`;
       });
       utilities.printToDom('assign-menu-items-area', domString);
+      checkAvailability();
     })
     .catch((error) => console.error(error));
 };
 
-const saveNewOrders = (reservationId) => {
-  const name = $('.form-check-input').attr('data-name');
-  console.log($(`#quantity-${name}`).val());
+const saveNewOrders = (e) => {
+  e.stopImmediatePropagation();
+  const reservationId = e.target.id.split('addmid-')[1];
   const checks = Array
     .from(document.querySelectorAll('input[type="checkbox"]'))
     .filter((checkbox) => checkbox.checked)
     .map((checkbox) => checkbox.value);
-  if ($(`#quantity-${name}`).val() > 1) {
-    console.log('more than one');
-  } else {
-    checks.forEach((check) => {
-      const menuId = check;
-      const newOrderObj = {};
-      newOrderObj.menuItemId = menuId;
-      newOrderObj.reservationId = reservationId;
-      console.log(newOrderObj);
+  checks.forEach((check) => {
+    const menuId = check;
+    const quantity = $(`#quantity-${menuId}`).val();
+    const newOrderObj = {};
+    newOrderObj.menuItemId = menuId;
+    newOrderObj.reservationId = reservationId;
+    for (let i = 0; i < quantity; i += 1) {
       orderData.addOrder(newOrderObj)
         .then(() => {
           $('#assign-menu-modal').modal('hide');
@@ -165,19 +188,15 @@ const saveNewOrders = (reservationId) => {
           printReservationDetails(reservationId);
         })
         .catch((error) => console.error(error));
-    });
-  }
-};
-
-const openNewOrders = (reservationId) => {
-  $('.modal-footer').on('click', '#save-assign-menu', () => {
-    saveNewOrders(reservationId);
+    }
   });
 };
 
 const saveNewMiddle = (e) => {
+  e.preventDefault();
   const reservationId = e.target.id.split('assignmenu-')[1];
-  openNewOrders(reservationId);
+  $('.save-assign-menu').attr('id', `addmid-${reservationId}`);
+  $('.modal-footer').on('click', '.save-assign-menu', saveNewOrders);
 };
 
 const printReservationDetailsClick = (e) => {
@@ -191,6 +210,25 @@ const printReservationDetailsClick = (e) => {
     // eslint-disable-next-line no-use-before-define
     printReservationDetails(reservationId);
   }
+};
+
+const getOrderInfo = (reservationId) => {
+  let domString = '';
+  orderData.getOrdersByReservation(reservationId)
+    .then((orders) => {
+      orders.forEach((order) => {
+        menuData.getMenuItemById(order.menuItemId)
+          .then((orderItem) => {
+            domString += '<div class="d-flex menu-items">';
+            domString += `<div class="d-flex flex-row flex-wrap justify-content-between">
+          <div class="col-xs-6 justify-content-center"><h4>${orderItem.name}</h4></div>
+          <div class="col-xs-6 justify-content-center"><h6>$${orderItem.price / 100}</h6></div>
+          </div>`;
+            domString += '</div>';
+            utilities.printToDom('menuSelectionContainer', domString);
+          });
+      });
+    }).catch((error) => console.error(error));
 };
 
 const printReservationDetails = (reservationId) => {
@@ -213,31 +251,21 @@ const printReservationDetails = (reservationId) => {
           <p class="card-text">Table Number — TBD</p>
           <p class="card-text">${timeFormatted}</p>
         </div>
-        <div class="menu-items d-flex justify-content-center flex-column">`;
-      smashData.getReservationsAndMenuItems(reservationId)
-        .then((menuItems) => {
-          menuItems.forEach((menuItem) => {
-            domString += '<div class="d-flex menu-items">';
-            domString += `<div class="d-flex flex-row flex-wrap justify-content-between">
-            <div class="col-xs-6 justify-content-center"><h4>${menuItem.name}</h4></div>
-            <div class="col-xs-6 justify-content-center"><h6>$${menuItem.price / 100}</h6></div>
-            </div>`;
-            domString += '</div>';
-          });
-          domString += `<button id="assignmenu-${reservationId}" class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal">
+        <div class="menu-items d-flex justify-content-center flex-column"> <div id="menuSelectionContainer"></div>`;
+
+      domString += `<button id="assignmenu-${reservationId}" class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal">
           <i class="fas fa-utensils"></i> Menu Items</button>`;
-          domString += '</div></div></div>';
-          utilities.printToDom('reservation-detail', domString);
-          $('.card-body').on('click', '.go-back-button', (() => {
-            $('#reservation-detail').addClass('hide');
-            $('.card-back').addClass('hide');
-            $('#printComponent').removeClass('hide');
-            // eslint-disable-next-line no-use-before-define
-            printReservations();
-          }));
-          $('.card-body').on('click', '.assign-menu', printReservationMenuModal);
-          $('.card-body').on('click', '.assign-menu', saveNewMiddle);
-        });
+      domString += '</div></div></div>';
+      utilities.printToDom('reservation-detail', domString);
+      getOrderInfo(reservationId);
+      $('.card-body').on('click', '.go-back-button', (() => {
+        $('#reservation-detail').addClass('hide');
+        $('.card-back').addClass('hide');
+        $('#printComponent').removeClass('hide');
+        // eslint-disable-next-line no-use-before-define
+        printReservations();
+      }));
+      printReservationMenuModal();
     })
     .catch((error) => console.error(error));
 };
@@ -291,4 +319,4 @@ const printReservations = () => {
     .catch((error) => console.error(error));
 };
 
-export default { printReservations };
+export default { printReservations, saveNewMiddle };

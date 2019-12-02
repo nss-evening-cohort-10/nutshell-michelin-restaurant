@@ -11,6 +11,10 @@
   text-align: center;
 }
 
+input[type=checkbox][disabled] + label {
+  color: #ccc;
+}
+
 .cudButton {
   color: white;
 }
