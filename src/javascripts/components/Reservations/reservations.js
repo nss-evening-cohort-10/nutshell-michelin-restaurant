@@ -24,9 +24,6 @@ const checkAvailability = () => {
                     if (ingredient.amountStocked === 0) {
                       $(`#assmenu-${menuItem.id}`).prop('disabled', true);
                       $(`#quantity-${menuItem.id}`).attr('disabled', true);
-                    } else {
-                      $(`#assmenu-${menuItem.id}`).prop('disabled', false);
-                      $(`#quantity-${menuItem.id}`).attr('disabled', false);
                     }
                   });
                 });
@@ -170,8 +167,9 @@ const printReservationMenuModal = () => {
     .catch((error) => console.error(error));
 };
 
-const saveNewOrders = (reservationId) => {
-  // const name = $('.form-check-input').attr('data-name');
+const saveNewOrders = (e) => {
+  e.stopImmediatePropagation();
+  const reservationId = e.target.id.split('addmid-')[1];
   const checks = Array
     .from(document.querySelectorAll('input[type="checkbox"]'))
     .filter((checkbox) => checkbox.checked)
@@ -194,17 +192,11 @@ const saveNewOrders = (reservationId) => {
   });
 };
 
-const openNewOrders = (reservationId) => {
-  $('.modal-footer').on('click', '#save-assign-menu', (e) => {
-    e.stopImmediatePropagation();
-    saveNewOrders(reservationId);
-    console.log(reservationId);
-  });
-};
-
 const saveNewMiddle = (e) => {
+  e.preventDefault();
   const reservationId = e.target.id.split('assignmenu-')[1];
-  openNewOrders(reservationId);
+  $('.save-assign-menu').attr('id', `addmid-${reservationId}`);
+  $('.modal-footer').on('click', '.save-assign-menu', saveNewOrders);
 };
 
 const printReservationDetailsClick = (e) => {
@@ -273,8 +265,7 @@ const printReservationDetails = (reservationId) => {
         // eslint-disable-next-line no-use-before-define
         printReservations();
       }));
-      $('.card-body').on('click', '.assign-menu', printReservationMenuModal);
-      $('.card-body').on('click', '.assign-menu', saveNewMiddle);
+      printReservationMenuModal();
     })
     .catch((error) => console.error(error));
 };
@@ -328,4 +319,4 @@ const printReservations = () => {
     .catch((error) => console.error(error));
 };
 
-export default { printReservations };
+export default { printReservations, saveNewMiddle };
