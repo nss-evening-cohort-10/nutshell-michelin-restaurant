@@ -73,7 +73,9 @@ input[type=checkbox][disabled] + label {
       }
     }
     .menu-items {
-      padding: 0;
+      margin-top: 10px;
+      padding: 5px;
+      justify-content: space-between;
     }
     .assign-menu {
       font-size: 1.3em;

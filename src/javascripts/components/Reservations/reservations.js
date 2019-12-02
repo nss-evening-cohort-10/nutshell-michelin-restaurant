@@ -212,6 +212,22 @@ const printReservationDetailsClick = (e) => {
   }
 };
 
+const printOrderTotal = (reservationId) => {
+  orderData.getOrdersByReservation(reservationId)
+    .then((orders) => {
+      let totalPrice = 0;
+      orders.forEach((order) => {
+        menuData.getMenuItemById(order.menuItemId)
+          .then((orderItem) => {
+            totalPrice += orderItem.price / 100;
+            const domString = `<hr></hr>
+            <h4>Total: $${totalPrice.toFixed(2)}</h4>`;
+            utilities.printToDom('totalContainer', domString);
+          });
+      });
+    }).catch((error) => console.error(error));
+};
+
 const getOrderInfo = (reservationId) => {
   let domString = '';
   orderData.getOrdersByReservation(reservationId)
@@ -219,9 +235,9 @@ const getOrderInfo = (reservationId) => {
       orders.forEach((order) => {
         menuData.getMenuItemById(order.menuItemId)
           .then((orderItem) => {
-            domString += '<div class="d-flex menu-items">';
+            domString += '<div class="menu-items">';
             domString += `<div class="d-flex flex-row flex-wrap justify-content-between">
-          <div class="col-xs-6 justify-content-center"><h4>${orderItem.name}</h4></div>
+          <div class="col-xs-6 justify-content-center"><h4>${orderItem.name} </h4></div>
           <div class="col-xs-6 justify-content-center"><h6>$${orderItem.price / 100}</h6></div>
           </div>`;
             domString += '</div>';
@@ -253,11 +269,13 @@ const printReservationDetails = (reservationId) => {
         </div>
         <div class="menu-items d-flex justify-content-center flex-column"> <div id="menuSelectionContainer"></div>`;
 
+      domString += '<div id="totalContainer"></div>';
       domString += `<button id="assignmenu-${reservationId}" class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal">
           <i class="fas fa-utensils"></i> Menu Items</button>`;
       domString += '</div></div></div>';
       utilities.printToDom('reservation-detail', domString);
       getOrderInfo(reservationId);
+      printOrderTotal(reservationId);
       $('.card-body').on('click', '.go-back-button', (() => {
         $('#reservation-detail').addClass('hide');
         $('.card-back').addClass('hide');
