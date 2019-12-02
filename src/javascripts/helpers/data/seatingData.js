@@ -14,6 +14,7 @@ const getSeating = () => new Promise((resolve, reject) => {
         tables.push(demTables[fbId]);
       });
       const sortedTables = tables.sort((a, b) => a.id.localeCompare(b.id, 'en', { numeric: true }));
+      console.log(sortedTables);
       resolve(sortedTables);
     })
     .catch((error) => reject(error));
@@ -22,7 +23,7 @@ const getSeating = () => new Promise((resolve, reject) => {
 export default { getSeating };
 
 // Function to:
-// pull tableName from db/seatings.json into seatingsData.js
+// pull tableName from db/seatings.json into seatingData.js
 // convert from json into array, export array
 
 // Function to:
