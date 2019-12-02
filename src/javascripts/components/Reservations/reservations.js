@@ -5,7 +5,7 @@ import menuData from '../../helpers/data/menuData';
 import utilities from '../../helpers/utilities';
 
 import reservationsData from '../../helpers/data/reservationsData';
-import smashData from '../../helpers/data/smash';
+// import smashData from '../../helpers/data/smash';
 import './reservations.scss';
 
 import bgimage from './assets/reservation.jpg';
@@ -191,6 +191,27 @@ const printReservationDetailsClick = (e) => {
   }
 };
 
+const getOrderInfo = (reservationId) => {
+  let domString = '';
+  console.log(reservationId);
+  orderData.getOrdersByReservation(reservationId)
+    .then((orders) => {
+      orders.forEach((order) => {
+        menuData.getMenuItemById(order.menuItemId)
+          .then((orderItem) => {
+            domString += '<div class="d-flex menu-items">';
+            domString += `<div class="d-flex flex-row flex-wrap justify-content-between">
+          <div class="col-xs-6 justify-content-center"><h4>${orderItem.name}</h4></div>
+          <div class="col-xs-6 justify-content-center"><h6>$${orderItem.price / 100}</h6></div>
+          </div>`;
+            domString += '</div>';
+            utilities.printToDom('menuSelectionContainer', domString);
+            console.log(domString);
+          });
+      });
+    }).catch((error) => console.error(error));
+};
+
 const printReservationDetails = (reservationId) => {
   $('#printComponent').addClass('hide');
   $('#reservation-detail').removeClass('hide');
@@ -211,34 +232,22 @@ const printReservationDetails = (reservationId) => {
           <p class="card-text">Table Number — TBD</p>
           <p class="card-text">${timeFormatted}</p>
         </div>
-        <div class="menu-items d-flex justify-content-center flex-column">`;
-      smashData.getReservationsAndMenuItems(reservationId)
-        .then((menuItems) => {
-          const newMenuItems = [];
-          newMenuItems.push(menuItems);
-          console.log(newMenuItems);
-          menuItems.forEach((menuItem) => {
-            domString += '<div class="d-flex menu-items">';
-            domString += `<div class="d-flex flex-row flex-wrap justify-content-between">
-            <div class="col-xs-6 justify-content-center"><h4>${menuItem.name}</h4></div>
-            <div class="col-xs-6 justify-content-center"><h6>$${menuItem.price / 100}</h6></div>
-            </div>`;
-            domString += '</div>';
-          });
-          domString += `<button id="assignmenu-${reservationId}" class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal">
+        <div class="menu-items d-flex justify-content-center flex-column"> <div id="menuSelectionContainer"></div>`;
+
+      domString += `<button id="assignmenu-${reservationId}" class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal">
           <i class="fas fa-utensils"></i> Menu Items</button>`;
-          domString += '</div></div></div>';
-          utilities.printToDom('reservation-detail', domString);
-          $('.card-body').on('click', '.go-back-button', (() => {
-            $('#reservation-detail').addClass('hide');
-            $('.card-back').addClass('hide');
-            $('#printComponent').removeClass('hide');
-            // eslint-disable-next-line no-use-before-define
-            printReservations();
-          }));
-          $('.card-body').on('click', '.assign-menu', printReservationMenuModal);
-          $('.card-body').on('click', '.assign-menu', saveNewMiddle);
-        });
+      domString += '</div></div></div>';
+      utilities.printToDom('reservation-detail', domString);
+      getOrderInfo(reservationId);
+      $('.card-body').on('click', '.go-back-button', (() => {
+        $('#reservation-detail').addClass('hide');
+        $('.card-back').addClass('hide');
+        $('#printComponent').removeClass('hide');
+        // eslint-disable-next-line no-use-before-define
+        printReservations();
+      }));
+      $('.card-body').on('click', '.assign-menu', printReservationMenuModal);
+      $('.card-body').on('click', '.assign-menu', saveNewMiddle);
     })
     .catch((error) => console.error(error));
 };

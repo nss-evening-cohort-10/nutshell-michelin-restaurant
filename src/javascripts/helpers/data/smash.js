@@ -42,37 +42,42 @@ const getMenuWithIngredients = () => new Promise((resolve, reject) => {
 const getReservationsAndMenuItems = (reservationId) => new Promise((resolve, reject) => {
   reservationsData.getReservationById(reservationId)
     .then((reservation) => {
+      const finalMenu = [];
       orderData.getOrdersByReservation(reservationId)
         .then((orders) => {
+          console.log('orders', orders);
           if (orders.length <= 0) {
             resolve([]);
           } else {
-            menuData.getAllMenuItems()
-              .then(() => {
-                const finalMenu = [];
-                let getOrderWithReservation = [];
-                getOrderWithReservation = orders.filter((x) => x.reservationId === reservationId);
-                if (getOrderWithReservation) {
-                  const getMenuId = getOrderWithReservation.map((menuItem) => menuItem.menuItemId);
-                  const itemList = [];
-                  for (let i = 0; i < getMenuId.length; i += 1) {
-                    menuData.getMenuItemById(getMenuId[i]).then((currentItem) => {
-                      itemList.push(currentItem[0]);
-                      const nmmi = { ...currentItem[0] };
-                      nmmi.reservationId = reservation.id;
-                      nmmi.seatingId = reservation.seatingId;
-                      nmmi.partySize = reservation.partySize;
-                      nmmi.customerName = reservation.customerName;
-                      nmmi.timeStamp = reservation.timeStamp;
-                      nmmi.sectionId = reservation.sectionId;
-                      finalMenu.push(nmmi);
-                      console.log(itemList);
-                    });
-                  }
-                  resolve(finalMenu);
-                  console.log(finalMenu.length);
-                }
-              });
+            orders.forEach((order) => {
+              menuData.getMenuItemById(order.menuItemId)
+                .then((mmi) => {
+                  const nmmi = { ...mmi };
+                  nmmi.reservationId = reservation.id;
+                  nmmi.seatingId = reservation.seatingId;
+                  nmmi.partySize = reservation.partySize;
+                  nmmi.customerName = reservation.customerName;
+                  nmmi.timeStamp = reservation.timeStamp;
+                  nmmi.sectionId = reservation.sectionId;
+                  finalMenu.push(nmmi);
+                  console.log('from get menu', finalMenu);
+                  return finalMenu;
+                });
+            });
+            resolve(finalMenu);
+            // });
+            // const matchingMenuItems = menuItems.filter((x) => getMenuId.includes(x.id));
+            // matchingMenuItems.forEach((mmi) => {
+            //   const nmmi = { ...mmi };
+            //   nmmi.reservationId = reservation.id;
+            //   nmmi.seatingId = reservation.seatingId;
+            //   nmmi.partySize = reservation.partySize;
+            //   nmmi.customerName = reservation.customerName;
+            //   nmmi.timeStamp = reservation.timeStamp;
+            //   nmmi.sectionId = reservation.sectionId;
+            //   finalMenu.push(nmmi);
+            // });
+            // resolve(finalMenu);
           }
         });
     })
