@@ -11,7 +11,6 @@ const getEmployeesFromSections = () => new Promise((resolve, reject) => {
             const newSection = { ...section };
             const findEmployees = employees.find((x) => x.sectionId === newSection.id);
             employeesDetail.push(findEmployees);
-            console.log(employeesDetail);
           });
           resolve(employeesDetail);
         });

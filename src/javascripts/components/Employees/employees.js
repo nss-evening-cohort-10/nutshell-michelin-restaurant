@@ -2,20 +2,7 @@ import './employees.scss';
 import $ from 'jquery';
 import employeeData from '../../helpers/data/employeesData';
 import util from '../../helpers/utilities';
-import sectionsData from '../../helpers/data/sectionsData';
 import staffSmash from '../../helpers/data/staffSmash';
-
-const sectionsOption = (selectId) => {
-  let domString = '<option>Choose...</option>';
-  sectionsData.getSections()
-    .then((sections) => {
-      sections.forEach((section) => {
-        domString += `<option value="${section.id}">${section.id}</option>`;
-      });
-      util.printToDom(selectId, domString);
-    })
-    .catch((error) => console.error(error));
-};
 
 const deleteEmployeeOnClick = (e) => {
   e.preventDefault();
@@ -84,7 +71,6 @@ const displayStaff = () => {
       });
       domString += '</div>';
       util.printToDom('printComponent', domString);
-      sectionsOption('add-staff-section-id');
     })
     .catch((error) => console.error(error));
 };
@@ -99,7 +85,6 @@ $('body').on('click', '.editEmployee', (e) => {
     });
   $('#updateStaffModal').modal('show');
   $('#updateStaffModal').find('.modal-footer').attr('id', e.target.id);
-  sectionsOption('staff-sections-id');
 });
 
 const createEmployeeOnClick = (e) => {
@@ -111,7 +96,6 @@ const createEmployeeOnClick = (e) => {
         name: $('#staff-name').val(),
         position: $('#addStaffDropdown').val(),
         employeeImg: $('#staff-photo-url').val(),
-        sectionId: $('#add-staff-section-id').val(),
         uid: '',
       };
       employeeData.createNewEmployee(newEmployee)
@@ -121,7 +105,6 @@ const createEmployeeOnClick = (e) => {
           $('#staff-name').val('');
           $('#staff-position').val('');
           $('#staff-photo-url').val('');
-          sectionsOption('add-staff-section-id');
         });
     })
     .catch((error) => console.error(error));
@@ -137,7 +120,6 @@ const updateEmployeeOnClick = (e) => {
         name: $('#update-employee-name').val(),
         position: $('#update-employee-position').val(),
         employeeImg: $('#update-employee-Img').val(),
-        sectionId: $('#staff-sections-id').val(),
         uid: '',
       };
       employeeData.updateEmployeeSections(employeeId, updatedEmployee)
@@ -148,7 +130,6 @@ const updateEmployeeOnClick = (e) => {
           $('#update-employee-Img').val('');
           $('#staff-sections-id').val('');
           displayStaff();
-          sectionsOption('staff-sections-id');
         });
     })
     .catch((error) => console.error(error));
@@ -220,10 +201,10 @@ const filterStaffButtonClick = (e) => {
             `;
         });
         domString += '</div>';
-        util.printToDom('printComponent', domString)
-          .catch((error) => console.error(error));
+        util.printToDom('printComponent', domString);
       }
-    });
+    })
+    .catch((error) => console.error(error));
 };
 
 export default {
