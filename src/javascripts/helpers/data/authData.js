@@ -8,10 +8,12 @@ const checkLoginStatus = () => {
       $('.cudButton').removeClass('hide');
       $('.activateLogout').removeClass('hide');
       $('.activateLogin').addClass('hide');
+      $('.activateReporting').removeClass('hide');
     } else {
       $('.cudButton').addClass('hide');
       $('.activateLogout').addClass('hide');
       $('.activateLogin').removeClass('hide');
+      $('.activateReporting').addClass('hide');
     }
   });
 };
@@ -21,10 +23,12 @@ const checkForUser = () => {
     $('.cudButton').removeClass('hide');
     $('.activateLogout').removeClass('hide');
     $('.activateLogin').addClass('hide');
+    $('.activateReporting').removeClass('hide');
   } else {
     $('.cudButton').addClass('hide');
     $('.activateLogout').addClass('hide');
     $('.activateLogin').removeClass('hide');
+    $('.activateReporting').addClass('hide');
   }
 };
 
