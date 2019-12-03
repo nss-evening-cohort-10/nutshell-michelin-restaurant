@@ -2,131 +2,157 @@
   "table1": {
     "numOfSeats": 4,
     "reservationId": "reservation1",
-    "tableName": "table1"
+    "tableName": "table1",
+    "sectionId": "section1"
   },
   "table2": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table2"
+    "tableName": "table2",
+    "sectionId": "section1"
   },
   "table3": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table3"
+    "tableName": "table3",
+    "sectionId": "section1"
   },
   "table4": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table4"
+    "tableName": "table4",
+    "sectionId": "section1"
   },
   "table5": {
     "numOfSeats": 2,
     "reservationId": "",
-    "tableName": "table5"
+    "tableName": "table5",
+    "sectionId": "section1"
   },
   "table6": {
     "numOfSeats": 2,
     "reservationId": "",
-    "tableName": "table6"
+    "tableName": "table6",
+    "sectionId": "section1"
   },
   "table7": {
     "numOfSeats": 12,
     "reservationId": "reservation10",
-    "tableName": "table7"
+    "tableName": "table7",
+    "sectionId": "section1"
   },
   "table8": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table8"
+    "tableName": "table8",
+    "sectionId": "section2"
   },
   "table9": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table9"
+    "tableName": "table9",
+    "sectionId": "section2"
   },
   "table10": {
     "numOfSeats": 2,
     "reservationId": "reservation3",
-    "tableName": "table10"
+    "tableName": "table10",
+    "sectionId": "section2"
   },
   "table11": {
     "numOfSeats": 2,
     "reservationId": "",
-    "tableName": "table11"
+    "tableName": "table11",
+    "sectionId": "section2"
   },
   "table12": {
     "numOfSeats": 4,
     "reservationId": "reservation4",
-    "tableName": "table12"
+    "tableName": "table12",
+    "sectionId": "section2"
   },
   "table13": {
     "numOfSeats": 6,
     "reservationId": "reservation5",
-    "tableName": "table13"
+    "tableName": "table13",
+    "sectionId": "section2"
   },
   "table14": {
     "numOfSeats": 8,
     "reservationId": "reservation2",
-    "tableName": "table14"
+    "tableName": "table14",
+    "sectionId": "section3"
   },
   "table15": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table15"
+    "tableName": "table15",
+    "sectionId": "section3"
   },
   "table16": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table16"
+    "tableName": "table16",
+    "sectionId": "section3"
   },
   "table17": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table17"
+    "tableName": "table17",
+    "sectionId": "section3"
   },
   "table18": {
     "numOfSeats": 2,
     "reservationId": "reservation6",
-    "tableName": "table18"
+    "tableName": "table18",
+    "sectionId": "section3"
   },
   "table19": {
     "numOfSeats": 2,
     "reservationId": "reservation7",
-    "tableName": "table19"
+    "tableName": "table19",
+    "sectionId": "section3"
   },
   "table20": {
     "numOfSeats": 2,
     "reservationId": "",
-    "tableName": "table20"
+    "tableName": "table20",
+    "sectionId": "section3"
   },
   "table21": {
     "numOfSeats": 2,
     "reservationId": "reservation8",
-    "tableName": "table21"
+    "tableName": "table21",
+    "sectionId": "section4"
   },
   "table22": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table22"
+    "tableName": "table22",
+    "sectionId": "section4"
   },
   "table23": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table23"
+    "tableName": "table23",
+    "sectionId": "section4"
   },
   "table24": {
     "numOfSeats": 4,
     "reservationId": "reservation9",
-    "tableName": "table24"
+    "tableName": "table24",
+    "sectionId": "section4"
   },
   "table25": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table25"
+    "tableName": "table25",
+    "sectionId": "section4"
   },
   "table26": {
     "numOfSeats": 4,
     "reservationId": "",
-    "tableName": "table26"
+    "tableName": "table26",
+    "sectionId": "section4"
   }
 }
