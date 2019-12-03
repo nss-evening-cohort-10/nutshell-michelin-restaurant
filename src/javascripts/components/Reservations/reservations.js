@@ -82,6 +82,15 @@ const updateResModal = (event) => {
     .then((reservation) => {
       let domString = '';
       domString += `
+      <form>
+      <div class="form-row align-items-center">
+        <div class="col-auto my-1">
+          <label class="mr-sm-2" for="edit-seating-id">Table Numbers</label>
+          <select class="custom-select mr-sm-2 newTableSelection" id="edit-seating-id">
+          </select>
+        </div>
+      </div>  
+    </form>
     <div class="form-group">
       <label for="edit-seating-id">Table Number</label>
       <input type="text" class="form-control" id="edit-seating-id" placeholder="Table Number Here">
@@ -338,7 +347,7 @@ const printReservations = () => {
       });
       domString += '</div>';
       utilities.printToDom('printComponent', domString);
-      tableOption('edit-seating-id');
+      tableOption('seating-id');
       $('#printComponent').on('click', '.delete-reservation', deleteReservationByClick);
       $('.edit-reservation').click(updateResModal);
       $('#add-new-reservation').click(addReservationByClick);
