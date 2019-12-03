@@ -1,69 +1,69 @@
 {
   "reservation1": {
-    "seatingId": "table-1",
+    "seatingId": "table1",
     "partySize": 4,
     "customerName": "Beyonce Knowles",
     "timeStamp": "2020-01-01 20:00",
     "sectionId": "section1"
   },
   "reservation2": {
-    "seatingId": "table-10",
+    "seatingId": "table10",
     "partySize": 8,
     "customerName": "Blake Lively",
     "timeStamp": "2019-11-30 19:00",
     "sectionId": "section2"
   },
   "reservation3": {
-    "seatingId": "table-11",
+    "seatingId": "table11",
     "partySize": 2,
     "customerName": "Jack Black",
     "timeStamp": "2019-12-25 22:00",
     "sectionId": "section3"
   },
   "reservation4": {
-    "seatingId": "table-21",
+    "seatingId": "table21",
     "partySize": 4,
     "customerName": "Kanye West",
     "timeStamp": "2019-12-28 17:00",
     "sectionId": "section1"
   },
   "reservation5": {
-    "seatingId": "table-14",
+    "seatingId": "table14",
     "partySize": 5,
     "customerName": "Hannah Montana",
     "timeStamp": "2019-12-13 17:00",
     "sectionId": "section4"
   },
   "reservation6": {
-    "seatingId": "table-20",
+    "seatingId": "table20",
     "partySize": 2,
     "customerName": "Mila Kunis",
     "timeStamp": "2020-01-28 21:00",
     "sectionId": "section4"
   },
   "reservation7": {
-    "seatingId": "table-12",
+    "seatingId": "table12",
     "partySize": 2,
     "customerName": "Candice Swanepoel",
     "timeStamp": "2020-02-14 20:30",
     "sectionId": "section2"
   },
   "reservation8": {
-    "seatingId": "table-15",
+    "seatingId": "table15",
     "partySize": 2,
     "customerName": "Faith Hill",
     "timeStamp": "2020-02-14 21:00",
     "sectionId": "section1"
   },
   "reservation9": {
-    "seatingId": "table-21",
+    "seatingId": "table21",
     "partySize": 2,
     "customerName": "Tom Brady",
     "timeStamp": "2020-02-14 21:00",
     "sectionId": "section4"
   },
   "reservation10": {
-    "seatingId": "table-25",
+    "seatingId": "table25",
     "partySize": 10,
     "customerName": "Yolanda Foster",
     "timeStamp": "2020-03-12 18:00",

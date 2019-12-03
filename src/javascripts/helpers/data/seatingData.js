@@ -20,8 +20,19 @@ const getSeating = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getSeatingById = (seatingId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/seatings/${seatingId}.json`)
+    .then((response) => {
+      console.log(response);
+      const table = response.data;
+      table.id = seatingId;
+      resolve(table);
+    })
+    .catch((error) => reject(error));
+});
 
-export default { getSeating };
+
+export default { getSeating, getSeatingById };
 
 // Function to:
 // pull tableName from db/seatings.json into seatingData.js

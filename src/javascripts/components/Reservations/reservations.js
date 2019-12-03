@@ -93,7 +93,7 @@ const updateResModal = (event) => {
           <select class="custom-select mr-sm-2 newTableSelection" id="edit-seating-id">
           </select>
         </div>
-      </div>  
+      </div>
     </form>
     <div class="form-group">
       <label for="edit-customer-name">Customer Name</label>
@@ -282,6 +282,8 @@ const getOrderInfo = (reservationId) => {
 };
 
 const printReservationDetails = (reservationId) => {
+  $('#printComponent').addClass('hide');
+  $('#reservation-detail').removeClass('hide');
   $('.card-back').removeClass('hide');
   $('.reservation-card-front').addClass('hide');
   reservationsData.getReservationById(reservationId)
@@ -305,11 +307,13 @@ const printReservationDetails = (reservationId) => {
       domString += `<button id="assignmenu-${reservationId}" class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal">
           <i class="fas fa-utensils"></i> Menu Items</button>`;
       domString += '</div></div></div>';
-      utilities.printToDom('printComponent', domString);
+      utilities.printToDom('reservation-detail', domString);
       getOrderInfo(reservationId);
       printOrderTotal(reservationId);
       $('.card-body').on('click', '.go-back-button', (() => {
+        $('#reservation-detail').addClass('hide');
         $('.card-back').addClass('hide');
+        $('#printComponent').removeClass('hide');
         // eslint-disable-next-line no-use-before-define
         printReservations();
       }));
