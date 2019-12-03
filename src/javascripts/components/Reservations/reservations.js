@@ -93,7 +93,7 @@ const updateResModal = (event) => {
           <select class="custom-select mr-sm-2 newTableSelection" id="edit-seating-id">
           </select>
         </div>
-      </div>  
+      </div>
     </form>
     <div class="form-group">
       <label for="edit-customer-name">Customer Name</label>
@@ -290,7 +290,7 @@ const printReservationDetails = (reservationId) => {
     .then((reservation) => {
       const time = `${reservation.timeStamp}`;
       const timeFormatted = moment(time).format('LLL');
-      let domString = `<div class="card reservation-single-card">
+      let domString = `<div class="card reservation-single-card reservation-back-card">
       <div class="card-body reservation card-back" id="reservationback-${reservation.id}">
         <div class="card-header d-flex justify-content-between">
           <h3 id="customer-${reservation.id}">${reservation.customerName}</h3>
@@ -364,9 +364,7 @@ const printReservations = () => {
       $('#add-new-reservation').click(addReservationByClick);
       $('#update-reservation').click(updateReservationByClick);
       $('#reservations-section').on('click', '.reservation-single-card', printReservationDetailsClick);
-      $('#printComponent').removeClass('hide');
       $('.cudButton').removeClass('hide');
-      $('#reservation-detail').addClass('hide');
       $('.card-back').addClass('hide');
     })
     .catch((error) => console.error(error));
