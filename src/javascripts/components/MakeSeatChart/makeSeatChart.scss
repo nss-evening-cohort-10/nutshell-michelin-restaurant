@@ -1,31 +1,75 @@
 .seating-card {
-  color: whitesmoke;
-  margin: 1rem;
+  color: black;
+  background-color: white;
+  margin: 0.82rem;
   text-align: center;
   justify-content: center;
+  width: 150px;
 }
 
-.seating-card h2, h4 { 
+.seating-card h2, h4 {
   font-size: 20px;
   }
 
-
 .seat-4-card {
-  height: 18%;
-  width: 10%;
+  height: 125px;
 }
 
 .seat-2-card {
-  height: 11%;
-  width: 10%;
+  height: 70px;
 }
 
 .seat-8-card {
-  height: 32%;
-  width: 10%;
+  height: 300px;
 }
 
 .seat-12-card {
-  height: 54%;
-  width: 10%;
+  height: 420px;
+}
+
+.seat-6-card {
+  height: 160px;
+}
+
+.section-section1 {
+  background-color: #BDBDBD;
+  .seat-4-card {
+    margin: 1.08rem 0.8rem;
+  }
+  .seat-2-card {
+    margin: 0.84rem 0.8rem;
+  }
+}
+
+.section-section2 {
+  background-color: #616161;
+  .seat-2-card, .seat-4-card {
+    margin: 0.77rem 0.8rem;
+  }
+  .seat-6-card {
+    margin: 0.8rem 0.8rem 5rem 0.8rem;
+  }
+}
+
+.section-section3 {
+  background-color: #9E9E9E;
+  .seat-8-card {
+    margin: 4.65rem 0.8rem 0.8rem 0.8rem;
+  }
+  .seat-4-card {
+    margin: 2.76rem 0.8rem;
+  }
+  .seat-2-card {
+    margin: 1.55rem 0.8rem;
+  }
+}
+
+.section-section4 {
+  background-color: #757575;
+  .seat-2-card {
+    margin: 1.55rem 0.8rem;
+  }
+  .seat-4-card {
+    margin: 1.08rem 0.8rem;
+  }
 }
