@@ -18,4 +18,5 @@ const getSeating = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+
 export default { getSeating };

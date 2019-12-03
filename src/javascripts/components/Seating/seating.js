@@ -22,7 +22,9 @@ const printSeatingChart = () => {
       <div class="d-flex flex-column flex-wrap seat-container mx-auto justify-content-between">
       `;
       tables.forEach((table) => {
+        domString += `<div class="section-${table.sectionId}">`;
         domString += makeSeatChart.makeSeatChart(table);
+        domString += '</div>';
       });
       domString += '</div></div>';
       utilities.printToDom('printComponent', domString);
