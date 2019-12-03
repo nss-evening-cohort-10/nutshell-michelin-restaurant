@@ -119,7 +119,8 @@ const printIngredientsForm = (menuId) => {
   $('body').on('click', '#updateMenuIngredientBtn', findMenuIngredients);
 };
 
-const createMenuItem = () => {
+const createMenuItem = (e) => {
+  e.stopImmediatePropagation();
   const newMenuItem = {
     name: $('#menu-name').val(),
     price: $('#menu-price').val(),
@@ -132,7 +133,6 @@ const createMenuItem = () => {
     .then((newMenuId) => {
       printMenuIngredientOptions(newMenuId);
       $('#newMenuModal').modal('hide');
-      $('#addMenuForm').trigger('reset');
       // eslint-disable-next-line no-use-before-define
       printMenuCards();
     }).catch((err) => console.error(err));

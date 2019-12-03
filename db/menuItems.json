@@ -56,115 +56,115 @@
     "quantitySold": 50
   },
   "menuItem8": {
-    "name": "Chicken Latke Sliders",
-    "price": 3000,
-    "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
-    "category": "Apéritif",
-    "quantitySold": 69
+    "name": "Spaghetti with Meat Sauce",
+    "price": 1000,
+    "description": "Delicious spaghetti with a meat sauce.",
+    "imgUrl": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204.jpg",
+    "category": "Entree",
+    "quantitySold": 75
   },
   "menuItem9": {
-    "name": "Chicken Latke Sliders",
-    "price": 3000,
-    "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "name": "Spinach and Artichoke Dip",
+    "price": 1000,
+    "description": "A deliciously creamy dip made of spinach and artichokes, served with a side of toasted baguette.",
+    "imgUrl": "https://www.sixsistersstuff.com/wp-content/uploads/2018/09/Slow-Cooker-Spinach-Artichoke-Dip-Creamy-683x1024.jpg",
     "category": "Apéritif",
-    "quantitySold": 69
+    "quantitySold": 65
   },
   "menuItem10": {
-    "name": "Chicken Latke Sliders",
+    "name": "Soft Pretzels with Beer Cheese Dip",
     "price": 3000,
-    "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "description": "Soft, chewy pretzels, served hot with a side of beer cheese",
+    "imgUrl": "https://www.oklahomajoes.com/media/ctm/Smoked_Beer_Cheese_Pretzels_1_.jpg",
     "category": "Apéritif",
-    "quantitySold": 69
+    "quantitySold": 78
   },
   "menuItem11": {
-    "name": "Chicken Latke Sliders",
-    "price": 3000,
-    "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "name": "Baguette",
+    "price": 400,
+    "description": "A delicious, fresh baked baguette, sliced and served with butter.",
+    "imgUrl": "https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/8-3-large.jpg?itok=fRNQugY8",
     "category": "Apéritif",
     "quantitySold": 69
   },
   "menuItem12": {
-    "name": "Chicken Latke Sliders",
-    "price": 3000,
-    "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
-    "category": "Apéritif",
-    "quantitySold": 69
+    "name": "Dutch Apple Pie à la Mode",
+    "price": 2500,
+    "description": "Delicious Dutch Apple Pie served with Vanilla Bean ice cream.",
+    "imgUrl": "https://www.foodrepublic.com/wp-content/uploads/2017/11/applepie.jpg",
+    "category": "Dessert",
+    "quantitySold": 200
   },
   "menuItem13": {
-    "name": "Chicken Latke Sliders",
-    "price": 3000,
+    "name": "Delicious Fruit Tart",
+    "price": 20000,
     "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
-    "category": "Apéritif",
-    "quantitySold": 69
+    "imgUrl": "https://www.thespruceeats.com/thmb/RMaUGhH86G_aGLGWFhJSwkM2RBM=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/fruit-tart-2500-58a474945f9b58819c899b6e.jpg",
+    "category": "Dessert",
+    "quantitySold": 52
   },
   "menuItem14": {
-    "name": "Chicken Latke Sliders",
+    "name": "Fancy Mousse Towers",
     "price": 3000,
-    "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
-    "category": "Apéritif",
-    "quantitySold": 69
+    "description": "Deliciously sweet and decadent chocolate mousse tower topped with whipped cream.",
+    "imgUrl": "https://www.tasteofhome.com/wp-content/uploads/2017/10/exps28721_CFT862013D31D.jpg",
+    "category": "Dessert",
+    "quantitySold": 55
   },
   "menuItem15": {
-    "name": "Chicken Latke Sliders",
+    "name": "Sakura Jelly",
     "price": 3000,
-    "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
-    "category": "Apéritif",
-    "quantitySold": 69
+    "description": "A single sakura blossom in clear jelly on a base of white chocolate mousse.",
+    "imgUrl": "https://farm7.static.flickr.com/6049/6237625851_429585f567_z.jpg",
+    "category": "Dessert",
+    "quantitySold": 89
   },
   "menuItem16": {
-    "name": "Chicken Latke Sliders",
-    "price": 3000,
+    "name": "Chocolate Strawberry Crumble Ball",
+    "price": 3500,
     "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
-    "category": "Apéritif",
-    "quantitySold": 69
+    "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Boule_chocolat_au_crumble_de_fraises.jpg/1920px-Boule_chocolat_au_crumble_de_fraises.jpg",
+    "category": "Dessert",
+    "quantitySold": 40
   },
   "menuItem17": {
-    "name": "Chicken Latke Sliders",
+    "name": "Mustardy Deviled Eggs From Wursthall ",
     "price": 3000,
-    "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "description": "A fancy twist on an American classic",
+    "imgUrl": "https://www.seriouseats.com/2019/05/20190524-wursthall-deviled-eggs-beauty2-edit-1500x1125.jpg",
     "category": "Apéritif",
-    "quantitySold": 69
+    "quantitySold": 7
   },
   "menuItem18": {
-    "name": "Chicken Latke Sliders",
-    "price": 3000,
-    "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "name": "Parsnip Latkes with Caviar and Creme Fraiche",
+    "price": 2000,
+    "description": "Yum",
+    "imgUrl": "https://i.pinimg.com/originals/56/de/37/56de371d8770f49e36507baa548495a0.jpg",
     "category": "Apéritif",
-    "quantitySold": 69
+    "quantitySold": 35
   },
   "menuItem19": {
-    "name": "Chicken Latke Sliders",
-    "price": 3000,
-    "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
-    "category": "Apéritif",
-    "quantitySold": 69
+    "name": "Okonomiyaki",
+    "price": 4000,
+    "description": "Literally the best thing you will ever eat.",
+    "imgUrl": "https://sparkpeo.hs.llnwd.net/e4/nw/6/1/l619173923.jpg",
+    "category": "Entree",
+    "quantitySold": 300
   },
   "menuItem20": {
-    "name": "Chicken Latke Sliders",
+    "name": "Yakitori",
     "price": 3000,
     "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "imgUrl": "https://www.justonecookbook.com/wp-content/uploads/2014/04/Yakitori-500x467.jpg",
     "category": "Apéritif",
-    "quantitySold": 69
+    "quantitySold": 70
   },
   "menuItem21": {
-    "name": "Chicken Latke Sliders",
+    "name": "Vegetable Soup",
     "price": 3000,
     "description": "Amazing. Savory. Shareable.",
-    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "imgUrl": "https://dlife.com/wp-content/uploads/2018/04/Simple-Vegetable-Soup.jpg",
     "category": "Apéritif",
-    "quantitySold": 69
+    "quantitySold": 14
   }
 }
