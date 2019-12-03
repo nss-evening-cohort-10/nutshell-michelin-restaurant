@@ -248,15 +248,13 @@ const getOrderInfo = (reservationId) => {
 };
 
 const printReservationDetails = (reservationId) => {
-  $('#printComponent').addClass('hide');
-  $('#reservation-detail').removeClass('hide');
   $('.card-back').removeClass('hide');
   $('.reservation-card-front').addClass('hide');
   reservationsData.getReservationById(reservationId)
     .then((reservation) => {
       const time = `${reservation.timeStamp}`;
       const timeFormatted = moment(time).format('LLL');
-      let domString = `<div class="card reservation-single-card">
+      let domString = `<div class="card reservation-single-card reservation-back-card">
       <div class="card-body reservation card-back" id="reservationback-${reservation.id}">
         <div class="card-header d-flex justify-content-between">
           <h3 id="customer-${reservation.id}">${reservation.customerName}</h3>
@@ -273,13 +271,11 @@ const printReservationDetails = (reservationId) => {
       domString += `<button id="assignmenu-${reservationId}" class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal">
           <i class="fas fa-utensils"></i> Menu Items</button>`;
       domString += '</div></div></div>';
-      utilities.printToDom('reservation-detail', domString);
+      utilities.printToDom('printComponent', domString);
       getOrderInfo(reservationId);
       printOrderTotal(reservationId);
       $('.card-body').on('click', '.go-back-button', (() => {
-        $('#reservation-detail').addClass('hide');
         $('.card-back').addClass('hide');
-        $('#printComponent').removeClass('hide');
         // eslint-disable-next-line no-use-before-define
         printReservations();
       }));
@@ -329,9 +325,7 @@ const printReservations = () => {
       $('#add-new-reservation').click(addReservationByClick);
       $('#update-reservation').click(updateReservationByClick);
       $('#reservations-section').on('click', '.reservation-single-card', printReservationDetailsClick);
-      $('#printComponent').removeClass('hide');
       $('.cudButton').removeClass('hide');
-      $('#reservation-detail').addClass('hide');
       $('.card-back').addClass('hide');
     })
     .catch((error) => console.error(error));
