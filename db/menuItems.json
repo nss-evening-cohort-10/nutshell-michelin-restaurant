@@ -38,5 +38,133 @@
     "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
     "category": "Apéritif",
     "quantitySold": 69
+  },
+  "menuItem6": {
+    "name": "Jalapeno Popper Mac",
+    "price": 2000,
+    "description": "pepper jack, mozzarella, jalapenos, bacon, cream cheese",
+    "imgUrl": "http://macandcheeseshop.com/wp-content/uploads/2017/11/macaroni-and-cheese-shop-jalapeno-popper-mac.jpg",
+    "category": "Entree",
+    "quantitySold": 100
+  },
+  "menuItem7": {
+    "name": "Coney Island Corn Dog",
+    "price": 900,
+    "description": "A delicious beef corn dog, hand dipped in corn bread batter and deep fried. Served with a side of honey mustard.",
+    "imgUrl": "https://i1.wp.com/www.foodrepublic.com/wp-content/uploads/2013/01/andouillecorndogs.jpg?fit=978%2C849&ssl=1",
+    "category": "Entree",
+    "quantitySold": 50
+  },
+  "menuItem8": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem9": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem10": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem11": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem12": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem13": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem14": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem15": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem16": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem17": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem18": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem19": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem20": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
+  },
+  "menuItem21": {
+    "name": "Chicken Latke Sliders",
+    "price": 3000,
+    "description": "Amazing. Savory. Shareable.",
+    "imgUrl": "https://whatjewwannaeat.com/wp-content/uploads/bbq-chicken-latkes-sliders-for-passover11.jpg",
+    "category": "Apéritif",
+    "quantitySold": 69
   }
 }

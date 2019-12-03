@@ -126,6 +126,7 @@ const createMenuItem = () => {
     description: $('#menu-description').val(),
     imgUrl: $('#menu-imgUrl').val(),
     category: $('#categoryDropdown').val(),
+    quantitySold: 0,
   };
   menuData.addMenuItem(newMenuItem)
     .then((newMenuId) => {
