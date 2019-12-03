@@ -31,6 +31,7 @@ const init = () => {
   $('body').on('click', '#add-new-staff', employeeDisplay.createEmployeeOnClick);
   $('body').on('click', '.filterStaffButton', employeeDisplay.filterStaffButtonClick);
   $('body').on('click', '#updateStaff', employeeDisplay.updateEmployeeOnClick);
+  $('body').on('click', '.assign-menu', reservations.saveNewMiddle);
 };
 
 init();

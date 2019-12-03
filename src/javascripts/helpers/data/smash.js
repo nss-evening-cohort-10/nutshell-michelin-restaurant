@@ -1,10 +1,12 @@
-import menu from './menuData';
+import menuData from './menuData';
 import menuIngredient from './MenuIngredientData';
 import inventoryData from './inventoryData';
+import reservationsData from './reservationsData';
+import orderData from './orderData';
 
 
 const getMenuWithIngredients = () => new Promise((resolve, reject) => {
-  menu.getAllMenuItems()
+  menuData.getAllMenuItems()
     .then((menuItems) => {
       menuIngredient.getAllMenuIngredients().then((mIngredients) => {
         inventoryData.getInventory().then((inventory) => {
@@ -37,4 +39,35 @@ const getMenuWithIngredients = () => new Promise((resolve, reject) => {
     }).catch((err) => reject(err));
 });
 
-export default { getMenuWithIngredients };
+const getReservationsAndMenuItems = (reservationId) => new Promise((resolve, reject) => {
+  reservationsData.getReservationById(reservationId)
+    .then((reservation) => {
+      const finalMenu = [];
+      orderData.getOrdersByReservation(reservationId)
+        .then((orders) => {
+          console.log('orders', orders);
+          if (orders.length <= 0) {
+            resolve([]);
+          } else {
+            orders.forEach((order) => {
+              menuData.getMenuItemById(order.menuItemId)
+                .then((mmi) => {
+                  const nmmi = { ...mmi };
+                  nmmi.reservationId = reservation.id;
+                  nmmi.seatingId = reservation.seatingId;
+                  nmmi.partySize = reservation.partySize;
+                  nmmi.customerName = reservation.customerName;
+                  nmmi.timeStamp = reservation.timeStamp;
+                  nmmi.sectionId = reservation.sectionId;
+                  finalMenu.push(nmmi);
+                  return finalMenu;
+                });
+            });
+            resolve(finalMenu);
+          }
+        });
+    })
+    .catch((error) => reject(error));
+});
+
+export default { getMenuWithIngredients, getReservationsAndMenuItems };
