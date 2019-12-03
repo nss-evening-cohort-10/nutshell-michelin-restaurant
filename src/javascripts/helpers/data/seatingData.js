@@ -18,4 +18,12 @@ const getSeating = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export default { getSeating };
+const getSeatingByTableId = (tableId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/seatings/${tableId}.json`)
+    .then((response) => {
+      resolve(response.data);
+    })
+    .catch((error) => reject(error));
+});
+
+export default { getSeating, getSeatingByTableId };

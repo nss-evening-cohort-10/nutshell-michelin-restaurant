@@ -17,4 +17,12 @@ const getSections = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export default { getSections };
+const getSectionById = (sectionId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/sections/${sectionId}.json`)
+    .then((response) => {
+      resolve(response.data);
+    })
+    .catch((error) => reject(error));
+});
+
+export default { getSections, getSectionById };
