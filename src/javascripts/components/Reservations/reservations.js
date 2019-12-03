@@ -358,6 +358,7 @@ const printReservations = () => {
       });
       domString += '</div>';
       utilities.printToDom('printComponent', domString);
+      tableOption('seating-id');
       $('#printComponent').on('click', '.delete-reservation', deleteReservationByClick);
       $('.edit-reservation').click(updateResModal);
       $('#add-new-reservation').click(addReservationByClick);
