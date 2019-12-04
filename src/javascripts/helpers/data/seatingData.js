@@ -14,7 +14,6 @@ const getSeating = () => new Promise((resolve, reject) => {
         tables.push(demTables[fbId]);
       });
       const sortedTables = tables.sort((a, b) => a.id.localeCompare(b.id, 'en', { numeric: true }));
-      console.log(sortedTables);
       resolve(sortedTables);
     })
     .catch((error) => reject(error));
@@ -23,7 +22,6 @@ const getSeating = () => new Promise((resolve, reject) => {
 const getSeatingById = (seatingId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/seatings/${seatingId}.json`)
     .then((response) => {
-      console.log(response);
       const table = response.data;
       table.id = seatingId;
       resolve(table);

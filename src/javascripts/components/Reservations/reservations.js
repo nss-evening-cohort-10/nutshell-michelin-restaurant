@@ -43,8 +43,7 @@ const updateReservationByClick = (event) => {
   event.preventDefault();
   const reservationId = $(event.target).attr('store-reservationId');
   const seatingId = $('#edit-seating-id').val();
-  let seatingIdFormatted = 'table-';
-  seatingIdFormatted += seatingId.toString();
+  const seatingIdFormatted = seatingId;
   const partySize = $('#edit-party-size').val();
   const partySizeFormatted = parseInt(partySize, 10);
   const date = $('#edit-reserve-date').val().toString();
@@ -57,11 +56,11 @@ const updateReservationByClick = (event) => {
     timeStamp: dateAndTime,
   };
   reservationsData.updateReservation(reservationId, updatedReservation)
-    .then(() => {
-      document.forms['update-reservation-form'].reset();
+    .then((updReservation) => {
+      // document.forms['update-reservation-form'].reset();
       $('#editReservationModal').modal('hide');
       // eslint-disable-next-line no-use-before-define
-      printReservations();
+      printReservationDetails(updReservation.id);
     })
     .catch((error) => console.error(error));
 };
@@ -249,16 +248,20 @@ const printReservationDetailsClick = (e) => {
 const printOrderTotal = (reservationId) => {
   orderData.getOrdersByReservation(reservationId)
     .then((orders) => {
-      let totalPrice = 0;
-      orders.forEach((order) => {
-        menuData.getMenuItemById(order.menuItemId)
-          .then((orderItem) => {
-            totalPrice += orderItem.price / 100;
-            const domString = `<hr></hr>
-            <h4>Total: $${totalPrice.toFixed(2)}</h4>`;
-            utilities.printToDom('totalContainer', domString);
-          });
-      });
+      if (orders !== null) {
+        let totalPrice = 0;
+        orders.forEach((order) => {
+          menuData.getMenuItemById(order.menuItemId)
+            .then((orderItem) => {
+              totalPrice += orderItem.price / 100;
+              const domString = `<hr></hr>
+              <h4>Total: $${totalPrice.toFixed(2)}</h4>`;
+              utilities.printToDom('totalContainer', domString);
+            });
+        });
+      } else {
+        console.error('please add orders');
+      }
     }).catch((error) => console.error(error));
 };
 
@@ -267,23 +270,26 @@ const getOrderInfo = (reservationId) => {
   orderData.getOrdersByReservation(reservationId)
     .then((orders) => {
       orders.forEach((order) => {
-        menuData.getMenuItemById(order.menuItemId)
-          .then((orderItem) => {
-            domString += '<div class="menu-items">';
-            domString += `<div class="d-flex flex-row flex-wrap justify-content-between">
-          <div class="col-xs-6 justify-content-center"><h4>${orderItem.name} </h4></div>
-          <div class="col-xs-6 justify-content-center"><h6>$${orderItem.price / 100}</h6></div>
-          </div>`;
-            domString += '</div>';
-            utilities.printToDom('menuSelectionContainer', domString);
-          });
+        if (order !== null) {
+          menuData.getMenuItemById(order.menuItemId)
+            .then((orderItem) => {
+              domString += '<div class="menu-items">';
+              domString += `<div class="d-flex flex-row flex-wrap justify-content-between">
+            <div class="col-xs-6 justify-content-center"><h4>${orderItem.name} </h4></div>
+            <div class="col-xs-6 justify-content-center"><h6>$${orderItem.price / 100}</h6></div>
+            </div>`;
+              domString += '</div>';
+              utilities.printToDom('menuSelectionContainer', domString);
+            });
+        } else {
+          console.error('please add orders');
+        }
       });
-    }).catch((error) => console.error(error));
+    })
+    .catch((error) => console.error(error));
 };
 
 const printReservationDetails = (reservationId) => {
-  $('#printComponent').addClass('hide');
-  $('#reservation-detail').removeClass('hide');
   $('.card-back').removeClass('hide');
   $('.reservation-card-front').addClass('hide');
   reservationsData.getReservationById(reservationId)
@@ -307,13 +313,11 @@ const printReservationDetails = (reservationId) => {
       domString += `<button id="assignmenu-${reservationId}" class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal">
           <i class="fas fa-utensils"></i> Menu Items</button>`;
       domString += '</div></div></div>';
-      utilities.printToDom('reservation-detail', domString);
+      utilities.printToDom('printComponent', domString);
       getOrderInfo(reservationId);
       printOrderTotal(reservationId);
       $('.card-body').on('click', '.go-back-button', (() => {
-        $('#reservation-detail').addClass('hide');
         $('.card-back').addClass('hide');
-        $('#printComponent').removeClass('hide');
         // eslint-disable-next-line no-use-before-define
         printReservations();
       }));
