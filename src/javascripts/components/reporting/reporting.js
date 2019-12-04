@@ -10,13 +10,21 @@ const printPopularityOptions = () => {
   utilities.printToDom('reportsMenu', domString);
 };
 
+const printRevenueOptions = () => {
+  let domString = '<option selected>Choose...</option>';
+  domString += '<option value="periodRev">Revenue Over Period</option>';
+  domString += '<option value="dateRev">Revenue By Date</option>';
+  domString += '<option value="totalRev">Total Revenue</option>';
+  utilities.printToDom('reportsMenu', domString);
+};
+
 const detectSelection = () => {
   $('#reportRadios').change(() => {
     const selectedOption = $('input[name="reportOptions"]:checked').val();
     if (selectedOption === 'ingredientReport') {
       console.log('ingredients print option goes here');
     } else if (selectedOption === 'salesReport') {
-      console.log('sales print option goes here');
+      printRevenueOptions();
     } else if (selectedOption === 'popularityReport') {
       printPopularityOptions();
     }
@@ -78,6 +86,25 @@ const leastPopularFoods = () => {
     .catch((error) => console.error(error));
 };
 
+const sumOfSale = (sum, num) => sum + num;
+
+const totalRevenue = () => {
+  const totalArray = [];
+  let itemRev = 0;
+  menuData.getAllMenuItems()
+    .then((menuItems) => {
+      menuItems.forEach((menuItem) => {
+        itemRev = menuItem.quantitySold * menuItem.price;
+        totalArray.push(itemRev);
+      });
+      const newTotal = totalArray.reduce(sumOfSale) / 100;
+      const domString = `<div id="salesData">
+        <h5>Total: $${newTotal}</h5></div>`;
+      utilities.printToDom('ytdRev', domString);
+    })
+    .catch((error) => console.error(error));
+};
+
 const goToOption = () => {
   const reportToPrint = $('#reportsMenu').val();
   if (reportToPrint === 'mostPop') {
@@ -112,6 +139,11 @@ const goToOption = () => {
       </table>`;
     utilities.printToDom('reportContainer', domString);
     leastPopularFoods();
+  } else if (reportToPrint === 'totalRev') {
+    let domString = '<h4 class="mt-3">Total Revenue Since Opening</h4>';
+    domString += '<div id="ytdRev"></div>';
+    utilities.printToDom('reportContainer', domString);
+    totalRevenue();
   }
 };
 
