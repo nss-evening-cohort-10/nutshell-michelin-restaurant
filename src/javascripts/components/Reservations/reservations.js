@@ -6,6 +6,7 @@ import utilities from '../../helpers/utilities';
 import menuIngredientData from '../../helpers/data/MenuIngredientData';
 import inventory from '../../helpers/data/inventoryData';
 import seatingData from '../../helpers/data/seatingData';
+import employeesData from '../../helpers/data/employeesData';
 
 import reservationsData from '../../helpers/data/reservationsData';
 import './reservations.scss';
@@ -17,6 +18,7 @@ import sectionsData from '../../helpers/data/sectionsData';
 const printSectionDetails = (seatingId) => {
   seatingData.getSeatingByTableId(seatingId)
     .then((seatings) => {
+      utilities.printToDom('table-number', seatings.tableName);
       sectionsData.getSectionById(seatings.sectionId).then(() => {
         if (seatings.sectionId) {
           const singleSection = seatings.sectionId;
@@ -27,8 +29,24 @@ const printSectionDetails = (seatingId) => {
     .catch((error) => console.error(error));
 };
 
-const printStaffDetails = () => {
-
+const printStaffDetails = (seatingId) => {
+  seatingData.getSeatingByTableId(seatingId)
+    .then((seatings) => {
+      sectionsData.getSectionById(seatings.sectionId).then((section) => {
+        employeesData.getStaffById(section.server).then((server) => {
+          employeesData.getStaffById().then(() => {
+            utilities.printToDom('server-spot', server.name);
+            employeesData.getStaffById(section.bartender).then((bartender) => {
+              utilities.printToDom('bartender-spot', bartender.name);
+              employeesData.getStaffById(section.porter).then((porter) => {
+                utilities.printToDom('porter-spot', porter.name);
+              });
+            });
+          });
+        });
+      });
+    })
+    .catch((error) => console.error(error));
 };
 
 const checkAvailability = () => {
@@ -55,33 +73,32 @@ const checkAvailability = () => {
 };
 
 const updateReservationByClick = (event) => {
-  event.preventDefault();
+  event.stopImmediatePropagation();
   const reservationId = $(event.target).attr('store-reservationId');
   const seatingId = $('#edit-seating-id').val();
-  let seatingIdFormatted = 'table-';
-  seatingIdFormatted += seatingId.toString();
   const partySize = $('#edit-party-size').val();
   const partySizeFormatted = parseInt(partySize, 10);
   const date = $('#edit-reserve-date').val().toString();
   const time = $('#edit-reserve-time').val().toString();
   const dateAndTime = [date, time].join(' ');
-  seatingData.getSeating()
+  seatingData.getSeatingByTableId(seatingId)
     .then((seatings) => {
-      const seatingRecord = seatings.find((x) => x.id === seatingId);
-      if (partySizeFormatted <= seatingRecord.numOfSeats) {
+      if (partySizeFormatted <= seatings.numOfSeats) {
         const updatedReservation = {
-          seatingId: seatingIdFormatted,
+          seatingId,
           partySize: partySizeFormatted,
           customerName: $('#edit-customer-name').val(),
           timeStamp: dateAndTime,
+          sectionId: seatings.sectionId,
         };
-        reservationsData.updateReservation(reservationId, updatedReservation)
+        reservationsData.updateResObject(reservationId, updatedReservation)
           .then(() => {
             document.forms['update-reservation-form'].reset();
             $('#editReservationModal').modal('hide');
             // eslint-disable-next-line no-use-before-define
             printReservationDetails(reservationId);
             printSectionDetails(seatingId);
+            printStaffDetails(seatingId);
           });
       } else {
         $('#edit-reservation-party-size').removeClass('hide');
@@ -154,8 +171,6 @@ const updateResModal = (event) => {
 const addReservationByClick = (event) => {
   event.stopImmediatePropagation();
   const seatingId = $('#seating-id').val();
-  let seatingIdFormatted = 'table-';
-  seatingIdFormatted += seatingId.toString();
   const partySize = $('#party-size').val();
   const partySizeFormatted = parseInt(partySize, 10);
   const date = $('#reserve-date').val().toString();
@@ -167,7 +182,7 @@ const addReservationByClick = (event) => {
       const seatingRecord = seatings.find((x) => x.id === seatingId);
       if (partySizeFormatted <= seatingRecord.numOfSeats) {
         const newReservation = {
-          seatingId: seatingIdFormatted,
+          seatingId,
           partySize: partySizeFormatted,
           customerName: $('#customer-name').val(),
           timeStamp: dateAndTime,
@@ -325,8 +340,11 @@ const printReservationDetails = (reservationId) => {
         </div>
         <div class="d-flex flex-column align-items-end align-bottom reservationFont">
           <p class="card-title">Party Size — ${reservation.partySize}</p>
-          <p class="card-text">Table Number — TBD</p>
+          <p class="card-text" id="table-number"></p>
           <p class="card-text" id="single-section-reservation"></p>
+          <p id="server-spot"></p>
+          <p id="bartender-spot"></p>
+          <p id="porter-spot"></p>
           <p class="card-text">${timeFormatted}</p>
         </div>
         <div class="menu-items d-flex justify-content-center flex-column"> <div id="menuSelectionContainer"></div>`;
@@ -340,6 +358,7 @@ const printReservationDetails = (reservationId) => {
       getOrderInfo(reservationId);
       printOrderTotal(reservationId);
       printSectionDetails(seatingId);
+      printStaffDetails(seatingId);
       $('.card-body').on('click', '.go-back-button', (() => {
         $('#reservation-detail').addClass('hide');
         $('.card-back').addClass('hide');
