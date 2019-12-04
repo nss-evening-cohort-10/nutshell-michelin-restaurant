@@ -15,6 +15,7 @@ const printIndividualMenuCard = (menu, ingredientString) => {
           <button class="cudButton hide btn btn-secondary-outline col-1 deleteMenuItem"><i class="fas fa-trash-alt" id=${menu.id}></i></button>
           </div>
           </div>
+          <hr></hr>
           <div class="row d-flex justify-content-between">
           <p class="card-title text-center p-0">${menu.category}</p>
           <p class="card-title text-center p-0">${menu.isAvailable}</p>
@@ -24,6 +25,7 @@ const printIndividualMenuCard = (menu, ingredientString) => {
             <div class="row d-flex">
             <p class="card-text">${menu.description}</p>
             </div>
+            <hr></hr>
             <div class="row d-flex justify-content-between">
             <p class="card-text">Ingredients: ${ingredientString}</p>
             <button id="editIngredients-${menu.id}" class="editMenuIngredientsBtn cudButton hide btn btn-secondary-outline col-1"><i class="fas fa-pencil-alt"></i></button>
