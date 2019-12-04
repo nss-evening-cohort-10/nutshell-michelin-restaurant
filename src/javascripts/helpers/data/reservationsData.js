@@ -42,10 +42,27 @@ const updateReservation = (reservationId, updatedReservation) => new Promise((re
     .catch((error) => reject(error));
 });
 
+const updateResObject = (reservationId, newRes) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/reservations/${reservationId}.json`)
+    .then((result) => {
+      const reservationObject = result.data;
+      reservationObject.seatingId = newRes.seatingId;
+      reservationObject.partySize = newRes.partySize;
+      reservationObject.customerName = newRes.customerName;
+      reservationObject.timeStamp = newRes.timeStamp;
+      reservationObject.sectionId = newRes.sectionId;
+      updateReservation(reservationId, reservationObject).then(() => {
+        resolve();
+      });
+    })
+    .catch((error) => reject(error));
+});
+
 export default {
   getReservations,
   getReservationById,
   deleteReservation,
   updateReservation,
   addReservation,
+  updateResObject,
 };

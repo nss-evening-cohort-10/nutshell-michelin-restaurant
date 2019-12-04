@@ -115,12 +115,13 @@ const updateEmployeeOnClick = (e) => {
     employeeImg: $('#update-employee-Img').val(),
     uid: '',
   };
-  employeeData.updateEmployee(employeeId, updatedEmployee)
+  employeeData.updateEmployeeSections(employeeId, updatedEmployee)
     .then(() => {
       $('#updateStaffModal').modal('hide');
       $('#update-employee-name').val('');
       $('#update-employee-position').val('');
       $('#update-employee-Img').val('');
+      $('#staff-sections-id').val('');
       displayStaff();
     })
     .catch((error) => console.error(error));
@@ -192,10 +193,10 @@ const filterStaffButtonClick = (e) => {
             `;
         });
         domString += '</div>';
-        util.printToDom('printComponent', domString)
-          .catch((error) => console.error(error));
+        util.printToDom('printComponent', domString);
       }
-    });
+    })
+    .catch((error) => console.error(error));
 };
 
 export default {

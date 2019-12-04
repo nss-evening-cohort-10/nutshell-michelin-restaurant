@@ -3,7 +3,6 @@ import apiKeys from '../apiKeys.json';
 
 const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
-// console log the shit out of this first thing. each line. figure it out. seems more complex than necessary?
 const getSeating = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/seatings.json`)
     .then((response) => {
@@ -19,6 +18,15 @@ const getSeating = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+
+const getSeatingByTableId = (tableId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/seatings/${tableId}.json`)
+    .then((response) => {
+      resolve(response.data);
+    })
+    .catch((error) => reject(error));
+});
+
 const getSeatingById = (seatingId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/seatings/${seatingId}.json`)
     .then((response) => {
@@ -29,19 +37,8 @@ const getSeatingById = (seatingId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-
-export default { getSeating, getSeatingById };
-
-// Function to:
-// pull tableName from db/seatings.json into seatingData.js
-// convert from json into array, export array
-
-// Function to:
-// - change input field to dropdown menu
-// - generate dropdown selection fields based on table numbers array from seatingsData.js
-
-// *then*
-// - function to collect dropdown selection
-// and apply it to an axios POST call to add the table number to the reservation data within the database.
-
-// - *then in a separate ticket* make so dynamically only prints tables to dropdown that are not currently assigned to a reservation
+export default {
+  getSeating,
+  getSeatingById,
+  getSeatingByTableId,
+};

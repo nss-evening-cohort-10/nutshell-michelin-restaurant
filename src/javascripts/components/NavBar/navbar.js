@@ -11,6 +11,7 @@ const logoutEvent = () => {
         $('.cudButton').addClass('hide');
         $('.activateLogout').addClass('hide');
         $('.activateLogin').removeClass('hide');
+        $('.activateReporting').addClass('hide');
       }).catch((err) => console.error('you are still logged in', err));
   });
 };

@@ -14,6 +14,7 @@ import seating from './components/Seating/seating';
 import employeeDisplay from './components/Employees/employees';
 import inventory from './components/Inventory/inventory';
 import employeesData from './helpers/data/employeesData';
+import reporting from './components/reporting/reporting';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
@@ -32,6 +33,7 @@ const init = () => {
   $('body').on('click', '.filterStaffButton', employeeDisplay.filterStaffButtonClick);
   $('body').on('click', '#updateStaff', employeeDisplay.updateEmployeeOnClick);
   $('body').on('click', '.assign-menu', reservations.saveNewMiddle);
+  $('body').on('click', '.activateReporting', reporting.printReports);
 };
 
 init();
