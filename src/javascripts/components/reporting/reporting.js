@@ -51,6 +51,33 @@ const mostPopularFoods = () => {
     .catch((error) => console.error(error));
 };
 
+const leastPopularFoods = () => {
+  let domString = '';
+  let newObject = {};
+  const menuItemArray = [];
+  menuData.getAllMenuItems()
+    .then((menuItems) => {
+      menuItems.forEach((item) => {
+        newObject = {
+          name: `${item.name}`,
+          popularity: `${item.quantitySold}`,
+        };
+        menuItemArray.push(newObject);
+      });
+      menuItemArray.sort((a, b) => a.popularity - b.popularity);
+      for (let i = 0; i < 10; i += 1) {
+        domString += `
+        <tr>
+          <th scope="row">${i + 1}</th>
+          <td>${menuItemArray[i].name}</td>
+          <td class="numSold">${menuItemArray[i].popularity}</td>
+        </tr>`;
+      }
+      utilities.printToDom('popTable', domString);
+    })
+    .catch((error) => console.error(error));
+};
+
 const goToOption = () => {
   const reportToPrint = $('#reportsMenu').val();
   if (reportToPrint === 'mostPop') {
@@ -70,7 +97,21 @@ const goToOption = () => {
     utilities.printToDom('reportContainer', domString);
     mostPopularFoods();
   } else if (reportToPrint === 'leastPop') {
-    console.log('least popular');
+    let domString = '<h4 class="mt-3">Top 10 Least Popular Menu Items</h4>';
+    domString += `
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Menu Item</th>
+            <th scope="col" class="numSold">Quantity Sold</th>
+          </tr>
+        </thead>
+        <tbody id="popTable">
+        </tbody>
+      </table>`;
+    utilities.printToDom('reportContainer', domString);
+    leastPopularFoods();
   }
 };
 
