@@ -105,7 +105,8 @@ const totalRevenue = () => {
     .catch((error) => console.error(error));
 };
 
-const goToOption = () => {
+const goToOption = (e) => {
+  e.preventDefault();
   const reportToPrint = $('#reportsMenu').val();
   if (reportToPrint === 'mostPop') {
     let domString = '<h4 class="mt-3">Top 10 Most Popular Menu Items</h4>';
