@@ -49,6 +49,9 @@ const printStaffDetails = (seatingId) => {
     .catch((error) => console.error(error));
 };
 
+// is there a reason for me to *not* import tables from seating.js and print them dynamically in a dropdown instead of a manual entry process?
+
+// should we change the name of this function to "checkMenuAvailability" for ease of reading?
 const checkAvailability = () => {
   menuData.getAllMenuItems()
     .then((menuItems) => {
@@ -72,6 +75,7 @@ const checkAvailability = () => {
     .catch((error) => console.error(error));
 };
 
+
 const updateReservationByClick = (event) => {
   event.stopImmediatePropagation();
   const reservationId = $(event.target).attr('store-reservationId');
@@ -92,11 +96,11 @@ const updateReservationByClick = (event) => {
           sectionId: seatings.sectionId,
         };
         reservationsData.updateResObject(reservationId, updatedReservation)
-          .then(() => {
+          .then((updReservation) => {
             document.forms['update-reservation-form'].reset();
             $('#editReservationModal').modal('hide');
             // eslint-disable-next-line no-use-before-define
-            printReservationDetails(reservationId);
+            printReservationDetails(updReservation.id);
             printSectionDetails(seatingId);
             printStaffDetails(seatingId);
           });
@@ -127,14 +131,14 @@ const updateResModal = (event) => {
     .then((reservation) => {
       let domString = '';
       domString += `
-      <form>
+    <form>
       <div class="form-row align-items-center">
         <div class="col-auto my-1">
           <label class="mr-sm-2" for="edit-seating-id">Table Numbers</label>
           <select class="custom-select mr-sm-2 newTableSelection" id="edit-seating-id">
           </select>
         </div>
-      </div>  
+      </div>
     </form>
     <div class="form-group">
       <label for="edit-customer-name">Customer Name</label>
@@ -152,13 +156,14 @@ const updateResModal = (event) => {
       <label for="edit-reserve-time">Time</label>
       <input type="time" class="form-control" id="edit-reserve-time" placeholder="Choose Time">
       <div>
-      <small id="edit-reservation-party-size" class="form-text hide text-danger">Reservation party size exceeds number of seats at the table. Please pick a different table.</small>
-    </div>
+        <small id="edit-reservation-party-size" class="form-text hide text-danger">Reservation party size exceeds number of seats at the table. Please pick a different table.</small>
+      </div>
     </div>
       `;
       utilities.printToDom('update-reservation-form', domString);
       tableOption('edit-seating-id');
       $('#edit-seating-id').val(reservation.seatingId.split('table-').join(''));
+      $('#edit-seating-id').attr('data-seatingId', reservation.seatingId);
       $('#edit-customer-name').val(reservation.customerName);
       $('#edit-party-size').val(reservation.partySize);
       $('#edit-reserve-date').val(reservation.timeStamp.split(' ')[0]);
@@ -290,16 +295,20 @@ const printReservationDetailsClick = (e) => {
 const printOrderTotal = (reservationId) => {
   orderData.getOrdersByReservation(reservationId)
     .then((orders) => {
-      let totalPrice = 0;
-      orders.forEach((order) => {
-        menuData.getMenuItemById(order.menuItemId)
-          .then((orderItem) => {
-            totalPrice += orderItem.price / 100;
-            const domString = `<hr></hr>
-            <h4>Total: $${totalPrice.toFixed(2)}</h4>`;
-            utilities.printToDom('totalContainer', domString);
-          });
-      });
+      if (orders !== null) {
+        let totalPrice = 0;
+        orders.forEach((order) => {
+          menuData.getMenuItemById(order.menuItemId)
+            .then((orderItem) => {
+              totalPrice += orderItem.price / 100;
+              const domString = `<hr></hr>
+              <h4>Total: $${totalPrice.toFixed(2)}</h4>`;
+              utilities.printToDom('totalContainer', domString);
+            });
+        });
+      } else {
+        console.error('please add orders');
+      }
     }).catch((error) => console.error(error));
 };
 
@@ -308,23 +317,26 @@ const getOrderInfo = (reservationId) => {
   orderData.getOrdersByReservation(reservationId)
     .then((orders) => {
       orders.forEach((order) => {
-        menuData.getMenuItemById(order.menuItemId)
-          .then((orderItem) => {
-            domString += '<div class="menu-items">';
-            domString += `<div class="d-flex flex-row flex-wrap justify-content-between">
-          <div class="col-xs-6 justify-content-center"><h4>${orderItem.name} </h4></div>
-          <div class="col-xs-6 justify-content-center"><h6>$${orderItem.price / 100}</h6></div>
-          </div>`;
-            domString += '</div>';
-            utilities.printToDom('menuSelectionContainer', domString);
-          });
+        if (order !== null) {
+          menuData.getMenuItemById(order.menuItemId)
+            .then((orderItem) => {
+              domString += '<div class="menu-items">';
+              domString += `<div class="d-flex flex-row flex-wrap justify-content-between">
+            <div class="col-xs-6 justify-content-center"><h4>${orderItem.name} </h4></div>
+            <div class="col-xs-6 justify-content-center"><h6>$${orderItem.price / 100}</h6></div>
+            </div>`;
+              domString += '</div>';
+              utilities.printToDom('menuSelectionContainer', domString);
+            });
+        } else {
+          console.error('please add orders');
+        }
       });
-    }).catch((error) => console.error(error));
+    })
+    .catch((error) => console.error(error));
 };
 
 const printReservationDetails = (reservationId) => {
-  $('#printComponent').addClass('hide');
-  $('#reservation-detail').removeClass('hide');
   $('.card-back').removeClass('hide');
   $('.reservation-card-front').addClass('hide');
   let seatingId = '';
@@ -332,7 +344,7 @@ const printReservationDetails = (reservationId) => {
     .then((reservation) => {
       const time = `${reservation.timeStamp}`;
       const timeFormatted = moment(time).format('LLL');
-      let domString = `<div class="card reservation-single-card">
+      let domString = `<div class="card reservation-single-card reservation-back-card">
       <div class="card-body reservation card-back" id="reservationback-${reservation.id}">
         <div class="card-header d-flex justify-content-between">
           <h3 id="customer-${reservation.id}">${reservation.customerName}</h3>
@@ -355,14 +367,13 @@ const printReservationDetails = (reservationId) => {
       domString += '</div></div></div>';
       seatingId = reservation.seatingId;
       utilities.printToDom('reservation-detail', domString);
+      utilities.printToDom('printComponent', domString);
       getOrderInfo(reservationId);
       printOrderTotal(reservationId);
       printSectionDetails(seatingId);
       printStaffDetails(seatingId);
       $('.card-body').on('click', '.go-back-button', (() => {
-        $('#reservation-detail').addClass('hide');
         $('.card-back').addClass('hide');
-        $('#printComponent').removeClass('hide');
         // eslint-disable-next-line no-use-before-define
         printReservations();
       }));
@@ -413,9 +424,7 @@ const printReservations = () => {
       $('#add-new-reservation').click(addReservationByClick);
       $('#update-reservation').click(updateReservationByClick);
       $('#reservations-section').on('click', '.reservation-single-card', printReservationDetailsClick);
-      $('#printComponent').removeClass('hide');
       $('.cudButton').removeClass('hide');
-      $('#reservation-detail').addClass('hide');
       $('.card-back').addClass('hide');
     })
     .catch((error) => console.error(error));

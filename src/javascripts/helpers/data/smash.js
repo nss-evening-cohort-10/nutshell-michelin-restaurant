@@ -45,7 +45,6 @@ const getReservationsAndMenuItems = (reservationId) => new Promise((resolve, rej
       const finalMenu = [];
       orderData.getOrdersByReservation(reservationId)
         .then((orders) => {
-          console.log('orders', orders);
           if (orders.length <= 0) {
             resolve([]);
           } else {
