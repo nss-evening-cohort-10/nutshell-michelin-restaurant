@@ -46,7 +46,6 @@ const getReservationsAndMenuItems = (reservationId) => new Promise((resolve, rej
       const finalMenu = [];
       orderData.getOrdersByReservation(reservationId)
         .then((orders) => {
-          console.log('orders', orders);
           if (orders.length <= 0) {
             resolve([]);
           } else {
@@ -71,18 +70,17 @@ const getReservationsAndMenuItems = (reservationId) => new Promise((resolve, rej
     .catch((error) => reject(error));
 });
 
-const getTableByReservationWithResId = (reservationId) => {
+const getTableAndReservationWithResId = (reservationId) => {
   reservationsData.getReservationById(reservationId)
     .then((reservation) => {
-      console.log(reservation);
       seatingData.getSeatingById(reservation.seatingId)
         .then((table) => {
-          console.log(table);
+          const newRes = { ...reservation };
+          newRes.tableName = table.tableName;
+          return newRes;
         });
     })
     .catch((error) => console.error(error));
 };
 
-getTableByReservationWithResId('reservation1');
-
-export default { getMenuWithIngredients, getReservationsAndMenuItems };
+export default { getMenuWithIngredients, getReservationsAndMenuItems, getTableAndReservationWithResId };

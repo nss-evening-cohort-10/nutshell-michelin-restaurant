@@ -6,6 +6,7 @@ import utilities from '../../helpers/utilities';
 import menuIngredientData from '../../helpers/data/MenuIngredientData';
 import inventory from '../../helpers/data/inventoryData';
 import seatingData from '../../helpers/data/seatingData';
+// import smashData from '../../helpers/data/smash';
 
 import reservationsData from '../../helpers/data/reservationsData';
 import './reservations.scss';
@@ -42,7 +43,7 @@ const checkAvailability = () => {
 const updateReservationByClick = (event) => {
   event.preventDefault();
   const reservationId = $(event.target).attr('store-reservationId');
-  const seatingId = $('#edit-seating-id').val();
+  const seatingId = $('#edit-seating-id').attr('data-seatingId');
   const seatingIdFormatted = seatingId;
   const partySize = $('#edit-party-size').val();
   const partySizeFormatted = parseInt(partySize, 10);
@@ -116,7 +117,7 @@ const updateResModal = (event) => {
       `;
       utilities.printToDom('update-reservation-form', domString);
       tableOption('edit-seating-id');
-      $('#edit-seating-id').val(reservation.seatingId.split('table-').join(''));
+      $('#edit-seating-id').attr('data-seatingId', reservation.seatingId);
       $('#edit-customer-name').val(reservation.customerName);
       $('#edit-party-size').val(reservation.partySize);
       $('#edit-reserve-date').val(reservation.timeStamp.split(' ')[0]);
@@ -325,6 +326,47 @@ const printReservationDetails = (reservationId) => {
     })
     .catch((error) => console.error(error));
 };
+
+// const printReservationDetails = (reservationId) => {
+//   $('.card-back').removeClass('hide');
+//   $('.reservation-card-front').addClass('hide');
+//   smashData.getTableAndReservationWithResId(reservationId)
+//     .then((reservation) => {
+//       if (reservation !== null) {
+//         const time = `${reservation.timeStamp}`;
+//         const timeFormatted = moment(time).format('LLL');
+//         let domString = `<div class="card reservation-single-card reservation-back-card">
+//         <div class="card-body reservation card-back" id="reservationback-${reservation.id}">
+//           <div class="card-header d-flex justify-content-between">
+//             <h3 id="customer-${reservation.id}">${reservation.customerName}</h3>
+//             <button class="go-back-button btn"><i class="fas fa-chevron-circle-left"></i></button>
+//           </div>
+//           <div class="d-flex flex-column align-items-end align-bottom reservationFont">
+//             <p class="card-title">Party Size — ${reservation.partySize}</p>
+//             <p class="card-text">Table Number — ${reservation.tableName}</p>
+//             <p class="card-text">${timeFormatted}</p>
+//           </div>
+//           <div class="menu-items d-flex justify-content-center flex-column"> <div id="menuSelectionContainer"></div>`;
+
+//         domString += '<div id="totalContainer"></div>';
+//         domString += `<button id="assignmenu-${reservationId}" class="btn btn-outline-dark assign-menu" data-toggle="modal" data-target="#assign-menu-modal">
+//             <i class="fas fa-utensils"></i> Menu Items</button>`;
+//         domString += '</div></div></div>';
+//         utilities.printToDom('printComponent', domString);
+//         getOrderInfo(reservationId);
+//         printOrderTotal(reservationId);
+//         $('.card-body').on('click', '.go-back-button', (() => {
+//           $('.card-back').addClass('hide');
+//           // eslint-disable-next-line no-use-before-define
+//           printReservations();
+//         }));
+//         printReservationMenuModal();
+//       } else {
+//         console.error('add reservation');
+//       }
+//     })
+//     .catch((error) => console.error(error));
+// };
 
 const printReservations = () => {
   reservationsData.getReservations()
