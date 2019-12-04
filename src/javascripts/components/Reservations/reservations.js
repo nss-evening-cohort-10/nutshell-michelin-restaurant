@@ -6,6 +6,7 @@ import utilities from '../../helpers/utilities';
 import menuIngredientData from '../../helpers/data/MenuIngredientData';
 import inventory from '../../helpers/data/inventoryData';
 import seatingData from '../../helpers/data/seatingData';
+// import smashData from '../../helpers/data/smash';
 
 import reservationsData from '../../helpers/data/reservationsData';
 import './reservations.scss';
@@ -42,7 +43,7 @@ const checkAvailability = () => {
 const updateReservationByClick = (event) => {
   event.preventDefault();
   const reservationId = $(event.target).attr('store-reservationId');
-  const seatingId = $('#edit-seating-id').val();
+  const seatingId = $('#edit-seating-id').attr('data-seatingId');
   const seatingIdFormatted = seatingId;
   const partySize = $('#edit-party-size').val();
   const partySizeFormatted = parseInt(partySize, 10);
@@ -116,7 +117,7 @@ const updateResModal = (event) => {
       `;
       utilities.printToDom('update-reservation-form', domString);
       tableOption('edit-seating-id');
-      $('#edit-seating-id').val(reservation.seatingId.split('table-').join(''));
+      $('#edit-seating-id').attr('data-seatingId', reservation.seatingId);
       $('#edit-customer-name').val(reservation.customerName);
       $('#edit-party-size').val(reservation.partySize);
       $('#edit-reserve-date').val(reservation.timeStamp.split(' ')[0]);
