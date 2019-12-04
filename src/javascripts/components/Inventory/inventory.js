@@ -136,9 +136,9 @@ const searchIngredients = (e) => {
 const printIngredientHeader = () => {
   const domString = `
   <div class="d-flex flex-wrap justify-content-between m-3">
-  <h1 class="whiteh1">Inventory</h1>
+  <h1 class="whiteh1 reservations-h1">Inventory</h1>
   <input id="ingredientSearchInput" class="form-control col-3 editHeight" type="search" placeholder="Search for ingredients" aria-label="Search">
-  <button class="btn btn-secondary cudButton" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
+  <button class="btn btn-secondary cudButton editHeight" data-toggle="modal" data-target="#addIngredientModal">Add Ingredient</button>
   </div>
   <div class="container mx-auto">
   <div class="d-flex flex-wrap flex-row" id="ingredient-holder">

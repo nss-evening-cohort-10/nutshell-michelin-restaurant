@@ -11,7 +11,7 @@ import seatingData from '../../helpers/data/seatingData';
 import reservationsData from '../../helpers/data/reservationsData';
 import './reservations.scss';
 
-import bgimage from './assets/reservation.jpg';
+// import bgimage from './assets/reservation.jpg';
 
 // is there a reason for me to *not* import tables from seating.js and print them dynamically in a dropdown instead of a manual entry process?
 
@@ -332,9 +332,9 @@ const printReservations = () => {
     .then((reservations) => {
       let domString = '';
       domString += `
-      <div id="reservations-title class="d-flex justify-content-between" style="background-image: url(${bgimage})">
+      <div id="reservations-title" class="d-flex justify-content-between">
         <h1 id="reservations-h1">Reservations</h1>
-        <button class="btn btn-secondary cudButton" id="addReservation" data-toggle="modal" data-target="#addReservationModal">Add Reservation</button>
+        <button class="btn editHeight btn-secondary cudButton" id="addReservation" data-toggle="modal" data-target="#addReservationModal">Add Reservation</button>
       </div>
       `;
       domString += '<div id="reservations-section" class="d-flex flex-row flex-wrap justify-content-center">';
