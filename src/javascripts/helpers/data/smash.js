@@ -3,7 +3,6 @@ import menuIngredient from './MenuIngredientData';
 import inventoryData from './inventoryData';
 import reservationsData from './reservationsData';
 import orderData from './orderData';
-import seatingData from './seatingData';
 
 
 const getMenuWithIngredients = () => new Promise((resolve, reject) => {
@@ -70,17 +69,4 @@ const getReservationsAndMenuItems = (reservationId) => new Promise((resolve, rej
     .catch((error) => reject(error));
 });
 
-const getTableAndReservationWithResId = (reservationId) => {
-  reservationsData.getReservationById(reservationId)
-    .then((reservation) => {
-      seatingData.getSeatingById(reservation.seatingId)
-        .then((table) => {
-          const newRes = { ...reservation };
-          newRes.tableName = table.tableName;
-          return newRes;
-        });
-    })
-    .catch((error) => console.error(error));
-};
-
-export default { getMenuWithIngredients, getReservationsAndMenuItems, getTableAndReservationWithResId };
+export default { getMenuWithIngredients, getReservationsAndMenuItems };
