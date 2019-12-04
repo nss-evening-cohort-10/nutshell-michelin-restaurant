@@ -366,7 +366,6 @@ const printReservationDetails = (reservationId) => {
           <i class="fas fa-utensils"></i> Menu Items</button>`;
       domString += '</div></div></div>';
       seatingId = reservation.seatingId;
-      utilities.printToDom('reservation-detail', domString);
       utilities.printToDom('printComponent', domString);
       getOrderInfo(reservationId);
       printOrderTotal(reservationId);
