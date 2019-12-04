@@ -3,6 +3,7 @@ import menuIngredient from './MenuIngredientData';
 import inventoryData from './inventoryData';
 import reservationsData from './reservationsData';
 import orderData from './orderData';
+import seatingData from './seatingData';
 
 
 const getMenuWithIngredients = () => new Promise((resolve, reject) => {
@@ -69,5 +70,19 @@ const getReservationsAndMenuItems = (reservationId) => new Promise((resolve, rej
     })
     .catch((error) => reject(error));
 });
+
+const getTableByReservationWithResId = (reservationId) => {
+  reservationsData.getReservationById(reservationId)
+    .then((reservation) => {
+      console.log(reservation);
+      seatingData.getSeatingById(reservation.seatingId)
+        .then((table) => {
+          console.log(table);
+        });
+    })
+    .catch((error) => console.error(error));
+};
+
+getTableByReservationWithResId('reservation1');
 
 export default { getMenuWithIngredients, getReservationsAndMenuItems };
