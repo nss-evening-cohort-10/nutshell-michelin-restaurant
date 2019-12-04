@@ -1,6 +1,59 @@
-// import $ from 'jquery';
+import $ from 'jquery';
 import './reporting.scss';
 import utilities from '../../helpers/utilities';
+import menuData from '../../helpers/data/menuData';
+
+const printPopularityOptions = () => {
+  let domString = '<option selected>Choose...</option>';
+  domString += '<option value="mostPop">Most Popular</option>';
+  domString += '<option value="leastPop">Least Popular</option>';
+  utilities.printToDom('reportsMenu', domString);
+};
+
+const detectSelection = () => {
+  $('#reportRadios').change(() => {
+    const selectedOption = $('input[name="reportOptions"]:checked').val();
+    if (selectedOption === 'ingredientReport') {
+      console.log('ingredients print option goes here');
+    } else if (selectedOption === 'salesReport') {
+      console.log('sales print option goes here');
+    } else if (selectedOption === 'popularityReport') {
+      printPopularityOptions();
+    }
+  });
+};
+
+
+const mostPopularFoods = () => {
+  let domString = '<h4>Most Popular</h4>';
+  let newObject = {};
+  const menuItemArray = [];
+  menuData.getAllMenuItems()
+    .then((menuItems) => {
+      menuItems.forEach((item) => {
+        newObject = {
+          name: `${item.name}`,
+          popularity: `${item.quantitySold}`,
+        };
+        menuItemArray.push(newObject);
+      });
+      menuItemArray.sort((a, b) => b.popularity - a.popularity);
+      for (let i = 0; i < 10; i += 1) {
+        domString += `${menuItemArray[i].name}`;
+      }
+      utilities.printToDom('reportContainer', domString);
+    })
+    .catch((error) => console.error(error));
+};
+
+const goToOption = () => {
+  const reportToPrint = $('#reportsMenu').val();
+  if (reportToPrint === 'mostPop') {
+    mostPopularFoods();
+  } else if (reportToPrint === 'leastPop') {
+    console.log('least popular');
+  }
+};
 
 const printReports = () => {
   let domString = `
@@ -13,28 +66,41 @@ const printReports = () => {
     <div class="row d-flex">
       <div class="card-body">
       <div class="row d-flex">
+      <form id="reportRadios">
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-secondary active">
-        <input type="radio" name="options" id="ingredientReport" autocomplete="off" checked> Ingredients
+      <label class="btn btn-secondary">
+        <input type="radio" name="reportOptions" id="ingredientReport" 
+        value="ingredientReport" autocomplete="off" checked> Ingredients
       </label>
       <label class="btn btn-secondary">
-        <input type="radio" name="options" id="salesReport" autocomplete="off"> Revenue
+        <input type="radio" name="reportOptions" id="salesReport" value="salesReport" autocomplete="off"> Revenue
       </label>
       <label class="btn btn-secondary">
-        <input type="radio" name="options" id="popularityReport" autocomplete="off"> Popularity
+        <input type="radio" name="reportOptions" id="popularityReport" value="popularityReport" autocomplete="off"> Popularity
       </label>
+      </form>
       </div>
-      </div>
-      <div class="row d-flex">
-      </div>
-      <div class="card-text">
-        <small class="text-muted d-flex align-right">
-        </small>
       </div>
     </div>
   </div>`;
+  domString += `
+  <form>
+  <div class="row d-flex justify-content-center">
+  <div class="form-row d-flex align-items-center">
+    <div class="col-auto my-1">
+      <label class="mr-sm-2" for="reportsMenu">Select an Option</label>
+      <select class="custom-select" id="reportsMenu">
+      </select>
+      <button class="btn btn-dark do-the-thing">Go</button>
+    </div>
+    </div>
+    </div>
+    </form>`;
+  domString += '<div id="reportContainer"></div>';
   domString += '</div></div>';
   utilities.printToDom('printComponent', domString);
+  detectSelection();
+  $('body').on('click', '.do-the-thing', goToOption);
 };
 
 export default { printReports };
