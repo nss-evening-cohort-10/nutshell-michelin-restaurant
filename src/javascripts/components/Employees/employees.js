@@ -19,7 +19,7 @@ const displayStaff = () => {
     .then((employees) => {
       let domString = `
       <div class="d-flex justify-content-between m-2">
-      <h1 class="whiteh1">Staff</h1>
+      <h1 class="whiteh1 reservations-h1">Staff</h1>
       <div class="d-flex justify-content-end">
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle editHeight" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -42,7 +42,8 @@ const displayStaff = () => {
           <button class="dropdown-item filterStaffButton" type="button" id="Bartender">Bartender</button>
           </div>
         </div>
-          <button class="btn btn-secondary cudButton hide cudButton hide whiteh1 cursor" data-toggle="modal" data-target="#createStaffModal"><i class="fas fa-plus"></i> Add Staff Member</button>
+          <button class="btn btn-secondary cudButton editHeight hide cudButton hide whiteh1 cursor" data-toggle="modal" data-target="#createStaffModal">
+          <i class="fas fa-plus"></i> Add Staff Member</button>
       </div>
       </div>
       <div class="container mx-auto">
