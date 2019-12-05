@@ -47,9 +47,6 @@ const printStaffDetails = (seatingId) => {
     .catch((error) => console.error(error));
 };
 
-// is there a reason for me to *not* import tables from seating.js and print them dynamically in a dropdown instead of a manual entry process?
-
-// should we change the name of this function to "checkMenuAvailability" for ease of reading?
 const checkAvailability = () => {
   menuData.getAllMenuItems()
     .then((menuItems) => {

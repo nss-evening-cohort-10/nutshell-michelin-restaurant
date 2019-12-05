@@ -22,19 +22,19 @@ As an employee, you have the ability to sign in and make modifications to the me
 
 ## Screenshots
 #### Home Page
-![homePage]()
+![homePage](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots2/homepage.PNG)
 #### Menu
-![menu]()
+![menu](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots2/menu.PNG)
 #### Ingredients
-![ingredients]()
+![ingredients](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots2/inventory.PNG)
 #### Staff
-![staff]()
+![staff](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots2/staff.PNG)
 #### Reports
-1[reports]()
+![reports](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots2/reports.PNG)
 #### Seating Chart
-![seatingChart]()
+![seatingChart](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots2/seatingChart.PNG)
 #### Reservations
-![reservations]()
+![reservations](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots2/reservations.PNG)
 
 ## Run this Project
 * Clone down project from Github
