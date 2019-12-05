@@ -1,16 +1,17 @@
-# Le Baguette 
+# La Baguette 
 
 ## Description
-Welcome to Le Baguette, our very own twenty-seven star Michellin restaurant!
+Welcome to La Baguette, our very own thirty-seven star Michellin restaurant!
 
-This site can be used to view the menu, ingredients, staff members, seating available at the restaurant, and standing reservations.
+This site can be used to view the menu, ingredients, staff members, reports, seating available at the restaurant, and standing reservations.
 
-As an employee, you have the ability to sign in and make modifications to the menu items, the ingredients, staff members, and reservations.
+As an employee, you have the ability to sign in and make modifications to the menu items, the ingredients, staff members, and reservations. Additionally, you will also have the ability to look at reports.
 
 * Add or update menu items and the ingredients required to produce each entree. You can also add menu items.
 * Add or erase ingredients from the Ingredients page. You also have the ability to edit any existing ingredients.
 * As new members are hired to the team, laid off, or even get a promotion, you can add, erase, or update employee information.
-* Make new or cancel existing reservations from the Reservations page. You can also edit existing reservations if need be.
+* To make new or cancel existing reservations from the Reservations page, you will have to click on the single reservation. You can also edit existing reservations, but if the party size is greater than the number of seats available on the table, you cannot make the reservation. Additionally, the single reservation card will have the section number and the staff assigned to that reservation.
+* Within reports, the user can look at total revenue, top 10 most popular menu items, and top 10 least popular menu items.
 
 ## Technologies Used
 * HTML5, SCSS, and Javascript
@@ -21,17 +22,19 @@ As an employee, you have the ability to sign in and make modifications to the me
 
 ## Screenshots
 #### Home Page
-![homePage](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/homeView.png)
+![homePage]()
 #### Menu
-![menu](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/menuView.png)
+![menu]()
 #### Ingredients
-![ingredients](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/inventoryView.png)
+![ingredients]()
 #### Staff
-![staff](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/staffView.PNG)
+![staff]()
+#### Reports
+1[reports]()
 #### Seating Chart
-![seatingChart](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/seatingChart.png)
+![seatingChart]()
 #### Reservations
-![reservations](https://raw.githubusercontent.com/nss-evening-cohort-10/nutshell-michelin-restaurant/master/screenshots/reservationView.png)
+![reservations]()
 
 ## Run this Project
 * Clone down project from Github
@@ -41,10 +44,10 @@ As an employee, you have the ability to sign in and make modifications to the me
 
 ## Firebase Link
 
-[Click HERE to go to Application](https://le-baguette-af839.web.app/)
+[Click HERE to go to Application](https://labaguette-932fa.firebaseapp.com/#)
 
 ## Contributors
-* [Ashley Claiborne](https://github.com/aclai4067)
-* [Gabe Seals](https://github.com/gseals)
-* [Maggie Greene](https://github.com/maggieisgreene)
-* [Crystal Broach](https://github.com/broach44)
+* [Jacob Best-Wittenberg](https://github.com/jacob-bw)
+* [Kelsey Creel](https://github.com/kelseycreel)
+* [Laura Collins](https://github.com/LaCollins)
+* [Monica Djunaidi](https://github.com/djunaim)
