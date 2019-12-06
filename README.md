@@ -47,6 +47,10 @@ As an employee, you have the ability to sign in and make modifications to the me
 [Click HERE to go to Application](https://labaguette-932fa.firebaseapp.com/#)
 
 ## Contributors
+* [Crystal Broach](https://github.com/broach44)
+* [Gabe Seals](https://github.com/gseals)
+* [Maggie Greene](https://github.com/maggieisgreene)
+* [Ashley Claiborne](https://github.com/aclai4067)
 * [Jacob Best-Wittenberg](https://github.com/jacob-bw)
 * [Kelsey Creel](https://github.com/kelseycreel)
 * [Laura Collins](https://github.com/LaCollins)
