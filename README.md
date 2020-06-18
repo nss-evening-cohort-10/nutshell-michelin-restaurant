@@ -1,5 +1,9 @@
 # La Baguette 
 
+
+## Test it out!
+[Click HERE to go to Application](https://labaguette-932fa.firebaseapp.com/#)
+
 ## Description
 Welcome to La Baguette, our very own thirty-seven star Michellin restaurant!
 
@@ -14,11 +18,17 @@ As an employee, you have the ability to sign in and make modifications to the me
 * Within reports, the user can look at total revenue, top 10 most popular menu items, and top 10 least popular menu items.
 
 ## Technologies Used
-* HTML5, SCSS, and Javascript
-* Bootstrap: Free Open-Source CSS Framework
-* ES6 Modules
-* Jquery and Moment Libraries
-* Firebase Console
+* [Axios 0.19.0](https://www.npmjs.com/package/axios)
+* [Bootstrap 4.3.1](https://getbootstrap.com/)
+* [CSS3](https://www.w3.org/Style/CSS/Overview.en.html)
+* [ES6 modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+* [ESLint 14.0.0](https://eslint.org/)
+* [Firebase 7.4.0](https://firebase.google.com/)
+* [HTML5](https://html.spec.whatwg.org/multipage/)
+* [JavaScript](https://www.javascript.com/)
+* [jQuery 3.4.1](https://jquery.com/)
+* [Moment.js 2.24.0](https://momentjs.com/)
+* [Webpack 4.41.2](https://webpack.js.org/)
 
 ## Screenshots
 #### Home Page
@@ -41,10 +51,6 @@ As an employee, you have the ability to sign in and make modifications to the me
 * Add apiKeys from Firebase formatted identically to the `apiKeysExample.json` file
 * At the root, run the command `npm start`
 * This should automatically redirect you to the local host, but if not, run `hs -p 8080`, and in your browser, navigate to https://localost:8080
-
-## Firebase Link
-
-[Click HERE to go to Application](https://labaguette-932fa.firebaseapp.com/#)
 
 ## Contributors
 * [Crystal Broach](https://github.com/broach44)
