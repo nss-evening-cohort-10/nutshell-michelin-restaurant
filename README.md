@@ -21,6 +21,7 @@ As an employee, you have the ability to sign in and make modifications to the me
 * [Axios 0.19.0](https://www.npmjs.com/package/axios)
 * [Bootstrap 4.3.1](https://getbootstrap.com/)
 * [CSS3](https://www.w3.org/Style/CSS/Overview.en.html)
+* [SCSS 4.13.1](https://sass-lang.com/)
 * [ES6 modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
 * [ESLint 14.0.0](https://eslint.org/)
 * [Firebase 7.4.0](https://firebase.google.com/)
